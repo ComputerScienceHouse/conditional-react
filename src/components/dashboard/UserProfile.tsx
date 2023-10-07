@@ -6,13 +6,13 @@ import { SSOEnabled } from "../../configuration";
 import { DropdownMenu } from "reactstrap";
 import { useOidcUser } from "@axa-fr/react-oidc";
 
-const DashboardUserProfile : React.FunctionComponent = () => {
+const UserProfile : React.FunctionComponent = () => {
     const { login, logout, isAuthenticated } = getUseOidcHook()()
     const { accessTokenPayload } = getUseOidcAccessToken()()
     const userInfo = SSOEnabled ? accessTokenPayload as UserInfo : NoSSOUserInfo
 
     return (
-        <div className="dashboarduserprofile">
+        <div className="userprofile">
             <div className="profilepicture">
                 <img className="profilepicture" src={`https://profiles.csh.rit.edu/image/${userInfo.preferred_username}`} alt="User profile picture"/>
             </div>
@@ -25,4 +25,4 @@ const DashboardUserProfile : React.FunctionComponent = () => {
     )
 }
 
-export default DashboardUserProfile
+export default UserProfile

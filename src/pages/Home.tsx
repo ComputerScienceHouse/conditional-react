@@ -5,7 +5,7 @@ import Authenticating from '../callbacks/Authenticating'
 import AuthenticationError from '../callbacks/AuthenticationError'
 import SessionLost from '../callbacks/SessionLost'
 import UserInfo from '../UserInfo'
-import DashboardUserProfile from '../components/dashboard/DashboardUserProfile'
+import UserProfile from '../components/dashboard/UserProfile'
 
 const Home = () => {
     // important hooks
@@ -16,7 +16,7 @@ const Home = () => {
 
     return (
         <div>
-            <DashboardUserProfile />
+            <UserProfile />
         </div>
     )
 }

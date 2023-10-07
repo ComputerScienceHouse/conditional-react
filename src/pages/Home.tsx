@@ -5,6 +5,7 @@ import Authenticating from '../callbacks/Authenticating'
 import AuthenticationError from '../callbacks/AuthenticationError'
 import SessionLost from '../callbacks/SessionLost'
 import UserInfo from '../UserInfo'
+import DashboardUserProfile from '../components/dashboard/DashboardUserProfile'
 
 const Home = () => {
     // important hooks
@@ -15,8 +16,7 @@ const Home = () => {
 
     return (
         <div>
-            <h1 className="display-3">Hello World!</h1>
-            <p className="lead">Check out Home.tsx to see how you can get started.</p>
+            <DashboardUserProfile />
         </div>
     )
 }

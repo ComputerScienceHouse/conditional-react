@@ -2,6 +2,9 @@ import React from 'react'
 import {
     Collapse,
     Container,
+    Dropdown,
+    DropdownItem,
+    DropdownMenu,
     Nav,
     Navbar,
     NavbarToggler,
@@ -21,8 +24,8 @@ const NavBar: React.FunctionComponent = () => {
         <div>
             <Navbar color='primary' dark expand='lg' fixed='top'>
                 <Container>
-                    <NavLink to='/' className={'navbar-brand'}>
-                        CSH React Boilerplate
+                    <NavLink to='/' className={'navbar-brand'} aria-hidden='true'>
+                        Conditional
                     </NavLink>
                     <NavbarToggler onClick={toggle} />
                     <Collapse isOpen={isOpen} navbar>
@@ -32,10 +35,12 @@ const NavBar: React.FunctionComponent = () => {
                                     Home
                                 </NavLink>
                             </NavItem>
+                            
                             {
                                 // to add stuff to the navbar, add a NavItem tag with a NavLink to the route
                             }
                         </Nav>
+
                         <Nav navbar className='ml-auto'>
                             <Profile />
                         </Nav>

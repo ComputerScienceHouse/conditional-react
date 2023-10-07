@@ -11,3 +11,27 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+.dashboarduserprofile {
+  background-color: white;
+  box-shadow: 4px 4px 4px rgba(0, 0, 0, 0.25);
+  width: 1080px;
+  height: 200px;
+  display: flex;
+  margin-top: 120px;
+}
+
+.profilepicture {
+  border-radius: 50%;
+  width: 150px;
+  height: 150px;
+  margin-top: auto;
+  margin-bottom: auto;
+  margin-left: 1rem;
+  margin-right: 1rem;
+}
+.userinfo {
+  margin-top: auto;
+  margin-bottom: auto;
+  margin-left: 1rem;
+}

@@ -2,9 +2,6 @@ import React from 'react'
 import {
     Collapse,
     Container,
-    Dropdown,
-    DropdownItem,
-    DropdownMenu,
     Nav,
     Navbar,
     NavbarToggler,

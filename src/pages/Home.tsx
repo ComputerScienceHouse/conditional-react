@@ -18,7 +18,17 @@ const Home = () => {
     return (
         <div>
             <UserProfile />
-            <MembershipEvals />
+
+            <div className="twocolumn">
+                <div className="left-column">
+                    <MembershipEvals />
+                </div>
+                
+                <div className='right-column'>
+                    {/* Right column stuff */}
+                </div>
+            </div>
+            
         </div>
     )
 }

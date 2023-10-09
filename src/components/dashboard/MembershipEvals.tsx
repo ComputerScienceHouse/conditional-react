@@ -24,7 +24,7 @@ const MembershipEvals : React.FunctionComponent = () => {
 
     return (
         <div className="table">
-            <table className="table table-striped">
+            <table className="table table-striped box-shadow">
                 <tr>
                     <div className="table-striped table-header">
                         <p className="table-striped header-label">Membership Evals</p>

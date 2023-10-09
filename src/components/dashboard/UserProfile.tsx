@@ -1,10 +1,7 @@
 import React from "react";
-import Profile from "../Profile";
 import UserInfo from "../../UserInfo";
 import { NoSSOUserInfo, getUseOidcAccessToken, getUseOidcHook } from "../../SSODisabledDefaults";
 import { SSOEnabled } from "../../configuration";
-import { DropdownMenu } from "reactstrap";
-import { useOidcUser } from "@axa-fr/react-oidc";
 
 const UserProfile : React.FunctionComponent = () => {
     const { login, logout, isAuthenticated } = getUseOidcHook()()

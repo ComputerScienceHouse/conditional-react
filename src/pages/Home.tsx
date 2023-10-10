@@ -7,6 +7,7 @@ import SessionLost from '../callbacks/SessionLost'
 import UserInfo from '../UserInfo'
 import UserProfile from '../components/dashboard/UserProfile'
 import MembershipEvals from '../components/dashboard/MembershipEvals'
+import MemberStatistics from '../components/dashboard/MemberStatistics'
 
 const Home = () => {
     // important hooks
@@ -22,6 +23,7 @@ const Home = () => {
             <div className="twocolumn">
                 <div className="left-column">
                     <MembershipEvals />
+                    <MemberStatistics />
                 </div>
                 
                 <div className='right-column'>

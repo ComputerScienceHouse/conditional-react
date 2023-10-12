@@ -8,6 +8,7 @@ import UserInfo from '../UserInfo'
 import UserProfile from '../components/dashboard/UserProfile'
 import MembershipEvals from '../components/dashboard/MembershipEvals'
 import MemberStatistics from '../components/dashboard/MemberStatistics'
+import DirectorshipMeetingAttendance from '../components/dashboard/DirectorshipMeetingAttendance'
 
 const Home = () => {
     // important hooks
@@ -24,6 +25,7 @@ const Home = () => {
                 <div className="left-column">
                     <MembershipEvals />
                     <MemberStatistics />
+                    <DirectorshipMeetingAttendance />
                 </div>
                 
                 <div className='right-column'>

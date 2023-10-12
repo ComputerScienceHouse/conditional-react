@@ -25,30 +25,27 @@ const MembershipEvals : React.FunctionComponent = () => {
     return (
         <div className="table">
             <table className="table table-striped box-shadow">
-                <tr>
-                    <div className="table-striped table-header">
-                        <p className="table-striped header-label">Membership Evals</p>
-                        <p className="table-striped header-data">Pending</p>
-                    </div>
-                </tr>
-                <tr>
-                    <div className="table-striped table-row row-index-even">
-                        <p className="table-striped row-label">Directorship Meetings</p>
-                        <p className="table-striped row-data">{data.length} / 30</p>
-                    </div>
-                </tr>
-                <tr>
-                    <div className="table-striped table-row row-index-odd">
-                        <p className="table-striped row-label">House Meetings Missed</p>
-                        <p className="table-striped row-data">None</p>
-                    </div>
-                </tr>
-                <tr>
-                    <div className="table-striped table-row row-index-even">
-                        <p className="table-striped row-label">Major Project</p>
-                        <p className="table-striped row-data">None</p>
-                    </div>
-                </tr>
+                <thead className="table-header">
+                    {/* <tr className="table-header"> */}
+                        <td className="table-striped header-label">Membership Evals</td>
+                        <td className="table-striped header-data">Pending</td>
+                    {/* </tr> */}
+                </thead>
+
+                <tbody>
+                    <tr className="table-striped table-row row-index-even">
+                        <td className="table-striped row-label">Directorship Meetings</td>
+                        <td className="table-striped row-data">{data.length} / 30</td>
+                    </tr>
+                    <tr className="table-striped table-row row-index-odd">
+                        <td className="table-striped row-label">House Meetings Missed</td>
+                        <td className="table-striped row-data">None</td>
+                    </tr>
+                    <tr className="table-striped table-row row-index-even">
+                        <td className="table-striped row-label">Major Project</td>
+                        <td className="table-striped row-data">None</td>
+                    </tr>
+                </tbody>
             </table>
         </div>
     )

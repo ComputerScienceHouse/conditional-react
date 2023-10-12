@@ -12,33 +12,28 @@ const MemberStatistics : React.FunctionComponent = () => {
     return (
         <div className="table">
             <table className="table table-striped box-shadow">
-                <tr>
-                    <div className="table-striped table-header">
-                        <p className="table-striped header-label">Member Statistics</p>
-                    </div>
-                </tr>
+                <thead>
+                    <tr className="table-striped table-header">
+                        <td className="table-striped header-label">Member Statistics</td>
+                    </tr>
 
-                <tr>
-                    <div className="table-striped table-row row-index-even">
-                        <p className="table-striped row-label">Category</p>
-                        <p className="table-striped row-data">Members</p>
-                    </div>
-                </tr>
+                    <tr className="table-striped table-row row-index-even">
+                        <td className="table-striped row-label">Category</td>
+                        <td className="table-striped row-data">Members</td>
+                    </tr>
+                </thead>
+                
+                <tbody>
+                    <tr className="table-striped table-row row-index-odd">
+                        <td className="table-striped row-label">Voting Members</td>
+                        <td className="table-striped row-data">[# of people]</td>
+                    </tr>
 
-                <tr>
-                    <div className="table-striped table-row row-index-odd">
-                        <p className="table-striped row-label">Voting Members</p>
-                        <p className="table-striped row-data">[# of people]</p>
-                    </div>
-                </tr>
-
-                <tr>
-                    <div className="table-striped table-row row-index-even">
-                        <p className="table-striped row-label">Active Members</p>
-                        <p className="table-striped row-data">[# of people]</p>
-                    </div>
-                </tr>
-
+                    <tr className="table-striped table-row row-index-even">
+                        <td className="table-striped row-label">Active Members</td>
+                        <td className="table-striped row-data">[# of people]</td>
+                    </tr>
+                </tbody>
             </table>
         </div>
     )

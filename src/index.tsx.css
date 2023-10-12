@@ -64,24 +64,24 @@ code {
 .table-header {
   background-color: #f0f0f0;
   border: 1px solid #ddd;
-  display: flex;
+  /* display: flex; */
   font-size: 16px;
-  padding-top: 1em;
-  padding-left: 1em;
+  /* padding-top: 1em;
+  padding-left: 1em; */
   justify-content: space-between;
 }
 
 .header-data {
   padding-right: 1em;
+  text-align: right;
 }
 
 .table-row {
   justify-self: auto;
-  padding-left: 1em;
-  padding-top: 1em;
 }
+
 .row-index-even {
-  display: flex;
+  /* display: flex; */
   box-sizing: border-box;
   justify-content: space-between;
   align-content: stretch;
@@ -90,7 +90,7 @@ code {
 }
 
 .row-index-odd {
-  display: flex;
+  /* display: flex; */
   background-color: #f9f9f9;
   justify-content: space-between;
   border-collapse: collapse;

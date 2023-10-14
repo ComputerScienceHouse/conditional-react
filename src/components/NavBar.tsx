@@ -1,4 +1,6 @@
 import React, { useState } from 'react';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { icon } from '@fortawesome/fontawesome-svg-core/import.macro'
 import {
   Collapse,
   Container,
@@ -35,16 +37,30 @@ const NavBar: React.FC = () => {
           <NavbarToggler onClick={toggle} />
           <Collapse isOpen={isOpen} navbar>
             <Nav navbar>
-              <NavItem>
+              {/* <NavItem>
                 <NavLink to='/' className='nav-link'>
                   Home
                 </NavLink>
-              </NavItem>
+              </NavItem> */}
               <UncontrolledDropdown nav inNavbar>
                 <DropdownToggle nav caret>
-                  Evals
+                  <FontAwesomeIcon icon={icon({name: 'chart-simple'})} />
+                  &nbsp;Evals
                 </DropdownToggle>
                 <DropdownMenu right>
+
+                <DropdownItem>
+                    <NavItem>
+                      <NavLink
+                        to='../pages/Evals/Introductory-Evaluations.tsx'
+                        style={dropdownItemStyle}
+                        className='nav-link'
+                      >
+                        Introductory Evaluations
+                      </NavLink>
+                    </NavItem>
+                  </DropdownItem>
+
                   <DropdownItem>
                     <NavItem>
                       <NavLink
@@ -67,24 +83,14 @@ const NavBar: React.FC = () => {
                       </NavLink>
                     </NavItem>
                   </DropdownItem>
-                   <DropdownItem>
-                    <NavItem>
-                      <NavLink
-                        to='../pages/Evals/Introductory-Evaluations.tsx'
-                        style={dropdownItemStyle}
-                        className='nav-link'
-                      >
-                        Introductory Evaluations
-                      </NavLink>
-                    </NavItem>
-                  </DropdownItem>
 
                 </DropdownMenu>
               </UncontrolledDropdown>
 
               <UncontrolledDropdown nav inNavbar>
                 <DropdownToggle nav caret>
-                  Forms
+                  <FontAwesomeIcon icon={icon({name: 'table-list'})} />
+                  &nbsp;Forms
                 </DropdownToggle>
                 <DropdownMenu right>
                   <DropdownItem>
@@ -125,7 +131,8 @@ const NavBar: React.FC = () => {
 
               <UncontrolledDropdown nav inNavbar>
                 <DropdownToggle nav caret>
-                  Attendance
+                <FontAwesomeIcon icon={icon({name: 'check'}) }/>
+                  &nbsp;Attendance
                 </DropdownToggle>
                 <DropdownMenu right>
                   <DropdownItem>

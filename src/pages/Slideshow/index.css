@@ -1,0 +1,47 @@
+/* for slide transitions */
+[hidden] {
+  display: inherit !important; 
+}
+
+.number-box{
+    border-width: 10px !important;
+    border-radius: 20px !important;
+}
+
+.pf-button {
+    border-width: 6px !important;
+    border-radius: 35px !important;
+}
+
+.number-box-text {
+    font-size: 6em;
+    text-align: center;
+    white-space: nowrap;
+}
+
+.number-box-subtext {
+    justify-content: flex-end;
+    vertical-align: bottom;
+    height: auto;
+    font-size: 16pt;
+}
+
+div.main {
+    margin-left: 0px;
+    margin-right: 0px;
+}
+
+.batch-name {
+    font-size: 12pt; 
+    white-space: nowrap;
+}
+
+.disband-gray {
+    border-color: lightgray !important;
+    color: gray !important;
+}
+
+.soc-com {
+    font-size: 10pt;
+    white-space: pre-line;
+}

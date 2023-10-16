@@ -42,3 +42,10 @@ export interface IntroEvalsForm {
     social_events: string | null,
     comments: string | null,
 }
+
+export interface Batch {
+    name: string,
+    members: string[],
+    creator: string,
+    conditions: string[]
+}

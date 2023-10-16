@@ -37,11 +37,6 @@ const NavBar: React.FC = () => {
           <NavbarToggler onClick={toggle} />
           <Collapse isOpen={isOpen} navbar>
             <Nav navbar>
-              {/* <NavItem>
-                <NavLink to='/' className='nav-link'>
-                  Home
-                </NavLink>
-              </NavItem> */}
               <UncontrolledDropdown nav inNavbar>
                 <DropdownToggle nav caret>
                   <FontAwesomeIcon icon={icon({name: 'chart-simple'})} />

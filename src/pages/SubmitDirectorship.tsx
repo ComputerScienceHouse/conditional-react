@@ -10,17 +10,18 @@ const SubmitDirectorship = () => {
 
     const [meetingType, setMeetingType] = useState<DirectorshipType | undefined>(undefined);
 
-    const [meetingDate, setMeetingDate] = useState<Date>(new Date());
+    const [meetingDate, setMeetingDate] = useState<string>(new Date().toISOString().split("T")[0]);
 
     const [attendees, setAttendees] = useState<UserInfo[]>([]);
 
-    const getDateAsStr = () => meetingDate.toISOString().split("T")[0]
-
-    const canSubmit = () => meetingType !== undefined && attendees.length > 0
+    const canSubmit = () =>
+        meetingType !== undefined
+        && attendees.length > 0
+        && (d => d instanceof Date && !isNaN(d.getTime()))(new Date(meetingDate))
 
     const submit = () => {
         post("/attendance/directorship", {
-            date: meetingDate.toISOString(),
+            date: meetingDate,
             members: attendees.map(a => a.username),
             type: meetingType as string,
             frosh: [] //TODO: implement frosh
@@ -64,8 +65,8 @@ const SubmitDirectorship = () => {
                             <Input id="date"
                                 type="date"
                                 className="form-control"
-                                value={getDateAsStr()}
-                                onChange={e => setMeetingDate(new Date(e.target.value))}
+                                value={meetingDate}
+                                onChange={e => setMeetingDate(e.target.value)}
                             />
                         </CardBody>
                     </Card>

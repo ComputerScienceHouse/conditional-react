@@ -9,20 +9,27 @@ const SubmitSeminar = () => {
 
     const [meetingName, setMeetingName] = useState<string>("");
 
-    const [meetingDate, setMeetingDate] = useState<Date>(new Date());
+    const [meetingDate, setMeetingDate] = useState<string>(new Date().toISOString().split("T")[0]);
 
-    const [attendees, setAttendees] = useState<UserInfo[]>([]);
+    const [attendees, setAttendees] = useState<UserInfo[]>([
+        {
+            username: "ethanf108",
+            fullName: "Ethan Ferguson",
+        }
+    ]);
 
-    const getDateAsStr = () => meetingDate.toISOString().split("T")[0]
-
-    const canSubmit = () => meetingName.length > 1 && attendees.length > 0
+    const canSubmit = () =>
+        meetingName.length > 1
+        && attendees.length > 0
+        && (d => d instanceof Date && !isNaN(d.getTime()))(new Date(meetingDate))
 
     const submit = () => {
-        post("/attendance/seminar", {
-            date: meetingDate.toISOString(),
+        post("/api/attendance/seminar", {
+            date: meetingDate,
             members: attendees.map(a => a.username),
             name: meetingName,
-            frosh: [] //TODO: implement frosh
+            frosh: [], //TODO: implement frosh
+            approved: false
         })
             .then(() => toast.success("Submitted successfully!", { theme: "colored" }))
             .then(() => setTimeout(() => window.location.assign("/"), 3000))
@@ -56,8 +63,8 @@ const SubmitSeminar = () => {
                             <Input id="date"
                                 type="date"
                                 className="form-control"
-                                value={getDateAsStr()}
-                                onChange={e => setMeetingDate(new Date(e.target.value))}
+                                value={meetingDate}
+                                onChange={e => setMeetingDate(e.target.value)}
                             />
                         </CardBody>
                     </Card>

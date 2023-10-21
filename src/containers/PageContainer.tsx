@@ -7,10 +7,11 @@ type Props = {
 }
 
 export const PageContainer: React.FC<Props> = ({ children }) => {
+
     return (
         <div style={{ marginTop: '90px' }}>
-            <Container className="main" fluid>
-                <NavBar />
+            <Container className="main" fluid={!window.location.href.includes("slideshow")}>
+                {!window.location.href.includes("slideshow") && <NavBar />}
                 <Container>{children}</Container>
             </Container>
         </div>

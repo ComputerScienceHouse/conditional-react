@@ -4,11 +4,6 @@ import UserInfo from "../../UserInfo";
 import { SSOEnabled } from "../../configuration";
 import { request } from "http";
 
-function displayNumVoting(e: any) {
-
-
-}
-
 const MemberStatistics: React.FunctionComponent = () => {
     const { login, logout, isAuthenticated } = getUseOidcHook()()
     const { accessTokenPayload } = getUseOidcAccessToken()()
@@ -17,24 +12,33 @@ const MemberStatistics: React.FunctionComponent = () => {
     const url_numVoting = 'http://localhost:8080/api/users/voting_count';
     const url_numActive = 'http://localhost:8080/api/users/active_count';
 
-    const [data, setData] = useState([]);
+    const [votingCount, setVoting] = useState([]);
+
+    const [activeCount, setActive] = useState([]);
+
+    let numVoting: number = 0;
 
     const fetchInfo_Voting = () => {
         return fetch(url_numVoting)
             .then((res) => res.json())
-            .then((voting) => setData(voting))
+            .then((voting) => setVoting(voting))
     }
-
-    // const fetchInfo_Active = () => {
-    //     return fetch(url_numActive)
-    //         .then((res => res.json))
-    //         .then((activeMembers) => setData(activeMembers))
-    // }
 
     useEffect(() => {
         fetchInfo_Voting();
-        // fetchInfo_Active();
     }, []);
+
+    const fetchInfo_Active = () => {
+        return fetch(url_numActive)
+            .then((res) => res.json())
+            .then((activeMembers) => setActive(activeMembers))
+    }
+
+    useEffect(() => {
+        fetchInfo_Active();
+    }, []);
+
+
 
     return (
         <div className="table">
@@ -53,12 +57,12 @@ const MemberStatistics: React.FunctionComponent = () => {
                 <tbody>
                     <tr className="table-striped table-row row-index-odd">
                         <td className="table-striped row-label">Voting Members</td>
-                        <td className="table-striped row-data">{data}</td>
+                        <td className="table-striped row-data">{votingCount}</td>
                     </tr>
 
                     <tr className="table-striped table-row row-index-even">
                         <td className="table-striped row-label">Active Members</td>
-                        <td className="table-striped row-data">[# members]</td>
+                        <td className="table-striped row-data">{activeCount}</td>
                     </tr>
                 </tbody>
             </table>

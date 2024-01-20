@@ -1,23 +1,23 @@
-import React, {useEffect, useState} from "react";
+import React, { useEffect, useState } from "react";
 import { getUseOidcHook, getUseOidcAccessToken, NoSSOUserInfo } from "../../SSODisabledDefaults";
 import UserInfo from "../../UserInfo";
 import { SSOEnabled } from "../../configuration";
 import { request } from "http";
 
-const MembershipEvals : React.FunctionComponent = () => {
+const MembershipEvals: React.FunctionComponent = () => {
     const { login, logout, isAuthenticated } = getUseOidcHook()()
     const { accessTokenPayload } = getUseOidcAccessToken()()
     const userInfo = SSOEnabled ? accessTokenPayload as UserInfo : NoSSOUserInfo
 
 
-    const url = `http://localhost:3000/attendance/directorship/${userInfo.preferred_username}`
+    const url = `http://localhost:8080/api/attendance/directorship/${userInfo.preferred_username}`
     const [data, setData] = useState([]);
-    
+
     const fetchInfo = () => {
         return fetch(url)
             .then((res) => res.json())
             .then((directorships) => setData(directorships))
-        }
+    }
     useEffect(() => {
         fetchInfo();
     }, []);
@@ -27,8 +27,8 @@ const MembershipEvals : React.FunctionComponent = () => {
             <table className="table table-striped box-shadow">
                 <thead className="table-header">
                     {/* <tr className="table-header"> */}
-                        <td className="table-striped header-label">Membership Evals</td>
-                        <td className="table-striped header-data">Pending</td>
+                    <td className="table-striped header-label">Membership Evals</td>
+                    <td className="table-striped header-data">Pending</td>
                     {/* </tr> */}
                 </thead>
 

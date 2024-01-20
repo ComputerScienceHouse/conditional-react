@@ -21,7 +21,7 @@ const DirectorshipMeetingAttendance: React.FC = () => {
 
     useEffect(() => {
         // Fetch directorships data from the API (you can use the fetchDirectorshipsFromAPI function)
-        const apiUrl = `http://localhost:3000/attendance/directorship/${userInfo.preferred_username}`;
+        const apiUrl = `http://localhost:8080/api/attendance/directorship/${userInfo.preferred_username}`;
         fetch(apiUrl)
             .then((response) => {
                 if (!response.ok) {
@@ -30,7 +30,8 @@ const DirectorshipMeetingAttendance: React.FC = () => {
                 return response.json();
             })
             .then((data) => {
-                console.log(data);
+                // console.log(data);
+                // console.log('hello');
                 let mappedDirectorships: Directorship[] = data.map((item: any) => ({
                     committee: String(item.committee),
                     timestamp: new Date(item.timestamp),
@@ -38,6 +39,9 @@ const DirectorshipMeetingAttendance: React.FC = () => {
                 }));
                 mappedDirectorships.sort((a, b) => b.timestamp.getTime() - a.timestamp.getTime());
                 setDirectorships(mappedDirectorships);
+
+                // console.log('value of constant "directorships" below');
+                // console.log(directorships);
             })
             .catch((error) => {
                 console.error(error);

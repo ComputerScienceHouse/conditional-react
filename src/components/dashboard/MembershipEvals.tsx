@@ -10,16 +10,18 @@ const MembershipEvals: React.FunctionComponent = () => {
     const userInfo = SSOEnabled ? accessTokenPayload as UserInfo : NoSSOUserInfo
 
 
-    const url = `http://localhost:8080/api/attendance/directorship/${userInfo.preferred_username}`
-    const [data, setData] = useState([]);
+    const directorshipAttendanceUrl = `http://localhost:8080/api/attendance/directorship/${userInfo.preferred_username}`;
+    const missedHouseMeetingsUrl = `http://localhosy:8080/api/attendance/house/${userInfo.preferred_username}`;
+    
+    const [directorshipAttendance, setDirectorshipAttendance] = useState([]);
 
-    const fetchInfo = () => {
-        return fetch(url)
+    const fetchDirectorshipAttendance = () => {
+        return fetch(directorshipAttendanceUrl)
             .then((res) => res.json())
-            .then((directorships) => setData(directorships))
+            .then((directorships) => setDirectorshipAttendance(directorships))
     }
     useEffect(() => {
-        fetchInfo();
+        fetchDirectorshipAttendance();
     }, []);
 
     return (
@@ -35,7 +37,7 @@ const MembershipEvals: React.FunctionComponent = () => {
                 <tbody>
                     <tr className="table-striped table-row row-index-even">
                         <td className="table-striped row-label">Directorship Meetings</td>
-                        <td className="table-striped row-data">{data.length} / 30</td>
+                        <td className="table-striped row-data">{directorshipAttendance.length} / 30</td>
                     </tr>
                     <tr className="table-striped table-row row-index-odd">
                         <td className="table-striped row-label">House Meetings Missed</td>

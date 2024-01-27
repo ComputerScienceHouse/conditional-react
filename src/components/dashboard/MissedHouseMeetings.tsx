@@ -10,7 +10,7 @@ interface MissedHM {
 
 
 
-const DirectorshipMeetingAttendance: React.FC = () => {
+const MissedHouseMeetings: React.FC = () => {
 
     const { login, logout, isAuthenticated } = getUseOidcHook()()
     const { accessTokenPayload } = getUseOidcAccessToken()()
@@ -76,4 +76,4 @@ const DirectorshipMeetingAttendance: React.FC = () => {
 };
 
 
-export default DirectorshipMeetingAttendance;
+export default MissedHouseMeetings;

@@ -11,6 +11,7 @@ import MemberStatistics from '../components/dashboard/MemberStatistics'
 import DirectorshipMeetingAttendance from '../components/dashboard/DirectorshipMeetingAttendance'
 import HousingStatus from '../components/dashboard/HousingStatus'
 import MissedHouseMeetings from '../components/dashboard/MissedHouseMeetings'
+import SeminarAttendance from '../components/dashboard/SeminarAttendance'
 
 const Home = () => {
     // important hooks
@@ -31,9 +32,9 @@ const Home = () => {
                 </div>
 
                 <div className='right-column'>
-                    {/* Right column stuff */}
                     <HousingStatus />
                     <MissedHouseMeetings />
+                    <SeminarAttendance />
                 </div>
             </div>
 

@@ -30,8 +30,6 @@ const DirectorshipMeetingAttendance: React.FC = () => {
                 return response.json();
             })
             .then((data) => {
-                // console.log(data);
-                // console.log('hello');
                 let mappedDirectorships: Directorship[] = data.map((item: any) => ({
                     committee: String(item.committee),
                     timestamp: new Date(item.timestamp),
@@ -39,9 +37,6 @@ const DirectorshipMeetingAttendance: React.FC = () => {
                 }));
                 mappedDirectorships.sort((a, b) => b.timestamp.getTime() - a.timestamp.getTime());
                 setDirectorships(mappedDirectorships);
-
-                // console.log('value of constant "directorships" below');
-                // console.log(directorships);
             })
             .catch((error) => {
                 console.error(error);
@@ -50,9 +45,12 @@ const DirectorshipMeetingAttendance: React.FC = () => {
 
     return (
         <div>
-            <h1>Directorships</h1>
+
             <table className="table table-striped box-shadow">
                 <thead className="table-header">
+                    <tr>
+                        <td className="table-striped header-label">Directorship Meeting Attendance</td>
+                    </tr>
                     <tr>
                         <td className="table-striped header-label">Event</td>
                         <td className="table-striped header-data">Date</td>

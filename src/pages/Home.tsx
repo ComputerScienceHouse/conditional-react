@@ -9,6 +9,8 @@ import UserProfile from '../components/dashboard/UserProfile'
 import MembershipEvals from '../components/dashboard/MembershipEvals'
 import MemberStatistics from '../components/dashboard/MemberStatistics'
 import DirectorshipMeetingAttendance from '../components/dashboard/DirectorshipMeetingAttendance'
+import HousingStatus from '../components/dashboard/HousingStatus'
+import MissedHouseMeetings from '../components/dashboard/MissedHouseMeetings'
 
 const Home = () => {
     // important hooks
@@ -27,12 +29,14 @@ const Home = () => {
                     <MemberStatistics />
                     <DirectorshipMeetingAttendance />
                 </div>
-                
+
                 <div className='right-column'>
                     {/* Right column stuff */}
+                    <HousingStatus />
+                    <MissedHouseMeetings />
                 </div>
             </div>
-            
+
         </div>
     )
 }

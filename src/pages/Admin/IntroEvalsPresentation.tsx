@@ -6,9 +6,8 @@ import AuthenticationError from '../../callbacks/AuthenticationError'
 import SessionLost from '../../callbacks/SessionLost'
 import UserInfo from '../../UserInfo'
 import UserProfile from '../../components/dashboard/UserProfile'
-import MemberManagement from '../Admin/Member-Management'
 
-const MembershipEvals = () => {
+const IntroEvalsPresentation = () => {
     // important hooks
     // const { accessTokenPayload } = useOidcAccessToken()   // this contains the user info in raw json format
     // const userInfo = accessTokenPayload as UserInfo       //
@@ -22,4 +21,4 @@ const MembershipEvals = () => {
     )
 }
 
-export default MembershipEvals
+export default IntroEvalsPresentation

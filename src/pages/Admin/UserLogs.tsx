@@ -8,7 +8,7 @@ import SessionLost from '../../callbacks/SessionLost'
 import UserInfo from '../../UserInfo'
 import UserProfile from '../../components/dashboard/UserProfile'
 
-const Logs = () => {
+const UserLogs = () => {
     // important hooks
     // const { accessTokenPayload } = useOidcAccessToken()   // this contains the user info in raw json format
     // const userInfo = accessTokenPayload as UserInfo       //
@@ -22,4 +22,4 @@ const Logs = () => {
     )
 }
 
-export default Logs
+export default UserLogs

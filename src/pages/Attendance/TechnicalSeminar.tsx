@@ -1,4 +1,3 @@
-// code
 import { useOidcAccessToken, useOidc, useOidcIdToken } from '@axa-fr/react-oidc'
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
@@ -8,7 +7,7 @@ import SessionLost from '../../callbacks/SessionLost'
 import UserInfo from '../../UserInfo'
 import UserProfile from '../../components/dashboard/UserProfile'
 
-const IntroductoryEvals = () => {
+const TechnicalSeminar = () => {
     // important hooks
     // const { accessTokenPayload } = useOidcAccessToken()   // this contains the user info in raw json format
     // const userInfo = accessTokenPayload as UserInfo       //
@@ -22,4 +21,4 @@ const IntroductoryEvals = () => {
     )
 }
 
-export default IntroductoryEvals
+export default TechnicalSeminar

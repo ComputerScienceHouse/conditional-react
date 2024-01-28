@@ -39,15 +39,15 @@ const NavBar: React.FC = () => {
             <Nav navbar>
               <UncontrolledDropdown nav inNavbar>
                 <DropdownToggle nav caret>
-                  <FontAwesomeIcon icon={icon({name: 'chart-simple'})} />
+                  <FontAwesomeIcon icon={icon({ name: 'chart-simple' })} />
                   &nbsp;Evals
                 </DropdownToggle>
                 <DropdownMenu right>
 
-                <DropdownItem>
+                  <DropdownItem>
                     <NavItem>
                       <NavLink
-                        to='../pages/Evals/Introductory-Evaluations.tsx'
+                        to='/intro_evals'
                         style={dropdownItemStyle}
                         className='nav-link'
                       >
@@ -59,7 +59,7 @@ const NavBar: React.FC = () => {
                   <DropdownItem>
                     <NavItem>
                       <NavLink
-                        to='../pages/Evals/Membership-Evaluations.tsx'
+                        to='/spring_evals'
                         style={dropdownItemStyle}
                         className='nav-link'
                       >
@@ -70,7 +70,7 @@ const NavBar: React.FC = () => {
                   <DropdownItem>
                     <NavItem>
                       <NavLink
-                        to='../pages/Evals/Current-Conditionals.tsx'
+                        to='/conditionals'
                         style={dropdownItemStyle}
                         className='nav-link'
                       >
@@ -84,14 +84,14 @@ const NavBar: React.FC = () => {
 
               <UncontrolledDropdown nav inNavbar>
                 <DropdownToggle nav caret>
-                  <FontAwesomeIcon icon={icon({name: 'table-list'})} />
+                  <FontAwesomeIcon icon={icon({ name: 'table-list' })} />
                   &nbsp;Forms
                 </DropdownToggle>
                 <DropdownMenu right>
                   <DropdownItem>
                     <NavItem>
                       <NavLink
-                        to='../pages/Forms/Major-Project-Form.tsx'
+                        to='/major_project'
                         style={dropdownItemStyle}
                         className='nav-link'
                       >
@@ -102,7 +102,7 @@ const NavBar: React.FC = () => {
                   <DropdownItem>
                     <NavItem>
                       <NavLink
-                        to='../pages/Forms/Co-Op-Submission.tsx'
+                        to='/co_op'
                         style={dropdownItemStyle}
                         className='nav-link'
                       >
@@ -113,7 +113,7 @@ const NavBar: React.FC = () => {
                   <DropdownItem>
                     <NavItem>
                       <NavLink
-                        to='../pages/Forms/Introductory-Evals-Form.tsx'
+                        to='intro_evals_form'
                         style={dropdownItemStyle}
                         className='nav-link'
                       >
@@ -126,14 +126,14 @@ const NavBar: React.FC = () => {
 
               <UncontrolledDropdown nav inNavbar>
                 <DropdownToggle nav caret>
-                <FontAwesomeIcon icon={icon({name: 'check'}) }/>
+                  <FontAwesomeIcon icon={icon({ name: 'check' })} />
                   &nbsp;Attendance
                 </DropdownToggle>
                 <DropdownMenu right>
                   <DropdownItem>
                     <NavItem>
                       <NavLink
-                        to='../pages/Attendance/Directorship-Meeting.tsx'
+                        to='attendance_directorship'
                         style={dropdownItemStyle}
                         className='nav-link'
                       >
@@ -144,7 +144,7 @@ const NavBar: React.FC = () => {
                   <DropdownItem>
                     <NavItem>
                       <NavLink
-                        to='../pages/Attendance/Technical-Seminar.tsx'
+                        to='attendance_seminar'
                         style={dropdownItemStyle}
                         className='nav-link'
                       >
@@ -155,7 +155,7 @@ const NavBar: React.FC = () => {
                   <DropdownItem>
                     <NavItem>
                       <NavLink
-                        to='../pages/Attendance/Attendance-History.tsx'
+                        to='/attendance/history'
                         style={dropdownItemStyle}
                         className='nav-link'
                       >
@@ -174,7 +174,7 @@ const NavBar: React.FC = () => {
                   <DropdownItem>
                     <NavItem>
                       <NavLink
-                        to='../pages/Admin/Member-Management.tsx'
+                        to='/admin/member_management'
                         style={dropdownItemStyle}
                         className='nav-link'
                       >
@@ -185,7 +185,7 @@ const NavBar: React.FC = () => {
                   <DropdownItem>
                     <NavItem>
                       <NavLink
-                        to='../pages/Admin/Co-Op-Management.tsx'
+                        to='/admin/co_op_management'
                         style={dropdownItemStyle}
                         className='nav-link'
                       >
@@ -196,7 +196,7 @@ const NavBar: React.FC = () => {
                   <DropdownItem>
                     <NavItem>
                       <NavLink
-                        to='../pages/Admin/Introductory-Evaluations-Presentation.tsx'
+                        to='/admin/intro_evals_presentation'
                         style={dropdownItemStyle}
                         className='nav-link'
                       >
@@ -207,7 +207,7 @@ const NavBar: React.FC = () => {
                   <DropdownItem>
                     <NavItem>
                       <NavLink
-                        to='../pages/Admin/Member-Evaluations-Presentation.tsx'
+                        to='/admin/spring_evals_presentation'
                         style={dropdownItemStyle}
                         className='nav-link'
                       >
@@ -218,7 +218,7 @@ const NavBar: React.FC = () => {
                   <DropdownItem>
                     <NavItem>
                       <NavLink
-                        to='../pages/Admin/User-Logs.tsx'
+                        to='/admin/logs'
                         style={dropdownItemStyle}
                         className='nav-link'
                       >
@@ -229,7 +229,7 @@ const NavBar: React.FC = () => {
                   <DropdownItem>
                     <NavItem>
                       <NavLink
-                        to='../pages/Admin/Clear-Cashe.tsx'
+                        to='/admin/clear_cache'
                         style={dropdownItemStyle}
                         className='nav-link'
                       >

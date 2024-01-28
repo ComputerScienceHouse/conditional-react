@@ -6,7 +6,7 @@ import Authenticating from '../../callbacks/Authenticating'
 import AuthenticationError from '../../callbacks/AuthenticationError'
 import SessionLost from '../../callbacks/SessionLost'
 import UserInfo from '../../UserInfo'
-import UserProfile from '../../components/dashboard/UserProfile'
+import UserProfile from '../dashboard/UserProfile'
 
 const IntroEvals = () => {
     // important hooks
@@ -17,7 +17,7 @@ const IntroEvals = () => {
 
     return (
         <div>
-            <UserProfile />
+            {/* <UserProfile /> */}
         </div>
     )
 }

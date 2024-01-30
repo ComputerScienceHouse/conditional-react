@@ -124,3 +124,13 @@
     margin-bottom: 15px;
     border-radius: 3px;
 }
+
+.nav-link
+{
+    color: black;
+}
+
+.navbar-brand
+{
+    min-height: 40px;
+}

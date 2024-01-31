@@ -17,7 +17,6 @@ const IntroEvals = () => {
 
     return (
         <div>
-            {/* <UserProfile /> */}
         </div>
     )
 }

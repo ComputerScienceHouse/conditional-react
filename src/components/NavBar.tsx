@@ -20,7 +20,7 @@ import "../css/dashboard.css";
 const DropdownNavItem: React.FC<{ to: string; label: string }> = ({ to, label }) => (
   <DropdownItem>
     <NavItem>
-      <NavLink to={to} className="nav-link">
+      <NavLink to={to} className="nav-link" style={{ color: "black"}}>
         {label}
       </NavLink>
     </NavItem>

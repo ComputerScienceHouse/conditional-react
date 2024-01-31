@@ -1,0 +1,45 @@
+.page-title {
+    margin-top: 10%;
+}
+
+.submission-box {
+    background-color: #FFFFFF;
+    margin-top: 2%;
+    padding: 2%;
+}
+
+.project-name-text-box {
+    border: 0;
+    width: 100%;
+}
+
+.project-name-text-box:focus {
+    outline: none;
+}
+
+.project-name-text-box:placeholder {
+    opacity: 0.6;
+}
+
+.description-text-box {
+    border: 0;
+    width: 100%;
+    resize: height;
+}
+
+.description-text-box:focus {
+    outline: none;
+}
+
+.submit-button {
+    width: 100%;
+    margin-top: 2%;
+    background: #B0197E;
+    color: #FFFFFF;
+    height: 2rem;
+}
+
+.major-project-title {
+    margin-top: 5%;
+}
+

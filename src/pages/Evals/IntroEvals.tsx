@@ -68,8 +68,8 @@ const IntroEvals = () => {
                                 <img className="profilepicture" src={`https://profiles.csh.rit.edu/image/${introMember.uid}`} alt="User profile picture" />
                             </div>
                             <div className='name-id'>
-                                <h2>{introMember.name}</h2>
-                                <h3>{introMember.uid == null ? introMember.fid : introMember.uid}</h3>
+                                <h2 className='name'>{introMember.name}</h2>
+                                <h3 className='username'>{introMember.uid == null ? introMember.fid : introMember.uid}</h3>
                             </div>
 
                             <div className='evals-status'>

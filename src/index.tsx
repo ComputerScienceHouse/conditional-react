@@ -2,9 +2,8 @@ import React from 'react'
 import ReactDOM from 'react-dom/client'
 import './index.tsx.css'
 import App from './App'
-import { OidcProvider, OidcSecure } from '@axa-fr/react-oidc'
-import configuration from './configuration'
-import { SSOEnabled } from './configuration'
+import { OidcProvider, OidcSecure, OidcConfiguration } from '@axa-fr/react-oidc'
+import {SSOEnabled, cshOidcConfig, introOidcConfig} from './configuration'
 import Authenticating from './callbacks/Authenticating'
 import AuthenticationError from './callbacks/AuthenticationError'
 import Loading from './callbacks/Loading'
@@ -19,17 +18,35 @@ root.render(
   <>
     {
       SSOEnabled ?
-        <OidcProvider
-          configuration={configuration}
-          authenticatingComponent={Authenticating}
-          authenticatingErrorComponent={AuthenticationError}
-          loadingComponent={Loading}
-          sessionLostComponent={SessionLost}
-        >
-          < OidcSecure >
-            <App />
-          </OidcSecure >
-        </OidcProvider >
+        <div>
+        <button onClick={() => root.render(
+    <OidcProvider
+      configuration={cshOidcConfig}
+      authenticatingComponent={Authenticating}
+      authenticatingErrorComponent={AuthenticationError}
+      loadingComponent={Loading}
+      sessionLostComponent={SessionLost}
+    >
+      < OidcSecure >
+        <App />
+      </OidcSecure >
+    </OidcProvider >
+)}>CSH Auth</button>
+        <button onClick={() => root.render(
+
+    <OidcProvider
+      configuration={introOidcConfig}
+      authenticatingComponent={Authenticating}
+      authenticatingErrorComponent={AuthenticationError}
+      loadingComponent={Loading}
+      sessionLostComponent={SessionLost}
+    >
+      < OidcSecure >
+        <App />
+      </OidcSecure >
+    </OidcProvider >
+        )}>Intro Auth</button>
+        </div>
         : <App />
     }
   </>

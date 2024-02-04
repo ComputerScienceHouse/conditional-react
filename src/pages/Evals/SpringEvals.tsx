@@ -46,7 +46,9 @@ const SpringEvals = () => {
                     seminars: Number(item.seminars),
                     uid: String(item.uid)
                 }));
-                mappedMemberData.sort((a, b) => b.major_projects - a.major_projects);
+
+                // Need to make it sort by number of major projects (dec), then number of directorships (dec), then number missed hms (inc)
+                mappedMemberData.sort((a, b) => b.major_projects - a.major_projects)
                 setMemberData(mappedMemberData);
             })
             .catch((error) => {

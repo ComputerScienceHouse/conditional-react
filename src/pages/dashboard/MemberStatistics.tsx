@@ -5,9 +5,9 @@ import { SSOEnabled } from "../../configuration";
 import { request } from "http";
 
 const MemberStatistics: React.FunctionComponent = () => {
-    const { login, logout, isAuthenticated } = getUseOidcHook()()
-    const { accessTokenPayload } = getUseOidcAccessToken()()
-    const userInfo = SSOEnabled ? accessTokenPayload as UserInfo : NoSSOUserInfo
+    const { login, logout, isAuthenticated } = getUseOidcHook()();
+    const { accessToken, accessTokenPayload } = getUseOidcAccessToken()();
+    const userInfo = SSOEnabled ? accessTokenPayload as UserInfo : NoSSOUserInfo;
 
     const url_numVoting = 'http://localhost:8080/api/users/voting_count';
     const url_numActive = 'http://localhost:8080/api/users/active_count';
@@ -19,7 +19,9 @@ const MemberStatistics: React.FunctionComponent = () => {
     let numVoting: number = 0;
 
     const fetchInfo_Voting = () => {
-        return fetch(url_numVoting)
+        return fetch(url_numVoting, {
+        headers: { "Authorization": `Bearer ${accessToken}` }
+      })
             .then((res) => res.json())
             .then((voting) => setVoting(voting))
     }
@@ -29,7 +31,9 @@ const MemberStatistics: React.FunctionComponent = () => {
     }, []);
 
     const fetchInfo_Active = () => {
-        return fetch(url_numActive)
+        return fetch(url_numActive, {
+        headers: { "Authorization": `Bearer ${accessToken}` }
+      })
             .then((res) => res.json())
             .then((activeMembers) => setActive(activeMembers))
     }

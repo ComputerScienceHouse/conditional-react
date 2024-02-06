@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { NoSSOUserInfo, getUseOidcAccessToken, getUseOidcHook } from '../../SSODisabledDefaults';
+import { NoSSOUserInfo, getUseOidcAccessToken } from '../../SSODisabledDefaults';
 import UserInfo from '../../UserInfo';
 import { SSOEnabled } from '../../configuration';
 
@@ -13,8 +13,7 @@ interface Directorship {
 
 const DirectorshipMeetingAttendance: React.FC = () => {
 
-    const { login, logout, isAuthenticated } = getUseOidcHook()()
-    const { accessTokenPayload } = getUseOidcAccessToken()()
+    const { accessToken, accessTokenPayload } = getUseOidcAccessToken()();
     const userInfo = SSOEnabled ? accessTokenPayload as UserInfo : NoSSOUserInfo
 
     const [directorships, setDirectorships] = useState<Directorship[]>([]);
@@ -22,7 +21,9 @@ const DirectorshipMeetingAttendance: React.FC = () => {
     useEffect(() => {
         // Fetch directorships data from the API (you can use the fetchDirectorshipsFromAPI function)
         const apiUrl = `http://localhost:8080/api/attendance/directorship/${userInfo.preferred_username}`;
-        fetch(apiUrl)
+      fetch(apiUrl, {
+        headers: { "Authorization": `Bearer ${accessToken}` }
+      })
             .then((response) => {
                 if (!response.ok) {
                     throw new Error(`HTTP Error: ${response.status} ${response.statusText}`);

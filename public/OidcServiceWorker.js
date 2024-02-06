@@ -12,6 +12,14 @@ const TokenRenewMode = {
   id_token_invalid: "id_token_invalid"
 };
 const openidWellknownUrlEndWith = "/.well-known/openid-configuration";
+function normalizeUrl(url) {
+  try {
+    return new URL(url).toString();
+  } catch (error) {
+    console.error(`Failed to normalize url: ${url}`);
+    return url;
+  }
+}
 function checkDomain(domains, endpoint) {
   if (!endpoint) {
     return;
@@ -48,10 +56,10 @@ const getCurrentDatabaseDomain = (database2, url, trustedDomains2) => {
     if (!oidcServerConfiguration) {
       continue;
     }
-    if (oidcServerConfiguration.tokenEndpoint && url === oidcServerConfiguration.tokenEndpoint) {
+    if (oidcServerConfiguration.tokenEndpoint && url === normalizeUrl(oidcServerConfiguration.tokenEndpoint)) {
       continue;
     }
-    if (oidcServerConfiguration.revocationEndpoint && url === oidcServerConfiguration.revocationEndpoint) {
+    if (oidcServerConfiguration.revocationEndpoint && url === normalizeUrl(oidcServerConfiguration.revocationEndpoint)) {
       continue;
     }
     const trustedDomain = trustedDomains2 == null ? [] : trustedDomains2[key];
@@ -94,11 +102,11 @@ const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 function countLetter(str, find) {
   return str.split(find).length - 1;
 }
-function parseJwt(token) {
+const parseJwt = (payload) => {
   return JSON.parse(
-    b64DecodeUnicode(token.split(".")[1].replace("-", "+").replace("_", "/"))
+    b64DecodeUnicode(payload.replace(/-/g, "+").replace(/_/g, "/"))
   );
-}
+};
 function b64DecodeUnicode(str) {
   return decodeURIComponent(
     Array.prototype.map.call(
@@ -125,7 +133,7 @@ const extractTokenPayload = (token) => {
       return null;
     }
     if (countLetter(token, ".") === 2) {
-      return parseJwt(token);
+      return parseJwt(token.split(".")[1]);
     } else {
       return null;
     }
@@ -137,27 +145,44 @@ const extractTokenPayload = (token) => {
 const isTokensOidcValid = (tokens, nonce, oidcServerConfiguration) => {
   if (tokens.idTokenPayload) {
     const idTokenPayload = tokens.idTokenPayload;
-    if (oidcServerConfiguration.issuer !== idTokenPayload.iss) {
-      return { isValid: false, reason: "Issuer does not match" };
+    if (idTokenPayload && oidcServerConfiguration.issuer !== idTokenPayload.iss) {
+      return { isValid: false, reason: `Issuer does not match (oidcServerConfiguration issuer) ${oidcServerConfiguration.issuer} !== (idTokenPayload issuer) ${idTokenPayload.iss}` };
     }
     const currentTimeUnixSecond = (/* @__PURE__ */ new Date()).getTime() / 1e3;
-    if (idTokenPayload.exp && idTokenPayload.exp < currentTimeUnixSecond) {
-      return { isValid: false, reason: "Token expired" };
+    if (idTokenPayload && idTokenPayload.exp && idTokenPayload.exp < currentTimeUnixSecond) {
+      return { isValid: false, reason: `Token expired at (idTokenPayload exp) ${idTokenPayload.exp} < (currentTimeUnixSecond) ${currentTimeUnixSecond}` };
     }
     const timeInSevenDays = 60 * 60 * 24 * 7;
-    if (idTokenPayload.iat && idTokenPayload.iat + timeInSevenDays < currentTimeUnixSecond) {
-      return { isValid: false, reason: "Token is used from too long time" };
+    if (idTokenPayload && idTokenPayload.iat && idTokenPayload.iat + timeInSevenDays < currentTimeUnixSecond) {
+      return { isValid: false, reason: `Token is used from too long time (idTokenPayload iat + timeInSevenDays) ${idTokenPayload.iat + timeInSevenDays} < (currentTimeUnixSecond) ${currentTimeUnixSecond}` };
     }
-    if (nonce && idTokenPayload.nonce && idTokenPayload.nonce !== nonce) {
-      return { isValid: false, reason: "Nonce does not match" };
+    if (idTokenPayload && nonce && idTokenPayload.nonce && idTokenPayload.nonce !== nonce) {
+      return { isValid: false, reason: `Nonce does not match (nonce) ${nonce} !== (idTokenPayload nonce) ${idTokenPayload.nonce}` };
     }
   }
   return { isValid: true, reason: "" };
 };
+function extractedIssueAt(tokens, accessTokenPayload, _idTokenPayload) {
+  if (!tokens.issued_at) {
+    if (accessTokenPayload && accessTokenPayload.iat) {
+      return accessTokenPayload.iat;
+    } else if (_idTokenPayload && _idTokenPayload.iat) {
+      return _idTokenPayload.iat;
+    } else {
+      const currentTimeUnixSecond = (/* @__PURE__ */ new Date()).getTime() / 1e3;
+      return currentTimeUnixSecond;
+    }
+  } else if (typeof tokens.issued_at == "string") {
+    return parseInt(tokens.issued_at, 10);
+  }
+  return tokens.issued_at;
+}
 function _hideTokens(tokens, currentDatabaseElement, configurationName) {
   if (!tokens.issued_at) {
     const currentTimeUnixSecond = (/* @__PURE__ */ new Date()).getTime() / 1e3;
     tokens.issued_at = currentTimeUnixSecond;
+  } else if (typeof tokens.issued_at == "string") {
+    tokens.issued_at = parseInt(tokens.issued_at, 10);
   }
   const accessTokenPayload = extractTokenPayload(tokens.access_token);
   const secureTokens = {
@@ -168,11 +193,19 @@ function _hideTokens(tokens, currentDatabaseElement, configurationName) {
     secureTokens.access_token = TOKEN.ACCESS_TOKEN + "_" + configurationName;
   }
   tokens.accessTokenPayload = accessTokenPayload;
+  const oldTokens = currentDatabaseElement.tokens;
+  let id_token;
+  if (oldTokens != null && "id_token" in oldTokens && !("id_token" in tokens)) {
+    id_token = oldTokens.id_token;
+  } else {
+    id_token = tokens.id_token;
+  }
+  tokens.id_token = id_token;
   let _idTokenPayload = null;
-  if (tokens.id_token) {
-    _idTokenPayload = extractTokenPayload(tokens.id_token);
-    tokens.idTokenPayload = { ..._idTokenPayload };
-    if (_idTokenPayload.nonce && currentDatabaseElement.nonce != null) {
+  if (id_token) {
+    _idTokenPayload = extractTokenPayload(id_token);
+    tokens.idTokenPayload = _idTokenPayload != null ? { ..._idTokenPayload } : null;
+    if (_idTokenPayload && _idTokenPayload.nonce && currentDatabaseElement.nonce != null) {
       const keyNonce = TOKEN.NONCE_TOKEN + "_" + currentDatabaseElement.configurationName;
       _idTokenPayload.nonce = keyNonce;
     }
@@ -181,8 +214,10 @@ function _hideTokens(tokens, currentDatabaseElement, configurationName) {
   if (tokens.refresh_token) {
     secureTokens.refresh_token = TOKEN.REFRESH_TOKEN + "_" + configurationName;
   }
+  tokens.issued_at = extractedIssueAt(tokens, accessTokenPayload, _idTokenPayload);
+  const expireIn = typeof tokens.expires_in == "string" ? parseInt(tokens.expires_in, 10) : tokens.expires_in;
   const idTokenExpiresAt = _idTokenPayload && _idTokenPayload.exp ? _idTokenPayload.exp : Number.MAX_VALUE;
-  const accessTokenExpiresAt = accessTokenPayload && accessTokenPayload.exp ? accessTokenPayload.exp : tokens.issued_at + tokens.expires_in;
+  const accessTokenExpiresAt = accessTokenPayload && accessTokenPayload.exp ? accessTokenPayload.exp : tokens.issued_at + expireIn;
   let expiresAt;
   const tokenRenewMode = currentDatabaseElement.oidcConfiguration.token_renew_mode;
   if (tokenRenewMode === TokenRenewMode.access_token_invalid) {
@@ -203,8 +238,8 @@ function _hideTokens(tokens, currentDatabaseElement, configurationName) {
   if (!isValid) {
     throw Error(`Tokens are not OpenID valid, reason: ${reason}`);
   }
-  if (currentDatabaseElement.tokens != null && "refresh_token" in currentDatabaseElement.tokens && !("refresh_token" in tokens)) {
-    const refreshToken = currentDatabaseElement.tokens.refresh_token;
+  if (oldTokens != null && "refresh_token" in oldTokens && !("refresh_token" in tokens)) {
+    const refreshToken = oldTokens.refresh_token;
     currentDatabaseElement.tokens = {
       ...tokens,
       refresh_token: refreshToken
@@ -232,6 +267,18 @@ function replaceCodeVerifier(codeVerifier, newCodeVerifier) {
   const regex = /code_verifier=[A-Za-z0-9_-]+/i;
   return codeVerifier.replace(regex, `code_verifier=${newCodeVerifier}`);
 }
+const version = "7.15.4";
+if (typeof trustedTypes !== "undefined" && typeof trustedTypes.createPolicy == "function") {
+  trustedTypes.createPolicy("default", {
+    createScriptURL: function(url) {
+      if (url == scriptFilename) {
+        return url;
+      } else {
+        throw new Error("Untrusted script URL blocked: " + url);
+      }
+    }
+  });
+}
 const _self = self;
 _self.importScripts(scriptFilename);
 const id = Math.round((/* @__PURE__ */ new Date()).getTime() / 1e3).toString();
@@ -245,24 +292,15 @@ const handleActivate = (event) => {
   event.waitUntil(_self.clients.claim());
 };
 let currentLoginCallbackConfigurationName = null;
-const database = {
-  default: {
-    configurationName: "default",
-    tokens: null,
-    status: null,
-    state: null,
-    codeVerifier: null,
-    nonce: null,
-    oidcServerConfiguration: null,
-    hideAccessToken: true
-  }
-};
+const database = {};
 const getCurrentDatabasesTokenEndpoint = (database2, url) => {
   const databases = [];
   for (const [, value] of Object.entries(database2)) {
-    if (value.oidcServerConfiguration != null && url.startsWith(value.oidcServerConfiguration.tokenEndpoint)) {
+    if (value.oidcServerConfiguration != null && url.startsWith(normalizeUrl(value.oidcServerConfiguration.tokenEndpoint))) {
       databases.push(value);
-    } else if (value.oidcServerConfiguration != null && value.oidcServerConfiguration.revocationEndpoint && url.startsWith(value.oidcServerConfiguration.revocationEndpoint)) {
+    } else if (value.oidcServerConfiguration != null && value.oidcServerConfiguration.revocationEndpoint && url.startsWith(
+      normalizeUrl(value.oidcServerConfiguration.revocationEndpoint)
+    )) {
       databases.push(value);
     }
   }
@@ -286,43 +324,55 @@ const keepAliveAsync = async (event) => {
 };
 const handleFetch = async (event) => {
   const originalRequest = event.request;
-  const url = originalRequest.url;
-  if (originalRequest.url.includes(keepAliveJsonFilename)) {
+  const url = normalizeUrl(originalRequest.url);
+  if (url.includes(keepAliveJsonFilename)) {
     event.respondWith(keepAliveAsync(event));
     return;
   }
   const currentDatabaseForRequestAccessToken = getCurrentDatabaseDomain(
     database,
-    originalRequest.url,
+    url,
     trustedDomains
   );
   if (currentDatabaseForRequestAccessToken && currentDatabaseForRequestAccessToken.tokens && currentDatabaseForRequestAccessToken.tokens.access_token) {
     while (currentDatabaseForRequestAccessToken.tokens && !isTokensValid(currentDatabaseForRequestAccessToken.tokens)) {
       await sleep(200);
     }
-    const newRequest = originalRequest.mode === "navigate" ? new Request(originalRequest, {
-      headers: {
+    let requestMode = originalRequest.mode;
+    if (originalRequest.mode !== "navigate" && currentDatabaseForRequestAccessToken.convertAllRequestsToCorsExceptNavigate) {
+      requestMode = "cors";
+    }
+    let headers;
+    if (originalRequest.mode == "navigate" && !currentDatabaseForRequestAccessToken.setAccessTokenToNavigateRequests) {
+      headers = {
+        ...serializeHeaders(originalRequest.headers)
+      };
+    } else {
+      headers = {
         ...serializeHeaders(originalRequest.headers),
         authorization: "Bearer " + currentDatabaseForRequestAccessToken.tokens.access_token
-      }
-    }) : new Request(originalRequest, {
-      headers: {
-        ...serializeHeaders(originalRequest.headers),
-        authorization: "Bearer " + currentDatabaseForRequestAccessToken.tokens.access_token
-      },
-      mode: currentDatabaseForRequestAccessToken.oidcConfiguration.service_worker_convert_all_requests_to_cors ? "cors" : originalRequest.mode
-    });
-    event.waitUntil(event.respondWith(fetch(newRequest)));
+      };
+    }
+    let init;
+    if (originalRequest.mode === "navigate") {
+      init = {
+        headers
+      };
+    } else {
+      init = {
+        headers,
+        mode: requestMode
+      };
+    }
+    const newRequest = new Request(originalRequest, init);
+    event.respondWith(fetch(newRequest));
     return;
   }
   if (event.request.method !== "POST") {
     return;
   }
   let currentDatabase = null;
-  const currentDatabases = getCurrentDatabasesTokenEndpoint(
-    database,
-    originalRequest.url
-  );
+  const currentDatabases = getCurrentDatabasesTokenEndpoint(database, url);
   const numberDatabase = currentDatabases.length;
   if (numberDatabase > 0) {
     const maPromesse = new Promise((resolve, reject) => {
@@ -367,7 +417,9 @@ const handleFetch = async (event) => {
             integrity: clonedRequest.integrity
           });
           if (currentDatabase && currentDatabase.oidcServerConfiguration != null && currentDatabase.oidcServerConfiguration.revocationEndpoint && url.startsWith(
-            currentDatabase.oidcServerConfiguration.revocationEndpoint
+            normalizeUrl(
+              currentDatabase.oidcServerConfiguration.revocationEndpoint
+            )
           )) {
             return fetchPromise.then(async (response2) => {
               const text = await response2.text();
@@ -380,7 +432,10 @@ const handleFetch = async (event) => {
           currentLoginCallbackConfigurationName = null;
           let newBody = actualBody;
           if (currentDatabase && currentDatabase.codeVerifier != null) {
-            newBody = replaceCodeVerifier(newBody, currentDatabase.codeVerifier);
+            newBody = replaceCodeVerifier(
+              newBody,
+              currentDatabase.codeVerifier
+            );
           }
           return fetch(originalRequest, {
             body: newBody,
@@ -416,23 +471,26 @@ const handleFetch = async (event) => {
         reject(err);
       });
     });
-    event.waitUntil(event.respondWith(maPromesse));
+    event.respondWith(maPromesse);
   }
 };
-const trustedDomainsShowAccessToken = {};
 const handleMessage = (event) => {
   const port = event.ports[0];
   const data = event.data;
+  if (event.data.type === "claim") {
+    _self.clients.claim().then(() => port.postMessage({}));
+    return;
+  }
   const configurationName = data.configurationName;
   let currentDatabase = database[configurationName];
   if (trustedDomains == null) {
     trustedDomains = {};
   }
   if (!currentDatabase) {
-    if (trustedDomainsShowAccessToken[configurationName] === void 0) {
-      const trustedDomain = trustedDomains[configurationName];
-      trustedDomainsShowAccessToken[configurationName] = Array.isArray(trustedDomain) ? false : trustedDomain.showAccessToken;
-    }
+    const trustedDomain = trustedDomains[configurationName];
+    const showAccessToken = Array.isArray(trustedDomain) ? false : trustedDomain.showAccessToken;
+    const doNotSetAccessTokenToNavigateRequests = Array.isArray(trustedDomain) ? true : trustedDomain.setAccessTokenToNavigateRequests;
+    const convertAllRequestsToCorsExceptNavigate = Array.isArray(trustedDomain) ? false : trustedDomain.convertAllRequestsToCorsExceptNavigate;
     database[configurationName] = {
       tokens: null,
       state: null,
@@ -442,7 +500,11 @@ const handleMessage = (event) => {
       nonce: null,
       status: null,
       configurationName,
-      hideAccessToken: !trustedDomainsShowAccessToken[configurationName]
+      hideAccessToken: !showAccessToken,
+      setAccessTokenToNavigateRequests: doNotSetAccessTokenToNavigateRequests ?? true,
+      convertAllRequestsToCorsExceptNavigate: convertAllRequestsToCorsExceptNavigate ?? false,
+      demonstratingProofOfPossessionNonce: null,
+      demonstratingProofOfPossessionJwkJson: null
     };
     currentDatabase = database[configurationName];
     if (!trustedDomains[configurationName]) {
@@ -461,7 +523,7 @@ const handleMessage = (event) => {
       const oidcServerConfiguration = data.data.oidcServerConfiguration;
       const trustedDomain = trustedDomains[configurationName];
       const domains = getDomains(trustedDomain, "oidc");
-      if (!domains.find((f) => f === acceptAnyDomainToken)) {
+      if (!domains.some((domain) => domain === acceptAnyDomainToken)) {
         [
           oidcServerConfiguration.tokenEndpoint,
           oidcServerConfiguration.revocationEndpoint,
@@ -483,7 +545,8 @@ const handleMessage = (event) => {
         port.postMessage({
           tokens: null,
           status: currentDatabase.status,
-          configurationName
+          configurationName,
+          version
         });
       } else {
         const tokens = {
@@ -501,24 +564,53 @@ const handleMessage = (event) => {
         port.postMessage({
           tokens,
           status: currentDatabase.status,
-          configurationName
+          configurationName,
+          version
         });
       }
       return;
     }
-    case "setState":
+    case "setDemonstratingProofOfPossessionNonce": {
+      currentDatabase.demonstratingProofOfPossessionNonce = data.data.demonstratingProofOfPossessionNonce;
+      port.postMessage({ configurationName });
+      return;
+    }
+    case "getDemonstratingProofOfPossessionNonce": {
+      const demonstratingProofOfPossessionNonce = currentDatabase.demonstratingProofOfPossessionNonce;
+      port.postMessage({
+        configurationName,
+        demonstratingProofOfPossessionNonce
+      });
+      return;
+    }
+    case "setDemonstratingProofOfPossessionJwk": {
+      currentDatabase.demonstratingProofOfPossessionJwkJson = data.data.demonstratingProofOfPossessionJwkJson;
+      port.postMessage({ configurationName });
+      return;
+    }
+    case "getDemonstratingProofOfPossessionJwk": {
+      const demonstratingProofOfPossessionJwkJson = currentDatabase.demonstratingProofOfPossessionJwkJson;
+      port.postMessage({
+        configurationName,
+        demonstratingProofOfPossessionJwkJson
+      });
+      return;
+    }
+    case "setState": {
       currentDatabase.state = data.data.state;
       port.postMessage({ configurationName });
       return;
+    }
     case "getState": {
       const state = currentDatabase.state;
       port.postMessage({ configurationName, state });
       return;
     }
-    case "setCodeVerifier":
+    case "setCodeVerifier": {
       currentDatabase.codeVerifier = data.data.codeVerifier;
       port.postMessage({ configurationName });
       return;
+    }
     case "getCodeVerifier": {
       port.postMessage({
         configurationName,
@@ -526,10 +618,11 @@ const handleMessage = (event) => {
       });
       return;
     }
-    case "setSessionState":
+    case "setSessionState": {
       currentDatabase.sessionState = data.data.sessionState;
       port.postMessage({ configurationName });
       return;
+    }
     case "getSessionState": {
       const sessionState = currentDatabase.sessionState;
       port.postMessage({ configurationName, sessionState });
@@ -549,9 +642,10 @@ const handleMessage = (event) => {
       port.postMessage({ configurationName, nonce });
       return;
     }
-    default:
+    default: {
       currentDatabase.items = { ...data.data };
       port.postMessage({ configurationName });
+    }
   }
 };
 _self.addEventListener("install", handleInstall);

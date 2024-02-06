@@ -4,9 +4,9 @@ import UserInfo from "../../UserInfo";
 import { SSOEnabled } from "../../configuration";
 
 const MembershipEvals: React.FunctionComponent = () => {
-    const { login, logout, isAuthenticated } = getUseOidcHook()()
-    const { accessTokenPayload } = getUseOidcAccessToken()()
-    const userInfo = SSOEnabled ? accessTokenPayload as UserInfo : NoSSOUserInfo
+    const { login, logout, isAuthenticated } = getUseOidcHook()();
+    const { accessToken, accessTokenPayload } = getUseOidcAccessToken()();
+    const userInfo = SSOEnabled ? accessTokenPayload as UserInfo : NoSSOUserInfo;
 
 
     const directorshipAttendanceUrl = `http://localhost:8080/api/attendance/directorship/${userInfo.preferred_username}`;
@@ -16,13 +16,17 @@ const MembershipEvals: React.FunctionComponent = () => {
     const [missedHouseMeetings, setHouseMeetingAttendance] = useState([]);
 
     const fetchDirectorshipAttendance = () => {
-        return fetch(directorshipAttendanceUrl)
+      return fetch(directorshipAttendanceUrl, {
+        headers: { "Authorization": `Bearer ${accessToken}` }
+      })
             .then((res) => res.json())
             .then((directorships) => setDirectorshipAttendance(directorships))
     }
 
     const fetchHouseMeetingAttendance = () => {
-        return fetch(missedHouseMeetingsUrl)
+        return fetch(missedHouseMeetingsUrl, {
+        headers: { "Authorization": `Bearer ${accessToken}` }
+      })
             .then((res) => res.json())
             .then((houseMeeting) => setHouseMeetingAttendance(houseMeeting))
     }

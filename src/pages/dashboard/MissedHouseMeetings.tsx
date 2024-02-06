@@ -13,7 +13,7 @@ interface MissedHM {
 const MissedHouseMeetings: React.FC = () => {
 
     const { login, logout, isAuthenticated } = getUseOidcHook()()
-    const { accessTokenPayload } = getUseOidcAccessToken()()
+    const { accessToken, accessTokenPayload } = getUseOidcAccessToken()();
     const userInfo = SSOEnabled ? accessTokenPayload as UserInfo : NoSSOUserInfo
 
     const [missedHouseMeetings, setMissedHouseMeetings] = useState<MissedHM[]>([]);
@@ -22,7 +22,9 @@ const MissedHouseMeetings: React.FC = () => {
         // Fetch house meeting data from the API (you can use the fetchDirectorshipsFromAPI function)
         const apiUrl = `http://localhost:8080/api/attendance/house/${userInfo.preferred_username}`;
 
-        fetch(apiUrl)
+        fetch(apiUrl, {
+        headers: { "Authorization": `Bearer ${accessToken}` }
+      })
             .then((response) => {
                 if (!response.ok) {
                     throw new Error(`HTTP Error: ${response.status} ${response.statusText}`);

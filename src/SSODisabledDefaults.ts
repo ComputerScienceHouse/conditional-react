@@ -8,7 +8,7 @@ export const useOidcNoSSO = () => {
 }
 
 export const useOidcAccessTokenNoSSO = () => {
-    return { accessTokenPayload: '' }
+  return { accessToken: '' , accessTokenPayload: '' }
 }
 
 export const NoSSOUserInfo: UserInfo = {

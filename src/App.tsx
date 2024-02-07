@@ -31,21 +31,21 @@ const App: React.FC<Props> = ({ rerouteHomeOn404 = null }) => {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path='/home' element={<Home />} />
-          <Route path="/intro_evals" element={<IntroEvals />} />
-          <Route path="/spring_evals" element={<SpringEvals />} />
-          <Route path="/conditionals" element={<CurrentConditionals />} />
-          <Route path="/major_project" element={<MajorProjectForm />} />
-          <Route path="/co_op" element={<CoopSubmission />} />
-          <Route path="/intro_evals_form" element={<IntroEvalsForm />} />
-          <Route path="/attendance_directorship" element={<DirectorshipMeeting />} />
-          <Route path="/attendance_seminar" element={<TechnicalSeminar />} />
+          <Route path="/evals/intro" element={<IntroEvals />} />
+          <Route path="/evals/spring" element={<SpringEvals />} />
+          <Route path="/evals/conditionals" element={<CurrentConditionals />} />
+          <Route path="/forms/major-project" element={<MajorProjectForm />} />
+          <Route path="/forms/coop" element={<CoopSubmission />} />
+          <Route path="/forms/intro-evals" element={<IntroEvalsForm />} />
+          <Route path="/attendance/directorship" element={<DirectorshipMeeting />} />
+          <Route path="/attendance/seminar" element={<TechnicalSeminar />} />
           <Route path="/attendance/history" element={<AttendanceHistory />} />
-          <Route path="/admin/member_management" element={<MemberManagement />} />
-          <Route path="/admin/co_op_management" element={<CoopManagment />} />
-          <Route path="/admin/intro_evals_presentation" element={<IntroEvalsPresentation />} />
-          <Route path="/admin/spring_evals_presentation" element={<MemberEvalsPresentation />} />
+          <Route path="/admin/member-management" element={<MemberManagement />} />
+          <Route path="/admin/coop-management" element={<CoopManagment />} />
+          <Route path="/admin/slideshow/intro" element={<IntroEvalsPresentation />} />
+          <Route path="/admin/slideshow/spring" element={<MemberEvalsPresentation />} />
           <Route path="/admin/logs" element={<UserLogs />} />
-          <Route path="/admin/clear_cache" element={<ClearCache />} />
+          <Route path="/admin/clear-cache" element={<ClearCache />} />
           <Route path='*' element={rerouteHomeOn404 ?? true ? <Home /> : <NotFound />} />
         </Routes>
       </PageContainer>

@@ -20,7 +20,7 @@ import "../css/dashboard.css";
 const DropdownNavItem: React.FC<{ to: string; label: string }> = ({ to, label }) => (
   <DropdownItem>
     <NavItem>
-      <NavLink to={to} className="nav-link" style={{ color: "black"}}>
+      <NavLink to={to} className="nav-link" style={{ color: "black" }}>
         {label}
       </NavLink>
     </NavItem>
@@ -51,9 +51,9 @@ const NavBar: React.FC = () => {
                 &nbsp;Evals
               </DropdownToggle>
               <DropdownMenu right>
-                <DropdownNavItem to="/intro_evals" label="Introductory Evaluations" />
-                <DropdownNavItem to="/spring_evals" label="Membership Evaluations" />
-                <DropdownNavItem to="/conditionals" label="Current Conditionals" />
+                <DropdownNavItem to="/evals/intro" label="Introductory Evaluations" />
+                <DropdownNavItem to="/evals/spring" label="Membership Evaluations" />
+                <DropdownNavItem to="/evals/conditionals" label="Current Conditionals" />
               </DropdownMenu>
             </UncontrolledDropdown>
 
@@ -63,9 +63,9 @@ const NavBar: React.FC = () => {
                 &nbsp;Forms
               </DropdownToggle>
               <DropdownMenu right>
-                <DropdownNavItem to="/major_project" label="Major Project" />
-                <DropdownNavItem to="/co_op" label="Co-op Submission" />
-                <DropdownNavItem to="intro_evals_form" label="Introductory Evals Form" />
+                <DropdownNavItem to="/forms/major-project" label="Major Project" />
+                <DropdownNavItem to="/forms/coop" label="Co-op Submission" />
+                <DropdownNavItem to="/forms/intro-evals" label="Introductory Evals Form" />
               </DropdownMenu>
             </UncontrolledDropdown>
 
@@ -75,8 +75,8 @@ const NavBar: React.FC = () => {
                 &nbsp;Attendance
               </DropdownToggle>
               <DropdownMenu right>
-                <DropdownNavItem to="attendance_directorship" label="Directorship Meeting" />
-                <DropdownNavItem to="attendance_seminar" label="Technical Seminar" />
+                <DropdownNavItem to="/attendance/directorship" label="Directorship Meeting" />
+                <DropdownNavItem to="/attendance/seminar" label="Technical Seminar" />
                 <DropdownNavItem to="/attendance/history" label="Attendance History" />
               </DropdownMenu>
             </UncontrolledDropdown>
@@ -86,12 +86,12 @@ const NavBar: React.FC = () => {
                 Admin
               </DropdownToggle>
               <DropdownMenu right>
-                <DropdownNavItem to="/admin/member_management" label="Member Management" />
-                <DropdownNavItem to="/admin/co_op_management" label="Co-op Management" />
-                <DropdownNavItem to="/admin/intro_evals_presentation" label="Introductory Evaluations Presentation" />
-                <DropdownNavItem to="/admin/spring_evals_presentation" label="Membership Evaluations Presentation" />
+                <DropdownNavItem to="/admin/member-management" label="Member Management" />
+                <DropdownNavItem to="/admin/coop-management" label="Co-op Management" />
+                <DropdownNavItem to="/admin/slideshow/intro" label="Introductory Evaluations Presentation" />
+                <DropdownNavItem to="/admin/slideshow/spring" label="Membership Evaluations Presentation" />
                 <DropdownNavItem to="/admin/logs" label="User Logs" />
-                <DropdownNavItem to="/admin/clear_cache" label="Clear Cache" />
+                <DropdownNavItem to="/admin/clear-cache" label="Clear Cache" />
               </DropdownMenu>
             </UncontrolledDropdown>
           </Nav>

@@ -1,33 +1,16 @@
-# CSH React Boilerplate
+# Conditional Frontend
 
-Ever wanted to create a CSH house service in React but realized that auth is hard and that react is big and scary? This boilerplate attempts to solve that issue.
-
-This provides all the setup work needed to create a CSH React app quickly. This may not fit all use cases, and you may want to modify things heavily. Go ahead!
-This is simply a starting place.
+Frontend for Conditional, written in React with TypeScript.
 
 ## Local Development
-You're going to need [node](https://nodejs.org/en/).
 
-### Setup with npm
+To run this project locally, you are going to need to have `node` installed. With node installed, run `npm install` from within the project directory.
 
-```
-npm install
-```
+You will also need to provide environment variables in a `.env`, which you can get from an RTP.
 
-### Run in development
+Once you have all of that set up, you can run `npm start` to launch the site. This will auto update as you make changes.
 
-```
-npm start
-```
+In addition to the frontend, you will also need the backend running locally on port 8080. If the backend is not running, or is running on a port that isn't 8080, the site will error.
 
-In order to run locally, you're going to need an OIDC client, by default there's a `.env` file which defines all variables you don't want to commit to the repo directly. The default SSO variables will work for development purposes. It will only work on `http://localhost:3000`.
-For more information on CSH SSO, and getting an OIDC client, talk to an RTP.
-
-
-All variables need to be prepended with `REACT_APP_`
-
-___
-
-## Help! I don't have a CSH account or I dont want to secure the website in development!
-
-No problem! You can disable SSO in `configuration.ts` by changing `SSOEnabled` to `'false'`, or alternatively, you can set the `REACT_APP_SSO_ENABLED` variable to false.
+### Running Locally without SSO
+If you want to develop locally without CSH auth, you can disable it by setting the `REACT_APP_SSO_ENABLED` field in the `.env` to `false`.

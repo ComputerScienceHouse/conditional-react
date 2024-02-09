@@ -7,6 +7,9 @@ import AuthenticationError from '../../callbacks/AuthenticationError'
 import SessionLost from '../../callbacks/SessionLost'
 import UserInfo from '../../UserInfo'
 import UserProfile from '../dashboard/UserProfile'
+import { Table } from '@mui/joy'
+import { TableCell, TableContainer, TableHead, TableRow, TableSortLabel } from '@mui/material'
+import { TableRows } from '@mui/icons-material'
 
 const CurrentConditionals = () => {
     // important hooks
@@ -16,9 +19,18 @@ const CurrentConditionals = () => {
     // const { login, logout, isAuthenticated } = useOidc()  // this gets the functions to login and logout and the logout state
 
     return (
-        <div>
-            <UserProfile />
-        </div>
+        <>
+            <TableContainer>
+                <TableHead children={<TableRow />} />
+                <TableRow>
+                    <TableCell children={<TableSortLabel />}
+                    />
+                    <TableCell>Date Created</TableCell>
+                    <TableCell>Date Due</TableCell>
+                    <TableCell>Description</TableCell>
+                </TableRow>
+            </TableContainer>
+        </>
     )
 }
 

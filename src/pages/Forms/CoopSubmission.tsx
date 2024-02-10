@@ -19,11 +19,19 @@ const CoopSubmission = () => {
 
     return (
         <>
+            {/* Page header */}
             <h1 className='header'>Co-op Submission</h1>
+
+            {/* Container for the form */}
             <Container id='coop-form'>
+                {/* Contains the controls associated with the form */}
                 <FormControl>
+
+                    {/* Displays information about what the form is for */}
                     <p className='info-text'>Please select one of the following options below if you are going to be on co-op during either semester this year. In the case you are going to be on co-op for both semesters, please contact the Evaluations Director and have them remove you from Active status.</p>
                     <p className='info-text'>By selecting an option and submitting this form you are forfeiting your right to vote in house matters during the selected period. You are not required to attend house meetings but are still eligible for directorship meeting attendance.</p>
+
+                    {/* Radio buttons to select a coop term */}
                     <RadioGroup
                         row
                         aria-labelledby="demo-radio-buttons-group-label"
@@ -35,6 +43,7 @@ const CoopSubmission = () => {
                     </RadioGroup>
                 </FormControl>
 
+                {/* Button to submit the form */}
                 <Button className='submit-btn' color='#b0197e'>SUBMIT FORM</Button>
             </Container>
         </>

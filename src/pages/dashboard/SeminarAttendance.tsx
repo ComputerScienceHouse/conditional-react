@@ -9,8 +9,6 @@ interface TechnicalSeminar {
     timestamp: Date
 }
 
-
-
 const SeminarAttendance: React.FC = () => {
 
     const { login, logout, isAuthenticated } = getUseOidcHook()()
@@ -20,21 +18,27 @@ const SeminarAttendance: React.FC = () => {
     const [seminars, setSeminars] = useState<TechnicalSeminar[]>([]);
 
     useEffect(() => {
-        // Fetch directorships data from the API (you can use the fetchDirectorshipsFromAPI function)
+        // Fetch seminar data from the API
         const apiUrl = `http://localhost:8080/api/attendance/seminar/${userInfo.preferred_username}`;
         fetch(apiUrl)
             .then((response) => {
+
+                // If api doesnt give an ok response, throws an error to the console with the details
                 if (!response.ok) {
                     throw new Error(`HTTP Error: ${response.status} ${response.statusText}`);
                 }
                 return response.json();
             })
+
+            // Maps the response data to seminar objects
             .then((data) => {
                 let mappedSeminars: TechnicalSeminar[] = data.map((item: any) => ({
                     name: String(item.name),
                     timestamp: new Date(item.timestamp),
-                    approved: Boolean(item.approved), // Assuming 'approved' is a boolean property
+                    approved: Boolean(item.approved),
                 }));
+
+                // Sorts the seminars from most recent to least recent
                 mappedSeminars.sort((a, b) => b.timestamp.getTime() - a.timestamp.getTime());
                 setSeminars(mappedSeminars);
             })
@@ -49,15 +53,19 @@ const SeminarAttendance: React.FC = () => {
             <table className="table table-striped box-shadow">
                 <thead className="table-header">
                     <tr>
+                        {/* Table name */}
                         <td className="table-striped header-label">Technical Seminar Attendance</td>
                     </tr>
                     <tr>
+                        {/* Row labels */}
                         <td className="table-striped header-label">Event</td>
                         <td className="table-striped header-data">Date</td>
                     </tr>
                 </thead>
 
                 <tbody>
+
+                    {/* Displays relevant info for each seminar in its own row */}
                     {seminars
                         .filter((seminar) => seminar.approved)
                         .map((seminar, index) => (

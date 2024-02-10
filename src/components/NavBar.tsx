@@ -30,6 +30,7 @@ const DropdownNavItem: React.FC<{ to: string; label: string }> = ({ to, label })
 const NavBar: React.FC = () => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
 
+  // Toggles whether the navbar is expanded or not
   const toggle = () => {
     setIsOpen(!isOpen);
   };

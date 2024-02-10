@@ -9,15 +9,16 @@ const MemberStatistics: React.FunctionComponent = () => {
     const { accessTokenPayload } = getUseOidcAccessToken()()
     const userInfo = SSOEnabled ? accessTokenPayload as UserInfo : NoSSOUserInfo
 
+    // API urls
     const url_numVoting = 'http://localhost:8080/api/users/voting_count';
     const url_numActive = 'http://localhost:8080/api/users/active_count';
 
     const [votingCount, setVoting] = useState([]);
-
     const [activeCount, setActive] = useState([]);
 
     let numVoting: number = 0;
 
+    // Gets the number of voting members from the API
     const fetchInfo_Voting = () => {
         return fetch(url_numVoting)
             .then((res) => res.json())
@@ -28,6 +29,7 @@ const MemberStatistics: React.FunctionComponent = () => {
         fetchInfo_Voting();
     }, []);
 
+    // Gets the number of active members from the API
     const fetchInfo_Active = () => {
         return fetch(url_numActive)
             .then((res) => res.json())

@@ -8,19 +8,21 @@ const MembershipEvals: React.FunctionComponent = () => {
     const { accessTokenPayload } = getUseOidcAccessToken()()
     const userInfo = SSOEnabled ? accessTokenPayload as UserInfo : NoSSOUserInfo
 
-
+    // API urls
     const directorshipAttendanceUrl = `http://localhost:8080/api/attendance/directorship/${userInfo.preferred_username}`;
     const missedHouseMeetingsUrl = `http://localhost:8080/api/attendance/house/${userInfo.preferred_username}`;
 
     const [directorshipAttendance, setDirectorshipAttendance] = useState([]);
     const [missedHouseMeetings, setHouseMeetingAttendance] = useState([]);
 
+    // Makes call to API for list of directorships and stores the response
     const fetchDirectorshipAttendance = () => {
         return fetch(directorshipAttendanceUrl)
             .then((res) => res.json())
             .then((directorships) => setDirectorshipAttendance(directorships))
     }
 
+    // Makes call to API for list of missed house meetings and stores the response
     const fetchHouseMeetingAttendance = () => {
         return fetch(missedHouseMeetingsUrl)
             .then((res) => res.json())

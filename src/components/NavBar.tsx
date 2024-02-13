@@ -70,6 +70,13 @@ const NavBar: React.FC = () => {
               </DropdownMenu>
             </UncontrolledDropdown>
 
+            <NavItem>
+              <NavLink to="/housing" className="nav-link">
+                <FontAwesomeIcon icon={icon({ name: "house" })} />
+                &nbsp;Housing
+              </NavLink>
+            </NavItem>
+
             <UncontrolledDropdown nav inNavbar>
               <DropdownToggle nav caret>
                 <FontAwesomeIcon icon={icon({ name: "check" })} />

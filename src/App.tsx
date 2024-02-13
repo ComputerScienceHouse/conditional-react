@@ -9,6 +9,7 @@ import CurrentConditionals from './pages/Evals/CurrentConditionals'
 import MajorProjectForm from './pages/Forms/MajorProjectForm'
 import CoopSubmission from './pages/Forms/CoopSubmission'
 import IntroEvalsForm from './pages/Forms/IntroEvalsForm'
+import Housing from './pages/Housing'
 import DirectorshipMeeting from './pages/Attendance/DirectorshipMeeting'
 import TechnicalSeminar from './pages/Attendance/TechnicalSeminar'
 import AttendanceHistory from './pages/Attendance/AttendanceHistory'
@@ -37,6 +38,7 @@ const App: React.FC<Props> = ({ rerouteHomeOn404 = null }) => {
           <Route path="/forms/major-project" element={<MajorProjectForm />} />
           <Route path="/forms/coop" element={<CoopSubmission />} />
           <Route path="/forms/intro-evals" element={<IntroEvalsForm />} />
+          <Route path="/housing" element={<Housing />} />
           <Route path="/attendance/directorship" element={<DirectorshipMeeting />} />
           <Route path="/attendance/seminar" element={<TechnicalSeminar />} />
           <Route path="/attendance/history" element={<AttendanceHistory />} />

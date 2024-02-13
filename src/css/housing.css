@@ -1,0 +1,43 @@
+html {
+    height: 100%;
+    display: flex;
+    margin: 0;
+}
+
+html > * {
+    height: 100%;
+    width: 100%;
+}
+
+.housing-container {
+    display: flex;
+    justify-content: space-between;
+}
+
+.odd {
+    background-color: #1B1E1F;
+}
+
+.even {
+    background-color: #181A1B;
+}
+
+.panel {
+    width: 48%;
+    display: flex;
+    flex-direction: column;
+}
+
+.main {
+    justify-content: center;
+    display: flex;
+}
+
+.panel-title {
+    margin: 0;
+    padding-left: 10px;
+}
+
+.table {
+    margin: 0;
+}

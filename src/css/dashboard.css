@@ -20,6 +20,12 @@
     width: 45%;
 }
 
+.item
+{
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+}
+
 .userprofile
 {
     background-color: white;

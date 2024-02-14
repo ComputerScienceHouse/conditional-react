@@ -27,15 +27,27 @@ const Home = () => {
 
             <div className="twocolumn">
                 <div className="left-column">
-                    <MembershipEvals />
-                    <MemberStatistics />
-                    <DirectorshipMeetingAttendance />
+                    <div className='item'>
+                        <MembershipEvals />
+                    </div>
+                    <div className='item'>
+                        <MemberStatistics />
+                    </div>
+                    <div className='item'>
+                        <DirectorshipMeetingAttendance />
+                    </div>
                 </div>
 
                 <div className='right-column'>
-                    <HousingStatus />
-                    <MissedHouseMeetings />
-                    <SeminarAttendance />
+                    <div className='item'>
+                        <HousingStatus />
+                    </div>
+                    <div className='item'>
+                        <MissedHouseMeetings />
+                    </div>
+                    <div className='item'>
+                        <SeminarAttendance />
+                    </div>
                 </div>
             </div>
 

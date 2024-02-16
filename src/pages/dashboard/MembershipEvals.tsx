@@ -38,10 +38,10 @@ const MembershipEvals: React.FunctionComponent = () => {
         <div className="table">
             <table className="table table-striped box-shadow">
                 <thead className="table-header">
-                    {/* <tr className="table-header"> */}
-                    <td className="table-striped header-label">Membership Evals</td>
-                    <td className="table-striped header-data">Route Not Implemented</td>
-                    {/* </tr> */}
+                    <tr className="heading">
+                        <th className="table-striped header-label">Membership Evals</th>
+                        <th className="table-striped header-data">Route Not Implemented</th>
+                    </tr>
                 </thead>
 
                 <tbody>
@@ -59,7 +59,7 @@ const MembershipEvals: React.FunctionComponent = () => {
                     </tr>
                 </tbody>
             </table>
-        </div>
+        </div >
     )
 }
 

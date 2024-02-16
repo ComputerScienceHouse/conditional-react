@@ -51,7 +51,7 @@ const NavBar: React.FC = () => {
                 <FontAwesomeIcon icon={icon({ name: "chart-simple" })} />
                 &nbsp;Evals
               </DropdownToggle>
-              <DropdownMenu right>
+              <DropdownMenu end>
                 <DropdownNavItem to="/evals/intro" label="Introductory Evaluations" />
                 <DropdownNavItem to="/evals/spring" label="Membership Evaluations" />
                 <DropdownNavItem to="/evals/conditionals" label="Current Conditionals" />
@@ -63,7 +63,7 @@ const NavBar: React.FC = () => {
                 <FontAwesomeIcon icon={icon({ name: "table-list" })} />
                 &nbsp;Forms
               </DropdownToggle>
-              <DropdownMenu right>
+              <DropdownMenu end>
                 <DropdownNavItem to="/forms/major-project" label="Major Project" />
                 <DropdownNavItem to="/forms/coop" label="Co-op Submission" />
                 <DropdownNavItem to="/forms/intro-evals" label="Introductory Evals Form" />
@@ -82,7 +82,7 @@ const NavBar: React.FC = () => {
                 <FontAwesomeIcon icon={icon({ name: "check" })} />
                 &nbsp;Attendance
               </DropdownToggle>
-              <DropdownMenu right>
+              <DropdownMenu end>
                 <DropdownNavItem to="/attendance/directorship" label="Directorship Meeting" />
                 <DropdownNavItem to="/attendance/seminar" label="Technical Seminar" />
                 <DropdownNavItem to="/attendance/history" label="Attendance History" />
@@ -93,7 +93,7 @@ const NavBar: React.FC = () => {
               <DropdownToggle nav caret>
                 Admin
               </DropdownToggle>
-              <DropdownMenu right>
+              <DropdownMenu end>
                 <DropdownNavItem to="/admin/member-management" label="Member Management" />
                 <DropdownNavItem to="/admin/coop-management" label="Co-op Management" />
                 <DropdownNavItem to="/admin/slideshow/intro" label="Introductory Evaluations Presentation" />

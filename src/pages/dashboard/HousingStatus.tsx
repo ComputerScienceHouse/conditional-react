@@ -36,10 +36,7 @@ const HousingStatus: React.FunctionComponent = () => {
         <div className="table">
             <table className="table table-striped box-shadow">
                 <thead className="table-header">
-                    {/* <tr className="table-header"> */}
-                    <td className="table-striped header-label">Housing Status</td>
-                    {/* <td className="table-striped header-data">Pending</td> */}
-                    {/* </tr> */}
+                    <th className="table-striped header-label">Housing Status</th>
                 </thead>
 
                 <tbody>

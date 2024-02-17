@@ -1,14 +1,8 @@
 
-import { useOidcAccessToken, useOidc, useOidcIdToken } from '@axa-fr/react-oidc'
-import React, { Component, useState } from 'react'
-import { Link } from 'react-router-dom'
-import Authenticating from '../../callbacks/Authenticating'
-import AuthenticationError from '../../callbacks/AuthenticationError'
-import SessionLost from '../../callbacks/SessionLost'
-import UserInfo from '../../UserInfo'
-import UserProfile from '../dashboard/UserProfile'
-import { ButtonToggle, Card, CardBody, CardColumns, CardHeader, CardText, Container, FormGroup, Input, List, ListGroupItem, ListInlineItem, ModalBody } from 'reactstrap'
+import { useState } from 'react'
+import { Button, Card, CardBody, CardHeader, CardText, Container, Form, FormGroup, Input, Label, List } from 'reactstrap'
 import '../../css/member-management.css'
+import ToggleSlider from '../../components/util/ToggleSlider';
 
 const MemberManagement = () => {
     // important hooks
@@ -45,15 +39,11 @@ const MemberManagement = () => {
                                 <CardText>Intro Accounts</CardText>
                             </Container>
                             <Container className='admin-item'>
-                                <FormGroup switch>
-                                    <Input
-                                        type="switch"
-                                        checked={state}
-                                        onClick={() => {
-                                            setState(!state);
-                                        }}
-                                    />
-                                </FormGroup>
+                                <Label check>Site Lockdown</Label>
+                                <ToggleSlider />
+                            </Container>
+                            <Container className='admin-item'>
+                                <Button><h6>New Year</h6></Button>
                             </Container>
                         </List>
                     </CardBody>

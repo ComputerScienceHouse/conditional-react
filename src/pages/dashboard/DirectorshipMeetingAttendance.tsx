@@ -66,8 +66,9 @@ const DirectorshipMeetingAttendance: React.FC = () => {
                 </thead>
 
                 <tbody>
-                    {/* Loops through the list of directorships and displays relevant data from each in its own row */}
+                    {/* Displays meeting type and date in its own row*/}
                     {directorships
+                        // Only shows approved attendances
                         .filter((directorship) => directorship.approved)
                         .map((directorship, index) => (
                             <tr className="table-striped" key={index}>

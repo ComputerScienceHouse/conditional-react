@@ -30,7 +30,7 @@ const IntroEvals = () => {
     const [introMembers, setIntroMemberData] = useState<IntroMemberData[]>([]);
 
     useEffect(() => {
-        // Fetch directorships data from the API (you can use the fetchDirectorshipsFromAPI function)
+        // API url for the intro evals route
         const apiUrl = 'http://localhost:8080/api/evals/intro';
         fetch(apiUrl)
             .then((response) => {
@@ -39,17 +39,21 @@ const IntroEvals = () => {
                 }
                 return response.json();
             })
+
+            // Takes the returned data and maps it to an object to store all the intro member data
             .then((data) => {
                 let mappedIntroMemberData: IntroMemberData[] = data.map((item: any) => ({
                     directorships: Number(item.directorships),
-                    fid: item.fid === undefined ? undefined : Number(item.fid),
-                    max_signatures: Number(item.max_signatures),
-                    missed_hms: Number(item.missed_hms),
-                    name: String(item.name),
-                    seminars: Number(item.seminars),
-                    signatures: Number(item.signatures),
-                    uid: item.uid === null ? undefined : String(item.uid)
+                    fid: item.fid === undefined ? undefined : Number(item.fid), // Freshman id, or undefined if the user has a CSH account
+                    max_signatures: Number(item.max_signatures),                // Number of possible signatures on this user's packet
+                    missed_hms: Number(item.missed_hms),                        // Number of missed house meetings (excluding excused absences)
+                    name: String(item.name),                                    // First and last name
+                    seminars: Number(item.seminars),                            // Number of seminars attended
+                    signatures: Number(item.signatures),                        // Number of packet signatures the user got
+                    uid: item.uid === null ? undefined : String(item.uid)       // CSH username, or undefined if the user doesnt have a CSH account
                 }));
+
+                // Sorts by number of packet signatures in descending order
                 mappedIntroMemberData.sort((a, b) => b.signatures - a.signatures);
                 setIntroMemberData(mappedIntroMemberData);
             })
@@ -65,13 +69,16 @@ const IntroEvals = () => {
                     .map((introMember, index) => (
                         <div className='intro-member'>
                             <div className="profilepicture">
+                                {/* Pulls profile picture from profiles */}
                                 <img className="profilepicture" src={`https://profiles.csh.rit.edu/image/${introMember.uid}`} alt="User profile picture" />
                             </div>
                             <div className='name-id'>
                                 <h2 className='name'>{introMember.name}</h2>
+                                {/* Shows CSH username if the user has one, or freshman id if not */}
                                 <h3 className='username'>{introMember.uid == null ? introMember.fid : introMember.uid}</h3>
                             </div>
 
+                            {/* Shows the completion status of 6 weeks requirements */}
                             <div className='evals-status'>
                                 <p className='intro-req'>{`Packet Percent ${((introMember.signatures / introMember.max_signatures) * 100).toFixed(0)}%`}</p>
                                 <p className='intro-req'>{`Directorship Meetings ${introMember.directorships} / 6`}</p>

@@ -40,10 +40,13 @@ const HousingStatus: React.FunctionComponent = () => {
                 </thead>
 
                 <tbody>
+                    {/* Number of housing points */}
                     <tr className="table-striped table-row row-index-even">
                         <td className="table-striped row-label">Housing Points</td>
                         <td className="table-striped row-data">Route Not Implemented</td>
                     </tr>
+
+                    {/* Room number (if the user lives on floor) */}
                     <tr className="table-striped table-row row-index-odd">
                         <td className="table-striped row-label">Room Number</td>
                         <td className="table-striped row-data">Route Not Implemented</td>

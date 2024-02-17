@@ -45,14 +45,19 @@ const MembershipEvals: React.FunctionComponent = () => {
                 </thead>
 
                 <tbody>
+                    {/* Number of directorships attended */}
                     <tr className="table-striped table-row row-index-even">
                         <td className="table-striped row-label">Directorship Meetings</td>
                         <td className="table-striped row-data">{directorshipAttendance.length} / 30</td>
                     </tr>
+
+                    {/* Number of missed house meetings (excluding excused absences) */}
                     <tr className="table-striped table-row row-index-odd">
                         <td className="table-striped row-label">House Meetings Missed</td>
                         <td className="table-striped row-data">{missedHouseMeetings.length}</td>
                     </tr>
+
+                    {/* Number of major projects passed */}
                     <tr className="table-striped table-row row-index-even">
                         <td className="table-striped row-label">Major Project</td>
                         <td className="table-striped row-data">Route Not Implemented</td>

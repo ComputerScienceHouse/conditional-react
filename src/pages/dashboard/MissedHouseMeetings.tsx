@@ -70,13 +70,15 @@ const MissedHouseMeetings: React.FC = () => {
                     </thead>
 
                     <tbody>
-                        {missedHouseMeetings
-                            .map((houseMeeting, index) => (
-                                <tr className="table-striped" key={index}>
-                                    <td className="table-striped row-label">{houseMeeting.date.toDateString()}</td>
-                                    <td className="table-striped row-data">{houseMeeting.reason}</td>
-                                </tr>
-                            ))}
+                        { // Shows date and excuse for each missed house meeting
+                            missedHouseMeetings
+                                .map((houseMeeting, index) => (
+                                    <tr className="table-striped" key={index}>
+                                        <td className="table-striped row-label">{houseMeeting.date.toDateString()}</td>
+                                        <td className="table-striped row-data">{houseMeeting.reason}</td>
+                                    </tr>
+                                ))
+                        }
                     </tbody>
                 </table>
             }

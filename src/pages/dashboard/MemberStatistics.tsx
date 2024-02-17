@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import { getUseOidcHook, getUseOidcAccessToken, NoSSOUserInfo } from "../../SSODisabledDefaults";
 import UserInfo from "../../UserInfo";
 import { SSOEnabled } from "../../configuration";
-import { request } from "http";
 
 const MemberStatistics: React.FunctionComponent = () => {
     const { login, logout, isAuthenticated } = getUseOidcHook()()
@@ -15,8 +14,6 @@ const MemberStatistics: React.FunctionComponent = () => {
 
     const [votingCount, setVoting] = useState([]);
     const [activeCount, setActive] = useState([]);
-
-    let numVoting: number = 0;
 
     // Gets the number of voting members from the API
     const fetchInfo_Voting = () => {
@@ -57,11 +54,13 @@ const MemberStatistics: React.FunctionComponent = () => {
                 </thead>
 
                 <tbody>
+                    {/* Shows number of voting members */}
                     <tr className="table-striped table-row row-index-odd">
                         <td className="table-striped row-label">Voting Members</td>
                         <td className="table-striped row-data">{votingCount}</td>
                     </tr>
 
+                    {/* Shows number of active members */}
                     <tr className="table-striped table-row row-index-even">
                         <td className="table-striped row-label">Active Members</td>
                         <td className="table-striped row-data">{activeCount}</td>

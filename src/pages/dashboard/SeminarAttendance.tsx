@@ -18,8 +18,9 @@ const SeminarAttendance: React.FC = () => {
     const [seminars, setSeminars] = useState<TechnicalSeminar[]>([]);
 
     useEffect(() => {
-        // Fetch seminar data from the API
+        // API url for a user's seminar attendance
         const apiUrl = `http://localhost:8080/api/attendance/seminar/${userInfo.preferred_username}`;
+
         fetch(apiUrl)
             .then((response) => {
 
@@ -65,8 +66,9 @@ const SeminarAttendance: React.FC = () => {
 
                 <tbody>
 
-                    {/* Displays relevant info for each seminar in its own row */}
+                    {/* Displays title and date for each seminar in its own row */}
                     {seminars
+                        // Only shows seminars that have been approved
                         .filter((seminar) => seminar.approved)
                         .map((seminar, index) => (
                             <tr className="table-striped" key={index}>

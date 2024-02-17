@@ -22,13 +22,15 @@ const Housing = () => {
     return (
         <div className="housing-container">
             <div className="panel">
-            <h3 className="panel-title even">Housing Queue</h3>
+                <h3 className="panel-title even">Housing Queue</h3>
                 <table className="table">
                     <tbody>
                         <tr className="odd">
                             <th>Member</th>
                             <th>Housing Points</th>
                         </tr>
+
+                        {/* Displays the name and housing points of each user in housing queue, sorted from most to least housing points */}
                         {housingQueue.map((member, index) => (
                             <tr key={index} className={index % 2 === 0 ? 'even' : 'odd'}>
                                 <td>{member.name}</td>
@@ -38,16 +40,17 @@ const Housing = () => {
                     </tbody>
                 </table>
             </div>
-    
+
             <div className="panel">
-            <h3 className="panel-title even">Current Room Numbers</h3>
+                <h3 className="panel-title even">Current Room Numbers</h3>
                 <table className="table">
                     <tbody>
                         <tr className="odd">
                             <td>Room</td>
                             <td>Occupants</td>
                         </tr>
-                        
+
+                        {/* Shows the names of all occupants of each room on floor */}
                         {currentRoomNumbers.map((room, index) => (
                             <tr key={index} className={index % 2 === 0 ? 'even' : 'odd'}>
                                 <td>
@@ -62,11 +65,12 @@ const Housing = () => {
                                 </td>
                             </tr>
                         ))}
+
                     </tbody>
                 </table>
             </div>
         </div>
     );
 };
-    
+
 export default Housing;

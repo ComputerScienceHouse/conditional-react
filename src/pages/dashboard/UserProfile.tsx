@@ -2,6 +2,7 @@ import React from "react";
 import UserInfo from "../../UserInfo";
 import { NoSSOUserInfo, getUseOidcAccessToken, getUseOidcHook } from "../../SSODisabledDefaults";
 import { SSOEnabled } from "../../configuration";
+import { Card, CardBody, CardDeck, CardImg, CardText, Container } from "reactstrap";
 
 const UserProfile: React.FunctionComponent = () => {
     const { login, logout, isAuthenticated } = getUseOidcHook()()
@@ -9,18 +10,15 @@ const UserProfile: React.FunctionComponent = () => {
     const userInfo = SSOEnabled ? accessTokenPayload as UserInfo : NoSSOUserInfo
 
     return (
-        <div className="userprofile">
-            <div className="profilepicture">
-                <img className="profilepicture" src={`https://profiles.csh.rit.edu/image/${userInfo.preferred_username}`} alt="User profile picture" />
-            </div>
-            <div className="userinfo">
-                <h1>{userInfo.name}</h1>
+        <Container className='userprofile'>
+            <img className="profilepicture" src={`https://profiles.csh.rit.edu/image/${userInfo.preferred_username}`} alt="User profile picture" />
+            <CardBody className="userinfo">
+                <CardText className="info">{userInfo.name}</CardText>
                 {/* CSH email, formatted as username@csh.rit.edu */}
-                <h2>{userInfo.email}</h2>
-
+                <CardText className="info">{userInfo.email}</CardText>
                 {/* need to add the little badges that show active/inactive, voting/non-voting, and on floor/off floor */}
-            </div>
-        </div>
+            </CardBody>
+        </Container>
     )
 }
 

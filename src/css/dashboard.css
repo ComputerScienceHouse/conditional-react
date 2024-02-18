@@ -38,13 +38,16 @@
     justify-self: center;
 }
 
-.profilepicture
+.userprofile img
 {
     border-radius: 50%;
     width: 150px;
     height: 150px;
-    margin-top: auto;
-    margin-bottom: auto;
+}
+
+.profilepicture
+{
+    align-self: center;
     margin-left: 1rem;
     margin-right: 1rem;
 }
@@ -53,7 +56,14 @@
 {
     margin-top: auto;
     margin-bottom: auto;
-    margin-left: 1rem;
+    /* margin-left: 1rem; */
+    font-size: 28px;
+    font-weight: 500;
+}
+
+.info
+{
+    margin-bottom: 0;
 }
 
 .table

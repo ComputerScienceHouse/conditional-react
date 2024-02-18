@@ -50,7 +50,6 @@ const SeminarAttendance: React.FC = () => {
 
     return (
         <div>
-
             <table className="table table-striped box-shadow">
                 <thead className="table-header">
                     <tr>

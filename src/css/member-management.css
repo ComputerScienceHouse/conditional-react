@@ -3,3 +3,24 @@
     display: flex;
 
 }
+
+.add-user
+{
+    margin-top: 2rem;
+}
+
+.flexbox
+{
+    display: flex;
+}
+
+.input-user-info input[type='checkbox']
+{
+    display: inline;
+}
+
+.btn-create-user
+{
+    width: 100%;
+    margin-top: 1rem;
+}

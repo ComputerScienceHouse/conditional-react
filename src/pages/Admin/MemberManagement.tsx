@@ -1,4 +1,3 @@
-
 import { useState } from 'react'
 import { Button, Card, CardBody, CardHeader, CardText, Container, Form, FormGroup, Input, Label, List } from 'reactstrap'
 import '../../css/member-management.css'
@@ -15,7 +14,7 @@ const MemberManagement = () => {
 
     return (
         <>
-            <Container>
+            <Container className='admin-stats'>
                 <Card>
                     <CardHeader>
                         Administration
@@ -43,9 +42,35 @@ const MemberManagement = () => {
                                 <ToggleSlider />
                             </Container>
                             <Container className='admin-item'>
-                                <Button><h6>New Year</h6></Button>
+                                <Button color='danger'><h6>New Year</h6></Button>
                             </Container>
                         </List>
+                    </CardBody>
+                </Card>
+            </Container>
+
+            <Container className='add-user'>
+                <Card>
+                    <CardHeader>Add Users</CardHeader>
+                    <CardBody className='flexbox'>
+                        <Container className='mass-upload'>
+                            <CardText>Mass User Upload</CardText>
+                            <CardText>PLACEHOLDER</CardText>
+                            <Input type='file' />
+                        </Container>
+                        <Container className='input-user-info'>
+                            <Label>Freshman Name</Label>
+                            <Input />
+                            <Container className='room-info'>
+                                <Label>Room Number</Label>
+                                <Input />
+                                <Container>
+                                    <Input className='on-floor-check' type="switch" />
+                                    <Label>On-floor</Label>
+                                </Container>
+                            </Container>
+                            <Button className='btn-create-user' color='primary'>Create New User</Button>
+                        </Container>
                     </CardBody>
                 </Card>
             </Container>

@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { NoSSOUserInfo, getUseOidcAccessToken, getUseOidcHook } from '../../SSODisabledDefaults';
 import UserInfo from '../../UserInfo';
 import { SSOEnabled } from '../../configuration';
+import { Table } from 'reactstrap';
 
 interface TechnicalSeminar {
     approved: boolean
@@ -49,35 +50,31 @@ const SeminarAttendance: React.FC = () => {
     }, []);
 
     return (
-        <div>
-            <table className="table table-striped box-shadow">
-                <thead className="table-header">
+        <>
+            <Table>
+                <thead>
                     <tr>
-                        {/* Table name */}
-                        <td className="table-striped header-label">Technical Seminar Attendance</td>
+                        <td>Technical Seminar Attendance</td>
                     </tr>
                     <tr>
-                        {/* Row labels */}
-                        <td className="table-striped header-label">Event</td>
-                        <td className="table-striped header-data">Date</td>
+                        <td>Event</td>
+                        <td>Date</td>
                     </tr>
                 </thead>
 
                 <tbody>
-
-                    {/* Displays title and date for each seminar in its own row */}
                     {seminars
                         // Only shows seminars that have been approved
                         .filter((seminar) => seminar.approved)
                         .map((seminar, index) => (
-                            <tr className="table-striped" key={index}>
-                                <td className="table-striped row-label">{seminar.name.toString()}</td>
-                                <td className="table-striped row-data">{seminar.timestamp.toDateString()}</td>
+                            <tr key={index}>
+                                <td>{seminar.name.toString()}</td>
+                                <td>{seminar.timestamp.toDateString()}</td>
                             </tr>
                         ))}
                 </tbody>
-            </table>
-        </div>
+            </Table>
+        </>
 
     )
 };

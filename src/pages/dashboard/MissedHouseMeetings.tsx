@@ -53,19 +53,19 @@ const MissedHouseMeetings: React.FC = () => {
         <div>
             {/* If user has not missed any house meetings, display a box saying they have no missed hms */}
             {missedHouseMeetings.length == 0 ?
-                <div id="noMissedHM">
+                <div>
                     You haven't missed any house meetings
                 </div> :
 
                 // Otherwise, create a table and display info about each missed hm in a row
-                <table className="table table-striped box-shadow">
-                    <thead className="table-header">
+                <table>
+                    <thead>
                         <tr>
-                            <td className="table-striped header-label">House Meetings Missed</td>
+                            <td>House Meetings Missed</td>
                         </tr>
                         <tr>
-                            <td className="table-striped header-label">Date</td>
-                            <td className="table-striped header-data">Reason</td>
+                            <td>Date</td>
+                            <td>Reason</td>
                         </tr>
                     </thead>
 
@@ -73,9 +73,9 @@ const MissedHouseMeetings: React.FC = () => {
                         { // Shows date and excuse for each missed house meeting
                             missedHouseMeetings
                                 .map((houseMeeting, index) => (
-                                    <tr className="table-striped" key={index}>
-                                        <td className="table-striped row-label">{houseMeeting.date.toDateString()}</td>
-                                        <td className="table-striped row-data">{houseMeeting.reason}</td>
+                                    <tr key={index}>
+                                        <td>{houseMeeting.date.toDateString()}</td>
+                                        <td>{houseMeeting.reason}</td>
                                     </tr>
                                 ))
                         }

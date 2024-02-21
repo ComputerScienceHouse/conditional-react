@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { NoSSOUserInfo, getUseOidcAccessToken, getUseOidcHook } from '../../SSODisabledDefaults';
 import UserInfo from '../../UserInfo';
 import { SSOEnabled } from '../../configuration';
+import { Table } from 'reactstrap';
 
 interface Directorship {
     approved: boolean
@@ -51,33 +52,29 @@ const DirectorshipMeetingAttendance: React.FC = () => {
 
     return (
         <div>
-            {/* Creates a table to display the data */}
-            <table className="table table-striped box-shadow">
-                <thead className="table-header">
+            <Table>
+                <thead>
                     <tr>
-                        {/* Table name/label */}
-                        <td className="table-striped header-label">Directorship Meeting Attendance</td>
+                        <td>Directorship Meeting Attendance</td>
                     </tr>
                     <tr>
-                        {/* Row labels */}
-                        <td className="table-striped header-label">Event</td>
-                        <td className="table-striped header-data">Date</td>
+                        <td>Event</td>
+                        <td>Date</td>
                     </tr>
                 </thead>
 
                 <tbody>
-                    {/* Displays meeting type and date in its own row*/}
                     {directorships
                         // Only shows approved attendances
                         .filter((directorship) => directorship.approved)
                         .map((directorship, index) => (
-                            <tr className="table-striped" key={index}>
-                                <td className="table-striped row-label">{directorship.committee}</td>
-                                <td className="table-striped row-data">{directorship.timestamp.toDateString()}</td>
+                            <tr key={index}>
+                                <td>{directorship.committee}</td>
+                                <td>{directorship.timestamp.toDateString()}</td>
                             </tr>
                         ))}
                 </tbody>
-            </table>
+            </Table>
         </div>
 
     )

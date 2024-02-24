@@ -110,15 +110,13 @@
     border-radius: 4px;
     margin-right: 1em;
     padding: 2px 5px;
-    /* height: 23.5px; */
 }
 
 .off-floor
 {
-    background-color: var(--gray);
+    background-color: lightgray;
     color: var(--white);
     border-radius: 4px;
     margin-right: 1em;
     padding: 2px 5px;
-    /* height: 23.5px; */
 }

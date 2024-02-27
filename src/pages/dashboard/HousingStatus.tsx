@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { getUseOidcHook, getUseOidcAccessToken, NoSSOUserInfo } from "../../SSODisabledDefaults";
 import UserInfo from "../../UserInfo";
 import { SSOEnabled } from "../../configuration";
+import { Table } from "reactstrap";
 
 const HousingStatus: React.FunctionComponent = () => {
     const { login, logout, isAuthenticated } = getUseOidcHook()()
@@ -33,27 +34,29 @@ const HousingStatus: React.FunctionComponent = () => {
     // }, []);
 
     return (
-        <div className="table">
-            <table className="table table-striped box-shadow">
-                <thead className="table-header">
-                    <th className="table-striped header-label">Housing Status</th>
+        <>
+            <Table className='info-table box-shadow'>
+                <thead>
+                    <tr>
+                        <th colSpan={2} className='table-header'>Housing Status</th>
+                    </tr>
                 </thead>
 
                 <tbody>
                     {/* Number of housing points */}
-                    <tr className="table-striped table-row row-index-even">
-                        <td className="table-striped row-label">Housing Points</td>
-                        <td className="table-striped row-data">Route Not Implemented</td>
+                    <tr>
+                        <td>Housing Points</td>
+                        <td className='right-align'>Route Not Implemented</td>
                     </tr>
 
                     {/* Room number (if the user lives on floor) */}
-                    <tr className="table-striped table-row row-index-odd">
-                        <td className="table-striped row-label">Room Number</td>
-                        <td className="table-striped row-data">Route Not Implemented</td>
+                    <tr>
+                        <td>Room Number</td>
+                        <td className='right-align'>Route Not Implemented</td>
                     </tr>
                 </tbody>
-            </table>
-        </div>
+            </Table>
+        </>
     )
 }
 

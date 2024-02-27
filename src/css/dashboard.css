@@ -162,5 +162,70 @@
 
 .navbar-brand
 {
-    min-height: 40px;
+    background-color: var(--primary);
+    color: var(--white);
+    border-radius: 4px;
+    margin-right: 1em;
+    padding: 2px 5px;
+}
+
+.non-voting
+{
+    background-color: lightgray;
+    color: var(--white);
+    border-radius: 4px;
+    margin-right: 1em;
+    padding: 2px 5px;
+}
+
+.on-floor
+{
+    background-color: var(--primary);
+    color: var(--white);
+    border-radius: 4px;
+    margin-right: 1em;
+    padding: 2px 5px;
+}
+
+.off-floor
+{
+    background-color: lightgray;
+    color: var(--white);
+    border-radius: 4px;
+    margin-right: 1em;
+    padding: 2px 5px;
+}
+
+.info-table
+{
+    background-color: var(--white);
+}
+
+thead>tr,
+thead>th
+{
+    background-color: #f5f5f5;
+}
+
+tbody>tr:nth-of-type(even)
+{
+    background-color: #f5f5f5;
+}
+
+.box-shadow
+{
+    box-shadow: 1px 2px 2px 1px rgba(0, 0, 0, 0.15);
+}
+
+.box-green
+{
+    background-color: #4caf50;
+    color: white;
+    padding: 1rem;
+    box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.15);
+}
+
+.right-align
+{
+    text-align: right;
 }

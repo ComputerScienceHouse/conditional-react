@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { getUseOidcHook, getUseOidcAccessToken, NoSSOUserInfo } from "../../SSODisabledDefaults";
 import UserInfo from "../../UserInfo";
 import { SSOEnabled } from "../../configuration";
+import { Table } from "reactstrap";
 
 const MembershipEvals: React.FunctionComponent = () => {
     const { login, logout, isAuthenticated } = getUseOidcHook()()
@@ -35,36 +36,36 @@ const MembershipEvals: React.FunctionComponent = () => {
     }, []);
 
     return (
-        <div className="table">
-            <table className="table table-striped box-shadow">
-                <thead className="table-header">
-                    <tr className="heading">
-                        <th className="table-striped header-label">Membership Evals</th>
-                        <th className="table-striped header-data">Route Not Implemented</th>
+        <>
+            <Table className='info-table box-shadow'>
+                <thead>
+                    <tr className='table-header'>
+                        <th>Membership Evals</th>
+                        <th className='right-align'>Route Not Implemented</th>
                     </tr>
                 </thead>
 
                 <tbody>
                     {/* Number of directorships attended */}
-                    <tr className="table-striped table-row row-index-even">
-                        <td className="table-striped row-label">Directorship Meetings</td>
-                        <td className="table-striped row-data">{directorshipAttendance.length} / 30</td>
+                    <tr>
+                        <td>Directorship Meetings</td>
+                        <td className='right-align'>{directorshipAttendance.length} / 30</td>
                     </tr>
 
                     {/* Number of missed house meetings (excluding excused absences) */}
-                    <tr className="table-striped table-row row-index-odd">
-                        <td className="table-striped row-label">House Meetings Missed</td>
-                        <td className="table-striped row-data">{missedHouseMeetings.length}</td>
+                    <tr>
+                        <td>House Meetings Missed</td>
+                        <td className='right-align'>{missedHouseMeetings.length}</td>
                     </tr>
 
                     {/* Number of major projects passed */}
-                    <tr className="table-striped table-row row-index-even">
-                        <td className="table-striped row-label">Major Project</td>
-                        <td className="table-striped row-data">Route Not Implemented</td>
+                    <tr>
+                        <td>Major Project</td>
+                        <td className='right-align'>Route Not Implemented</td>
                     </tr>
                 </tbody>
-            </table>
-        </div >
+            </Table>
+        </ >
     )
 }
 

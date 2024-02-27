@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { NoSSOUserInfo, getUseOidcAccessToken, getUseOidcHook } from '../../SSODisabledDefaults';
 import UserInfo from '../../UserInfo';
 import { SSOEnabled } from '../../configuration';
+import { Table } from 'reactstrap';
 
 interface MissedHM {
     date: Date
@@ -21,7 +22,7 @@ const MissedHouseMeetings: React.FC = () => {
     useEffect(() => {
 
         // API url
-        const apiUrl = `http://localhost:8080/api/attendance/house/${userInfo.preferred_username}`;
+        const apiUrl = 'http://localhost:8080/api/attendance/house';
 
         fetch(apiUrl)
             .then((response) => {
@@ -50,22 +51,25 @@ const MissedHouseMeetings: React.FC = () => {
     }, []);
 
     return (
-        <div>
+        <>
             {/* If user has not missed any house meetings, display a box saying they have no missed hms */}
             {missedHouseMeetings.length == 0 ?
-                <div id="noMissedHM">
+                <div className='box-green'>
+                    <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="16" height="16" viewBox="0 0 48 48">
+                        <path fill="#c8e6c9" d="M44,24c0,11.045-8.955,20-20,20S4,35.045,4,24S12.955,4,24,4S44,12.955,44,24z"></path><path fill="#4caf50" d="M34.586,14.586l-13.57,13.586l-5.602-5.586l-2.828,2.828l8.434,8.414l16.395-16.414L34.586,14.586z"></path>
+                    </svg> &nbsp;
                     You haven't missed any house meetings
                 </div> :
 
                 // Otherwise, create a table and display info about each missed hm in a row
-                <table className="table table-striped box-shadow">
-                    <thead className="table-header">
-                        <tr>
-                            <td className="table-striped header-label">House Meetings Missed</td>
+                <Table className='info-table box-shadow'>
+                    <thead>
+                        <tr className='table-header'>
+                            <td colSpan={2}>House Meetings Missed</td>
                         </tr>
                         <tr>
-                            <td className="table-striped header-label">Date</td>
-                            <td className="table-striped header-data">Reason</td>
+                            <th>Date</th>
+                            <th className='right-align'>Reason</th>
                         </tr>
                     </thead>
 
@@ -73,16 +77,16 @@ const MissedHouseMeetings: React.FC = () => {
                         { // Shows date and excuse for each missed house meeting
                             missedHouseMeetings
                                 .map((houseMeeting, index) => (
-                                    <tr className="table-striped" key={index}>
-                                        <td className="table-striped row-label">{houseMeeting.date.toDateString()}</td>
-                                        <td className="table-striped row-data">{houseMeeting.reason}</td>
+                                    <tr key={index}>
+                                        <td>{houseMeeting.date.toDateString()}</td>
+                                        <td className='right-align'>{houseMeeting.reason}</td>
                                     </tr>
                                 ))
                         }
                     </tbody>
-                </table>
+                </Table>
             }
-        </div>
+        </>
 
     )
 };

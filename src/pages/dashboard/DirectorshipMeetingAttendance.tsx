@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { NoSSOUserInfo, getUseOidcAccessToken, getUseOidcHook } from '../../SSODisabledDefaults';
 import UserInfo from '../../UserInfo';
 import { SSOEnabled } from '../../configuration';
+import { CardHeader, ModalHeader, Row, Table, ToastHeader } from 'reactstrap';
 
 interface Directorship {
     approved: boolean
@@ -50,18 +51,15 @@ const DirectorshipMeetingAttendance: React.FC = () => {
     }, []);
 
     return (
-        <div>
-            {/* Creates a table to display the data */}
-            <table className="table table-striped box-shadow">
-                <thead className="table-header">
-                    <tr>
-                        {/* Table name/label */}
-                        <td className="table-striped header-label">Directorship Meeting Attendance</td>
+        <>
+            <Table className='info-table box-shadow'>
+                <thead>
+                    <tr className='table-header'>
+                        <td colSpan={2}>Directorship Meeting Attendance</td>
                     </tr>
                     <tr>
-                        {/* Row labels */}
-                        <td className="table-striped header-label">Event</td>
-                        <td className="table-striped header-data">Date</td>
+                        <th>Event</th>
+                        <th className='right-align'>Date</th>
                     </tr>
                 </thead>
 
@@ -71,15 +69,14 @@ const DirectorshipMeetingAttendance: React.FC = () => {
                         // Only shows approved attendances
                         .filter((directorship) => directorship.approved)
                         .map((directorship, index) => (
-                            <tr className="table-striped" key={index}>
-                                <td className="table-striped row-label">{directorship.committee}</td>
-                                <td className="table-striped row-data">{directorship.timestamp.toDateString()}</td>
+                            <tr key={index}>
+                                <td>{directorship.committee}</td>
+                                <td className='right-align'>{directorship.timestamp.toDateString()}</td>
                             </tr>
                         ))}
                 </tbody>
-            </table>
-        </div>
-
+            </Table>
+        </>
     )
 };
 

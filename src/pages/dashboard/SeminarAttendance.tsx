@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { NoSSOUserInfo, getUseOidcAccessToken, getUseOidcHook } from '../../SSODisabledDefaults';
 import UserInfo from '../../UserInfo';
 import { SSOEnabled } from '../../configuration';
+import { Table } from 'reactstrap';
 
 interface TechnicalSeminar {
     approved: boolean
@@ -19,7 +20,7 @@ const SeminarAttendance: React.FC = () => {
 
     useEffect(() => {
         // API url for a user's seminar attendance
-        const apiUrl = `http://localhost:8080/api/attendance/seminar/${userInfo.preferred_username}`;
+        const apiUrl = 'http://localhost:8080/api/attendance/meeting/seminars/self';
 
         fetch(apiUrl)
             .then((response) => {
@@ -49,35 +50,32 @@ const SeminarAttendance: React.FC = () => {
     }, []);
 
     return (
-        <div>
-            <table className="table table-striped box-shadow">
-                <thead className="table-header">
-                    <tr>
-                        {/* Table name */}
-                        <td className="table-striped header-label">Technical Seminar Attendance</td>
+        <>
+            <Table className='info-table box-shadow'>
+                <thead>
+                    <tr className='table-header'>
+                        <td colSpan={2}>Technical Seminar Attendance</td>
                     </tr>
                     <tr>
-                        {/* Row labels */}
-                        <td className="table-striped header-label">Event</td>
-                        <td className="table-striped header-data">Date</td>
+                        <th>Event</th>
+                        <th className='right-align'>Date</th>
                     </tr>
                 </thead>
 
                 <tbody>
 
-                    {/* Displays title and date for each seminar in its own row */}
                     {seminars
                         // Only shows seminars that have been approved
                         .filter((seminar) => seminar.approved)
                         .map((seminar, index) => (
-                            <tr className="table-striped" key={index}>
-                                <td className="table-striped row-label">{seminar.name.toString()}</td>
-                                <td className="table-striped row-data">{seminar.timestamp.toDateString()}</td>
+                            <tr key={index}>
+                                <td>{seminar.name.toString()}</td>
+                                <td className='right-align'>{seminar.timestamp.toDateString()}</td>
                             </tr>
                         ))}
                 </tbody>
-            </table>
-        </div>
+            </Table>
+        </>
 
     )
 };

@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { getUseOidcHook, getUseOidcAccessToken, NoSSOUserInfo } from "../../SSODisabledDefaults";
 import UserInfo from "../../UserInfo";
 import { SSOEnabled } from "../../configuration";
+import { Table } from "reactstrap";
 
 const MemberStatistics: React.FunctionComponent = () => {
     const { login, logout, isAuthenticated } = getUseOidcHook()()
@@ -40,34 +41,34 @@ const MemberStatistics: React.FunctionComponent = () => {
 
 
     return (
-        <div className="table">
-            <table className="table table-striped box-shadow">
+        <>
+            <Table className='info-table box-shadow'>
                 <thead>
-                    <tr className="table-striped table-header">
-                        <td className="table-striped header-label">Member Statistics</td>
+                    <tr className='table-header'>
+                        <td colSpan={2}>Member Statistics</td>
                     </tr>
-
-                    <tr className="table-striped table-row row-index-even">
-                        <td className="table-striped row-label">Category</td>
-                        <td className="table-striped row-data">Members</td>
+                    <tr>
+                        <th>Category</th>
+                        <th className='right-align'>Members</th>
                     </tr>
                 </thead>
 
                 <tbody>
+
                     {/* Shows number of voting members */}
-                    <tr className="table-striped table-row row-index-odd">
-                        <td className="table-striped row-label">Voting Members</td>
-                        <td className="table-striped row-data">{votingCount}</td>
+                    <tr>
+                        <td>Voting Members</td>
+                        <td className='right-align'>{votingCount}</td>
                     </tr>
 
                     {/* Shows number of active members */}
-                    <tr className="table-striped table-row row-index-even">
-                        <td className="table-striped row-label">Active Members</td>
-                        <td className="table-striped row-data">{activeCount}</td>
+                    <tr>
+                        <td>Active Members</td>
+                        <td className='right-align'>{activeCount}</td>
                     </tr>
                 </tbody>
-            </table>
-        </div>
+            </Table>
+        </>
     )
 }
 

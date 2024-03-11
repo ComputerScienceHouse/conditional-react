@@ -42,15 +42,15 @@ const MemberStatistics: React.FunctionComponent = () => {
 
     return (
         <div>
-            <Table>
+            <Table className="info-table box-shadow">
                 <thead>
-                    <tr>
-                        <td>Member Statistics</td>
+                    <tr className="table-header">
+                        <td colSpan={2}>Member Statistics</td>
                     </tr>
 
                     <tr>
                         <td>Category</td>
-                        <td>Members</td>
+                        <td className="right-align">Members</td>
                     </tr>
                 </thead>
 
@@ -58,13 +58,13 @@ const MemberStatistics: React.FunctionComponent = () => {
                     {/* Shows number of voting members */}
                     <tr>
                         <td>Voting Members</td>
-                        <td>{votingCount}</td>
+                        <td className="right-align">{votingCount}</td>
                     </tr>
 
                     {/* Shows number of active members */}
                     <tr>
                         <td>Active Members</td>
-                        <td>{activeCount}</td>
+                        <td className="right-align">{activeCount}</td>
                     </tr>
                 </tbody>
             </Table>

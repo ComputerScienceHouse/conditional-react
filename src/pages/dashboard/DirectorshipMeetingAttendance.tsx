@@ -52,14 +52,14 @@ const DirectorshipMeetingAttendance: React.FC = () => {
 
     return (
         <div>
-            <Table>
+            <Table className='info-table box-shadow'>
                 <thead>
-                    <tr>
-                        <td>Directorship Meeting Attendance</td>
+                    <tr className='table-header'>
+                        <td colSpan={2}>Directorship Meeting Attendance</td>
                     </tr>
                     <tr>
                         <td>Event</td>
-                        <td>Date</td>
+                        <td className='right-align'>Date</td>
                     </tr>
                 </thead>
 
@@ -70,7 +70,7 @@ const DirectorshipMeetingAttendance: React.FC = () => {
                         .map((directorship, index) => (
                             <tr key={index}>
                                 <td>{directorship.committee}</td>
-                                <td>{directorship.timestamp.toDateString()}</td>
+                                <td className='right-align'>{directorship.timestamp.toDateString()}</td>
                             </tr>
                         ))}
                 </tbody>

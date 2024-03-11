@@ -35,22 +35,22 @@ const HousingStatus: React.FunctionComponent = () => {
 
     return (
         <div>
-            <Table>
+            <Table className="info-table box-shadow">
                 <thead>
-                    <th>Housing Status</th>
+                    <th colSpan={2}>Housing Status</th>
                 </thead>
 
                 <tbody>
                     {/* Number of housing points */}
                     <tr>
                         <td>Housing Points</td>
-                        <td>Route Not Implemented</td>
+                        <td className="right-align">Route Not Implemented</td>
                     </tr>
 
                     {/* Room number (if the user lives on floor) */}
                     <tr>
                         <td>Room Number</td>
-                        <td>Route Not Implemented</td>
+                        <td className="right-align">Route Not Implemented</td>
                     </tr>
                 </tbody>
             </Table>

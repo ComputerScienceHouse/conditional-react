@@ -51,14 +51,14 @@ const SeminarAttendance: React.FC = () => {
 
     return (
         <>
-            <Table>
+            <Table className='info-table box-shadow'>
                 <thead>
-                    <tr>
-                        <td>Technical Seminar Attendance</td>
+                    <tr className='table-header'>
+                        <td colSpan={2}>Technical Seminar Attendance</td>
                     </tr>
                     <tr>
                         <td>Event</td>
-                        <td>Date</td>
+                        <td className='right-align'>Date</td>
                     </tr>
                 </thead>
 
@@ -69,7 +69,7 @@ const SeminarAttendance: React.FC = () => {
                         .map((seminar, index) => (
                             <tr key={index}>
                                 <td>{seminar.name.toString()}</td>
-                                <td>{seminar.timestamp.toDateString()}</td>
+                                <td className='right-align'>{seminar.timestamp.toDateString()}</td>
                             </tr>
                         ))}
                 </tbody>

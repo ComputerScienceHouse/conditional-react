@@ -1,0 +1,186 @@
+.reveal .slides
+{
+    top: 0;
+    margin-top: 0;
+    height: 100%;
+}
+
+.reveal .slides>section
+{
+    min-height: 90%;
+}
+
+.reveal .slides>section>section
+{
+    min-height: 100%;
+}
+
+.reveal button
+{
+    display: inline-block;
+    transition: .3s all;
+    margin: 0 auto;
+    outline: none;
+    border: 5px solid #c62020;
+    border-radius: 40px;
+    box-shadow: none;
+    background: transparent;
+    padding: 5px 20px;
+    min-width: 200px;
+    text-transform: uppercase;
+    color: #c62020;
+    font-size: 30px;
+}
+
+.reveal button.conditional
+{
+    border-color: #f1c40f;
+    color: #f1c40f;
+}
+
+.reveal button.conditional:hover
+{
+    border-color: #d4ac08;
+    background: rgba(241, 196, 15, .1);
+    color: #d4ac08;
+}
+
+.reveal button.conditional.disabled
+{
+    opacity: .5;
+    cursor: not-allowed;
+}
+
+.reveal button.conditional.disabled:hover
+{
+    border-color: #f1c40f;
+    background: transparent;
+    color: #f1c40f;
+}
+
+.reveal button.pass
+{
+    border-color: #60a415;
+    color: #60a415;
+}
+
+.reveal button.pass:hover
+{
+    border-color: #4b800f;
+    background: rgba(96, 164, 21, .1);
+    color: #4b800f;
+}
+
+.reveal button.pass.disabled
+{
+    opacity: .5;
+    cursor: not-allowed;
+}
+
+.reveal button.pass.disabled:hover
+{
+    border-color: #60a415;
+    background: transparent;
+    color: #60a415;
+}
+
+.reveal button.disabled
+{
+    opacity: .5;
+    cursor: not-allowed;
+}
+
+.reveal button.disabled:hover
+{
+    border-color: #c62020;
+    background: transparent;
+    color: #c62020;
+}
+
+.reveal h1
+{
+    margin-top: 0;
+    margin-bottom: 60px;
+    text-transform: none;
+    color: #555;
+}
+
+.reveal h3
+{
+    padding: 0;
+    line-height: 1;
+    color: #555;
+}
+
+.reveal h4
+{
+    margin-bottom: 40px;
+    text-transform: none;
+    font-weight: lighter;
+}
+
+.reveal h4 .icon
+{
+    position: relative;
+    top: auto;
+    left: auto;
+    width: 40px;
+    height: 40px;
+    line-height: 40px;
+    font-size: 20px;
+}
+
+.reveal .item
+{
+    position: relative;
+    margin: 0 auto;
+    border: 6px solid #c62020;
+    border-radius: 20px;
+    padding: 60px 0 0;
+    width: 92%;
+    height: 100%;
+    color: #555;
+}
+
+.reveal .item.passed
+{
+    border-color: #60a415;
+}
+
+.reveal .item h3
+{
+    font-size: 3em;
+    font-weight: bolder;
+}
+
+.reveal .item p
+{
+    font-weight: lighter;
+}
+
+.reveal .icon
+{
+    position: absolute;
+    top: -40px;
+    left: calc(50% - 40px);
+    border-radius: 50%;
+    background: #c62020;
+    width: 80px;
+    height: 80px;
+    line-height: 80px;
+    color: #fff;
+    font-family: 'Glyphicons Halflings';
+    font-size: 40px;
+}
+
+.reveal .icon.passed
+{
+    background: #60a415;
+}
+
+.reveal .more
+{
+    padding: 10px;
+    text-align: left;
+    font-size: .6em;
+}

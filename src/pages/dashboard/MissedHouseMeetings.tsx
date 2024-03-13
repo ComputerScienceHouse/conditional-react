@@ -22,7 +22,7 @@ const MissedHouseMeetings: React.FC = () => {
     useEffect(() => {
 
         // API url
-        const apiUrl = `http://localhost:8080/api/attendance/house/${userInfo.preferred_username}`;
+        const apiUrl = 'http://localhost:8080/api/attendance/house';
 
         fetch(apiUrl)
             .then((response) => {
@@ -51,7 +51,7 @@ const MissedHouseMeetings: React.FC = () => {
     }, []);
 
     return (
-        <div>
+        <>
             {/* If user has not missed any house meetings, display a box saying they have no missed hms */}
             {missedHouseMeetings.length == 0 ?
                 <div className='box-green'>
@@ -86,7 +86,7 @@ const MissedHouseMeetings: React.FC = () => {
                     </tbody>
                 </Table>
             }
-        </div>
+        </>
 
     )
 };

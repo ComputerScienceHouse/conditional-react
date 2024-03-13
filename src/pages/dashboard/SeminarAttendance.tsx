@@ -20,7 +20,7 @@ const SeminarAttendance: React.FC = () => {
 
     useEffect(() => {
         // API url for a user's seminar attendance
-        const apiUrl = `http://localhost:8080/api/attendance/seminar/${userInfo.preferred_username}`;
+        const apiUrl = 'http://localhost:8080/api/attendance/meeting/seminars/self';
 
         fetch(apiUrl)
             .then((response) => {

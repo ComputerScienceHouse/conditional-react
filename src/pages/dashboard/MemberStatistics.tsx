@@ -55,6 +55,7 @@ const MemberStatistics: React.FunctionComponent = () => {
                 </thead>
 
                 <tbody>
+
                     {/* Shows number of voting members */}
                     <tr>
                         <td>Voting Members</td>

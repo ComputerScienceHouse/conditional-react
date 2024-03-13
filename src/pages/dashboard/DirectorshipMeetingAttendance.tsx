@@ -76,7 +76,6 @@ const DirectorshipMeetingAttendance: React.FC = () => {
                 </tbody>
             </Table>
         </div>
-
     )
 };
 

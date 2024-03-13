@@ -67,7 +67,7 @@
     font-weight: 500;
 }
 
-.active
+.active-member
 {
     background-color: #4caf50;
     color: #ffffff;
@@ -76,7 +76,7 @@
     padding: 2px 5px;
 }
 
-.alumni
+.alumni-member
 {
     background-color: var(--gray);
     color: var(--white);
@@ -85,7 +85,7 @@
     padding: 2px 5px;
 }
 
-.voting
+.voting-member
 {
     background-color: var(--primary);
     color: var(--white);
@@ -94,7 +94,7 @@
     padding: 2px 5px;
 }
 
-.non-voting
+.non-voting-member
 {
     background-color: lightgray;
     color: var(--white);
@@ -103,7 +103,7 @@
     padding: 2px 5px;
 }
 
-.on-floor
+.on-floor-status
 {
     background-color: var(--primary);
     color: var(--white);
@@ -112,7 +112,7 @@
     padding: 2px 5px;
 }
 
-.off-floor
+.off-floor-status
 {
     background-color: lightgray;
     color: var(--white);

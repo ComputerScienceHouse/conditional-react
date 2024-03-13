@@ -33,13 +33,13 @@ const UserProfile: React.FunctionComponent = () => {
                 <CardText className="text-item">{userInfo.email}</CardText>
 
                 <Container className="inline-cards">
-                    <CardText className={isActive() === "Active" ? "active" : "alumni"}>
+                    <CardText className={isActive() === "Active" ? "active-member" : "alumni-member"}>
                         {isActive()}
                     </CardText>
-                    <CardText className={isVoting() === "Voting" ? "voting" : "non-voting"}>
+                    <CardText className={isVoting() === "Voting" ? "voting-member" : "non-voting-member"}>
                         {isVoting()}
                     </CardText>
-                    <CardText className={isOnFloor() === "On Floor Status" ? "on-floor" : "off-floor"}>
+                    <CardText className={isOnFloor() === "On Floor Status" ? "on-floor-status" : "off-floor-status"}>
                         {isOnFloor()}
                     </CardText>
                     <CardText className="unused empty"></CardText>

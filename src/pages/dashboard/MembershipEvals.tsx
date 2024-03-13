@@ -36,12 +36,12 @@ const MembershipEvals: React.FunctionComponent = () => {
     }, []);
 
     return (
-        <>
-            <Table className='info-table box-shadow'>
+        <div>
+            <Table className="info-table box-shadow">
                 <thead>
-                    <tr className='table-header'>
+                    <tr className="table-header">
                         <th>Membership Evals</th>
-                        <th className='right-align'>Route Not Implemented</th>
+                        <th className="right-align">Route Not Implemented</th>
                     </tr>
                 </thead>
 
@@ -49,23 +49,23 @@ const MembershipEvals: React.FunctionComponent = () => {
                     {/* Number of directorships attended */}
                     <tr>
                         <td>Directorship Meetings</td>
-                        <td className='right-align'>{directorshipAttendance.length} / 30</td>
+                        <td className="right-align">{directorshipAttendance.length} / 30</td>
                     </tr>
 
                     {/* Number of missed house meetings (excluding excused absences) */}
                     <tr>
                         <td>House Meetings Missed</td>
-                        <td className='right-align'>{missedHouseMeetings.length}</td>
+                        <td className="right-align">{missedHouseMeetings.length}</td>
                     </tr>
 
                     {/* Number of major projects passed */}
                     <tr>
                         <td>Major Project</td>
-                        <td className='right-align'>Route Not Implemented</td>
+                        <td className="right-align">Route Not Implemented</td>
                     </tr>
                 </tbody>
             </Table>
-        </ >
+        </div >
     )
 }
 

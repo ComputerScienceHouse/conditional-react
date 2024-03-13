@@ -1,0 +1,25 @@
+.btn-flat
+{
+    position: relative;
+    margin: 0 5px;
+    outline: 0 !important;
+    border: 0;
+    box-shadow: none !important;
+    background-color: transparent;
+    padding: 8px 25px;
+    text-transform: uppercase;
+    text-decoration: none;
+}
+
+.btn-flat:hover
+{
+    background-color: rgba(153, 153, 153, .2);
+}
+
+.btn-flat:active
+{
+    box-shadow: 2px 2px 4px rgba(0, 0, 0, .4);
+    background: radial-gradient(circle, #7a1158 10%, #b0197e 11%) rgba(153, 153, 153, .2);
+    background-size: 1000% 1000%;
+    color: #fff;
+}

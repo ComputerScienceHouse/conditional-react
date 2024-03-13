@@ -68,8 +68,8 @@ const MissedHouseMeetings: React.FC = () => {
                             <td colSpan={2}>House Meetings Missed</td>
                         </tr>
                         <tr>
-                            <th>Date</th>
-                            <th className='right-align'>Reason</th>
+                            <td>Date</td>
+                            <td className='right-align'>Reason</td>
                         </tr>
                     </thead>
 

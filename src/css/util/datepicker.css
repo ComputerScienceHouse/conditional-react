@@ -1,0 +1,35 @@
+.dtp div.dtp-date,
+.dtp div.dtp-time
+{
+    background: #007bff;
+    /* Assuming $primary-color is #007bff */
+}
+
+.dtp div.dtp-actual-year
+{
+    color: #b3c7ff;
+    /* Assuming $primary-color is #007bff */
+}
+
+.dtp .p10>a
+{
+    color: #b3c7ff;
+    /* Assuming $primary-color is #007bff */
+}
+
+.dtp table.dtp-picker-days tr td a.selected
+{
+    background: #007bff;
+    /* Assuming $primary-color is #007bff */
+}
+
+.dtp .dtp-content .dtp-date-view header.dtp-header
+{
+    background: #0069d9;
+    /* Darken $primary-color by 5% (assuming $primary-color is #007bff) */
+}
+
+.dtp .dtp-buttons
+{
+    background: #fff;
+}

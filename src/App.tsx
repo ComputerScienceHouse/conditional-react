@@ -21,6 +21,12 @@ import UserLogs from './pages/Admin/UserLogs'
 import ClearCache from './pages/Admin/ClearCache'
 import SpringEvals from './pages/Evals/SpringEvals'
 
+import './css/util/datatable.css'
+import './css/util/datepicker.css'
+import './css/util/dropzone.css'
+import './css/util/flat-button.css'
+import './css/util/reveal.css'
+
 type Props = {
   rerouteHomeOn404?: boolean
 }

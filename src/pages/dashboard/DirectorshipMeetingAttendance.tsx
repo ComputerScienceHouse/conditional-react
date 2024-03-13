@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { NoSSOUserInfo, getUseOidcAccessToken, getUseOidcHook } from '../../SSODisabledDefaults';
 import UserInfo from '../../UserInfo';
 import { SSOEnabled } from '../../configuration';
-import { CardHeader, ModalHeader, Row, Table, ToastHeader } from 'reactstrap';
+import { Table } from 'reactstrap';
 
 interface Directorship {
     approved: boolean
@@ -51,20 +51,19 @@ const DirectorshipMeetingAttendance: React.FC = () => {
     }, []);
 
     return (
-        <>
+        <div>
             <Table className='info-table box-shadow'>
                 <thead>
                     <tr className='table-header'>
                         <td colSpan={2}>Directorship Meeting Attendance</td>
                     </tr>
                     <tr>
-                        <th>Event</th>
-                        <th className='right-align'>Date</th>
+                        <td>Event</td>
+                        <td className='right-align'>Date</td>
                     </tr>
                 </thead>
 
                 <tbody>
-                    {/* Displays meeting type and date in its own row*/}
                     {directorships
                         // Only shows approved attendances
                         .filter((directorship) => directorship.approved)
@@ -76,7 +75,7 @@ const DirectorshipMeetingAttendance: React.FC = () => {
                         ))}
                 </tbody>
             </Table>
-        </>
+        </div>
     )
 };
 

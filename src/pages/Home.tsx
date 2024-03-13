@@ -14,6 +14,7 @@ import MissedHouseMeetings from './dashboard/MissedHouseMeetings'
 import SeminarAttendance from './dashboard/SeminarAttendance'
 import '../css/dashboard.css'
 
+
 const Home = () => {
     // important hooks
     // const { accessTokenPayload } = useOidcAccessToken()   // this contains the user info in raw json format

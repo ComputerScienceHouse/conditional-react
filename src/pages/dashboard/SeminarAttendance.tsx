@@ -57,13 +57,12 @@ const SeminarAttendance: React.FC = () => {
                         <td colSpan={2}>Technical Seminar Attendance</td>
                     </tr>
                     <tr>
-                        <th>Event</th>
-                        <th className='right-align'>Date</th>
+                        <td>Event</td>
+                        <td className='right-align'>Date</td>
                     </tr>
                 </thead>
 
                 <tbody>
-
                     {seminars
                         // Only shows seminars that have been approved
                         .filter((seminar) => seminar.approved)

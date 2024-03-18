@@ -1,4 +1,26 @@
-.major-project-desc
+.page-title
 {
-  white-space: pre-line;
+  margin-bottom: 1em;
+}
+
+.input-label
+{
+  font-size: 12pt;
+  font-weight: 400;
+  margin-left: 1em;
+  margin-top: 3px;
+}
+
+.form-card
+{
+  margin: 1em;
+  width: 100%;
+  padding: 1em;
+  margin-bottom: 1em;
+}
+
+.btn-submit
+{
+  width: 100%;
+  margin-left: 10px;
 }

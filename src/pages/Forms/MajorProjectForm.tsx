@@ -1,5 +1,5 @@
 import React from 'react';
-import { Container, Form, FormGroup, Label, Input, Button, Col, Alert } from 'reactstrap';
+import { Container, Form, FormGroup, Label, Input, Button, Col, Alert, Card } from 'reactstrap';
 import '../../css/major-project-form.css'
 
 const MajorProjectForm: React.FC = () => {
@@ -14,48 +14,46 @@ const MajorProjectForm: React.FC = () => {
     const is_eval_director = true;
 
     return (
-        <Container className="main">
+        <Container>
             <h3 className="page-title">Major Project Form</h3>
             {is_open ? (
                 <Form data-module="majorProjectForm">
                     <FormGroup>
-                        <div className="panel panel-default">
-                            <div className="panel-body">
-                                <FormGroup row className="label-floating is-empty">
-                                    <Label for="name" className="control-label">
+                        <div>
+                            <Card className="form-card">
+                                <FormGroup>
+                                    <Label for="name" className='input-label'>
                                         Project Name
                                     </Label>
                                     <Col>
                                         <Input
                                             type="text"
-                                            name="name"
                                             id="name"
                                             maxLength={64}
                                             placeholder="A clever name for your project, sometimes people will come up with an acronym."
                                         />
                                     </Col>
                                 </FormGroup>
-                            </div>
+                            </Card>
                         </div>
-                        <div className="panel panel-default">
-                            <div className="panel-body" style={{ paddingTop: '20px' }}>
-                                <FormGroup row className="label-floating is-empty">
-                                    <Label for="description" className="control-label">
+                        <div>
+                            <Card className="form-card">
+                                <FormGroup>
+                                    <Label for="description" className='input-label'>
                                         Description
                                     </Label>
                                     <Col>
                                         <Input
                                             type="textarea"
-                                            name="description"
                                             rows="3"
                                             id="description"
                                             placeholder="A 'two-liner' description of what your project is. If you have source materials like a GitHub repo publicly available, it's also useful to include links to them."
                                         />
                                     </Col>
                                 </FormGroup>
-                            </div>
+                            </Card>
                         </div>
-                        <Button color="primary" type="submit" className="btn-raised" style={{ width: '100%', marginBottom: '20px' }}>
+                        <Button color="primary" type="submit" className="btn-raised btn-submit">
                             Submit Major Project
                         </Button>
                     </FormGroup>

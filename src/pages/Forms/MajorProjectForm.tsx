@@ -63,13 +63,11 @@ const MajorProjectForm: React.FC = () => {
                     <span className="glyphicon glyphicon-remove-sign"></span> The submission period for this form has ended.
                 </Alert>
             )}
-            <h3 className="page-title">All Major Projects</h3>
+            <h3 className='section-header'>All Major Projects</h3>
             {major_projects_len <= 0 ? (
-                <div className="panel panel-default">
-                    <div className="panel-body">
-                        <p className="text-center">No Pending Major Projects</p>
-                    </div>
-                </div>
+                <Container>
+                    <p className="text-center large-text">No Pending Major Projects</p>
+                </Container>
             ) : (
                 major_projects.map((p) => (
                     <div className="panel panel-default" key={p.id}>

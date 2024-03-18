@@ -1,6 +1,15 @@
 .page-title
 {
   margin-bottom: 1em;
+  margin-left: 15px;
+  margin-top: 10px;
+}
+
+.section-header
+{
+  margin-top: 30px;
+  font-size: 18pt;
+  margin-left: 10px;
 }
 
 .input-label
@@ -23,4 +32,10 @@
 {
   width: 100%;
   margin-left: 10px;
+}
+
+.large-text
+{
+  font-size: 14pt;
+  margin-top: 50px;
 }

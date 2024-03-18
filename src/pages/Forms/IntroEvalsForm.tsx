@@ -1,44 +1,39 @@
 import React from 'react';
-import { Button, Container, Form, FormGroup, Label, Input, Col, Alert } from 'reactstrap';
+import { Button, Container, Form, FormGroup, Label, Input, Col, Alert, Card } from 'reactstrap';
+import '../../css/intro-evals-form.css';
 
 const IntroEvalsForm: React.FC = () => {
     // Assuming is_open is a boolean state/prop that determines form visibility
     const is_open = true;
 
     return (
-        <Container className="main">
-            <h3>Introductory Evaluations Form</h3>
+        <Container>
+            <h3 className='page-title'>Introductory Evaluations Form</h3>
             {is_open ? (
-                <Form data-module="introEvalsForm">
+                <Form>
                     <FormGroup>
-                        <div className="panel panel-default">
-                            <div className="panel-body">
-                                <FormGroup row className="label-floating is-empty">
-                                    <Label for="social_events" className="control-label">
-                                        Social Events
-                                    </Label>
-                                    <Col>
-                                        <Input type="textarea" name="social_events" id="social_events" />
-                                    </Col>
-                                </FormGroup>
-                            </div>
-                        </div>
-                        <div className="panel panel-default">
-                            <div className="panel-body">
-                                <FormGroup row className="label-floating is-empty">
-                                    <Label for="comments" className="control-label">
-                                        Comments
-                                    </Label>
-                                    <Col>
-                                        <Input type="textarea" name="comments" id="comments">
-                                            Other notes
-                                        </Input>
-                                    </Col>
-                                </FormGroup>
-                            </div>
-                        </div>
+                        <Card className='form-card'>
+                            <FormGroup>
+                                <Label for="social-events" className='input-label'>
+                                    Social Events
+                                </Label>
+                                <Col>
+                                    <Input type="textarea" id="social-events" />
+                                </Col>
+                            </FormGroup>
+                        </Card>
+                        <Card className='form-card'>
+                            <FormGroup>
+                                <Label for="comments" className='input-label'>
+                                    Comments
+                                </Label>
+                                <Col>
+                                    <Input type="textarea" id="comments" placeholder='Other notes' />
+                                </Col>
+                            </FormGroup>
+                        </Card>
                     </FormGroup>
-                    <Button color="primary" type="submit" className="btn-raised">
+                    <Button color="primary" type="submit" className="btn-raised btn-submit">
                         Submit Introductory Evaluation
                     </Button>
                 </Form>

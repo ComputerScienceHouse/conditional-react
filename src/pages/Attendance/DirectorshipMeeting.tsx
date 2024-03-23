@@ -1,64 +1,57 @@
-import React from 'react';
-import { Container, Form, FormGroup, Label, Input, Button, Col } from 'reactstrap';
+import React, { useState } from 'react';
+import { Container, Form, FormGroup, Label, Input, Button, Col, Card } from 'reactstrap';
+// import DatePicker from "react-datepicker";
+
+import '../../css/directorship-meeting.css'
+// import "react-datepicker/dist/react-datepicker.css";
 
 const DirectorshipMeeting: React.FC = () => {
+
     return (
-        <Container className="main">
+        <>
             <h3 className="page-title">Meeting Attendance</h3>
-            <Form data-module="attendanceForm" data-type="committee">
+            <Form>
                 {/* Meeting Type */}
-                <div className="row">
-                    <Col xs={12} sm={12} md={12}>
-                        <div className="panel panel-default">
-                            <div className="panel-body" style={{ paddingTop: '10px' }}>
-                                <FormGroup>
-                                    <Label for="committee" className="control-label">Meeting Type</Label>
-                                    <Input type="select" name="committee" className="form-control">
-                                        <option value="Chairman">Chairman</option>
-                                        <option value="Ad-Hoc">Ad-Hoc</option>
-                                        <option value="Evaluations">Evaluations</option>
-                                        <option value="Financial">Financial</option>
-                                        <option value="R&D">Research and Development</option>
-                                        <option value="House Improvements">House Improvements</option>
-                                        <option value="Opcomm">OpComm</option>
-                                        <option value="History">History</option>
-                                        <option value="Social">Social</option>
-                                        <option value="Public Relations">Public Relations</option>
-                                    </Input>
-                                </FormGroup>
-                            </div>
-                        </div>
-                    </Col>
-                </div>
+                <Col>
+                    <Card className='form-card'>
+                        <FormGroup className='form-input'>
+                            <Label for="committee" className="input-label">Meeting Type</Label>
+                            <Input type="select" className='form-control'>
+                                <option value="Chairman">Chairman</option>
+                                <option value="Ad-Hoc">Ad-Hoc</option>
+                                <option value="Evaluations">Evaluations</option>
+                                <option value="Financial">Financial</option>
+                                <option value="R&D">Research and Development</option>
+                                <option value="House Improvements">House Improvements</option>
+                                <option value="Opcomm">OpComm</option>
+                                <option value="History">History</option>
+                                <option value="Social">Social</option>
+                                <option value="Public Relations">Public Relations</option>
+                            </Input>
+                        </FormGroup>
+                    </Card>
+                </Col>
                 {/* Date */}
-                <div className="row">
-                    <Col xs={12} sm={12} md={12}>
-                        <div className="panel panel-default">
-                            <div className="panel-body" style={{ paddingTop: '10px' }}>
-                                <FormGroup className="is-empty">
-                                    <Label for="date" className="control-label">Date</Label>
-                                    <Input type="text" name="date" className="form-control" value="{date}" data-module="datepicker" />
-                                </FormGroup>
-                            </div>
-                        </div>
-                    </Col>
-                </div>
+                <Col>
+                    <Card className='form-card'>
+                        <FormGroup>
+                            <Label for="date" className="input-label">Date</Label>
+                            <Input type='date' id='date' />
+                        </FormGroup>
+                    </Card>
+                </Col>
                 {/* Attendees */}
-                <div className="row">
-                    <Col xs={12} sm={12} md={12}>
-                        <div className="panel panel-default">
-                            <div className="panel-body" style={{ paddingTop: '20px' }}>
-                                <FormGroup className="is-empty">
-                                    <Label for="attendees" className="control-label" id="attendeeLabel">Attendees</Label>
-                                    <Input type="text" name="attendees" className="form-control" data-module="memberSelect" data-src="cm_members" />
-                                </FormGroup>
-                            </div>
-                        </div>
-                    </Col>
-                </div>
-                <Button type="submit" role="button" color="primary" className="btn-raised" style={{ width: '100%' }}>Submit Form</Button>
+                <Col>
+                    <Card className='form-card'>
+                        <FormGroup className="form-input">
+                            <Label for="attendees" className="input-label">Attendees</Label>
+                            <Input type="text" name='attendees' />
+                        </FormGroup>
+                    </Card>
+                </Col>
+                <Button type="submit" color="primary" className="btn-raised btn-submit">Submit Form</Button>
             </Form>
-        </Container>
+        </>
     );
 };
 

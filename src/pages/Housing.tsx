@@ -1,5 +1,6 @@
 import React from 'react';
 import '../css/housing.css';
+import { Container, Table } from 'reactstrap';
 
 
 const Housing = () => {
@@ -19,10 +20,10 @@ const Housing = () => {
     ];
 
     return (
-        <div className="housing-container">
+        <Container className="housing-container">
             <div className="panel">
                 <h3 className="panel-title even">Housing Queue</h3>
-                <table className="table">
+                <Table className="table">
                     <tbody>
                         <tr className="odd">
                             <th>Member</th>
@@ -36,12 +37,12 @@ const Housing = () => {
                             </tr>
                         ))}
                     </tbody>
-                </table>
+                </Table>
             </div>
 
             <div className="panel">
                 <h3 className="panel-title even">Current Room Numbers</h3>
-                <table className="table">
+                <Table className="table">
                     <tbody>
                         <tr className="odd">
                             <td>Room</td>
@@ -64,9 +65,9 @@ const Housing = () => {
                         ))}
 
                     </tbody>
-                </table>
+                </Table>
             </div>
-        </div>
+        </Container>
     );
 };
 

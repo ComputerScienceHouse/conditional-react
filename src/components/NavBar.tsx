@@ -1,6 +1,4 @@
 import React, { useState } from "react";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { icon } from "@fortawesome/fontawesome-svg-core/import.macro";
 import {
   Collapse,
   Container,
@@ -48,7 +46,7 @@ const NavBar: React.FC = () => {
           <Nav navbar>
             <UncontrolledDropdown nav inNavbar>
               <DropdownToggle nav caret>
-                <FontAwesomeIcon icon={icon({ name: "chart-simple" })} />
+                {/* <FontAwesomeIcon icon={icon({ name: "chart-simple" })} /> */}
                 &nbsp;Evals
               </DropdownToggle>
               <DropdownMenu end>
@@ -60,7 +58,7 @@ const NavBar: React.FC = () => {
 
             <UncontrolledDropdown nav inNavbar>
               <DropdownToggle nav caret>
-                <FontAwesomeIcon icon={icon({ name: "table-list" })} />
+                {/* <FontAwesomeIcon icon={icon({ name: "table-list" })} /> */}
                 &nbsp;Forms
               </DropdownToggle>
               <DropdownMenu end>
@@ -72,14 +70,14 @@ const NavBar: React.FC = () => {
 
             <NavItem>
               <NavLink to="/housing" className="nav-link">
-                <FontAwesomeIcon icon={icon({ name: "house" })} />
+                {/* <FontAwesomeIcon icon={icon({ name: "house" })} /> */}
                 &nbsp;Housing
               </NavLink>
             </NavItem>
 
             <UncontrolledDropdown nav inNavbar>
               <DropdownToggle nav caret>
-                <FontAwesomeIcon icon={icon({ name: "check" })} />
+                {/* <FontAwesomeIcon icon={icon({ name: "check" })} /> */}
                 &nbsp;Attendance
               </DropdownToggle>
               <DropdownMenu end>

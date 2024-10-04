@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/img-redundant-alt */
 import React from "react";
 import UserInfo from "../../UserInfo";
 import { NoSSOUserInfo, getUseOidcAccessToken, getUseOidcHook } from "../../SSODisabledDefaults";
@@ -26,7 +27,7 @@ const UserProfile: React.FunctionComponent = () => {
 
     return (
         <Container className="flex-container">
-            <img className="pfp" src={`https://profiles.csh.rit.edu/image/${userInfo.preferred_username}`} alt="User profile picture" />
+            <img className="pfp" src={`https://profiles.csh.rit.edu/image/${userInfo.preferred_username}`} alt="Profile picture" />
             <CardBody className="center-vertical">
                 <CardText className="text-item">{userInfo.name}</CardText>
                 {/* CSH email, formatted as username@csh.rit.edu */}

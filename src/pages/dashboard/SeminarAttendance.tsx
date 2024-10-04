@@ -2,7 +2,8 @@ import React, { useEffect, useState } from 'react';
 import { NoSSOUserInfo, getUseOidcAccessToken, getUseOidcHook } from '../../SSODisabledDefaults';
 import UserInfo from '../../UserInfo';
 import { SSOEnabled } from '../../configuration';
-import { Table } from 'reactstrap';
+import { Pagination, PaginationItem, PaginationLink, Table } from 'reactstrap';
+import { TableBody, TableCell, TableFooter, TableHead, TablePagination, TableRow } from '@mui/material';
 
 interface TechnicalSeminar {
     approved: boolean
@@ -20,7 +21,7 @@ const SeminarAttendance: React.FC = () => {
 
     useEffect(() => {
         // API url for a user's seminar attendance
-        const apiUrl = 'http://localhost:8080/api/attendance/meeting/seminars/self';
+        const apiUrl = `http://localhost:8080/api/attendance/seminar/self`;
 
         fetch(apiUrl)
             .then((response) => {
@@ -47,32 +48,39 @@ const SeminarAttendance: React.FC = () => {
             .catch((error) => {
                 console.error(error);
             });
-    }, []);
+    }, [userInfo.preferred_username]);
 
     return (
         <>
             <Table className='info-table box-shadow'>
-                <thead>
-                    <tr className='table-header'>
+                <TableHead>
+                    <TableRow className='table-header'>
                         <td colSpan={2}>Technical Seminar Attendance</td>
-                    </tr>
-                    <tr>
+                    </TableRow>
+                    <TableRow>
                         <td>Event</td>
                         <td className='right-align'>Date</td>
-                    </tr>
-                </thead>
+                    </TableRow>
+                </TableHead>
 
-                <tbody>
+                <TableBody>
                     {seminars
                         // Only shows seminars that have been approved
                         .filter((seminar) => seminar.approved)
                         .map((seminar, index) => (
-                            <tr key={index}>
+                            <TableRow key={index}>
                                 <td>{seminar.name.toString()}</td>
                                 <td className='right-align'>{seminar.timestamp.toDateString()}</td>
-                            </tr>
+                            </TableRow>
                         ))}
-                </tbody>
+                </TableBody>
+                {/* <TableFooter>
+                    <Pagination>
+                        <PaginationItem>
+                            <PaginationLink>0</PaginationLink>
+                        </PaginationItem>
+                    </Pagination>
+                </TableFooter> */}
             </Table>
         </>
 

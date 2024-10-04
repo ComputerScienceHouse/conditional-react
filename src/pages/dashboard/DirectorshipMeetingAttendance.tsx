@@ -5,8 +5,8 @@ import { SSOEnabled } from '../../configuration';
 import { Table } from 'reactstrap';
 
 interface Directorship {
+    name: string
     approved: boolean
-    committee: string
     timestamp: Date
 }
 
@@ -20,7 +20,7 @@ const DirectorshipMeetingAttendance: React.FC = () => {
 
     useEffect(() => {
         // Fetch directorships data from the API (you can use the fetchDirectorshipsFromAPI function)
-        const apiUrl = `http://localhost:8080/api/attendance/directorship/${userInfo.preferred_username}`;
+        const apiUrl = `http://localhost:8080/api/attendance/directorship/self`;
         fetch(apiUrl)
             .then((response) => {
 
@@ -36,7 +36,7 @@ const DirectorshipMeetingAttendance: React.FC = () => {
             // Maps the json data to a directorship object
             .then((data) => {
                 let mappedDirectorships: Directorship[] = data.map((item: any) => ({
-                    committee: String(item.committee),
+                    name: String(item.name),
                     timestamp: new Date(item.timestamp),
                     approved: Boolean(item.approved), // Assuming 'approved' is a boolean property
                 }));
@@ -69,7 +69,7 @@ const DirectorshipMeetingAttendance: React.FC = () => {
                         .filter((directorship) => directorship.approved)
                         .map((directorship, index) => (
                             <tr key={index}>
-                                <td>{directorship.committee}</td>
+                                <td>{directorship.name}</td>
                                 <td className='right-align'>{directorship.timestamp.toDateString()}</td>
                             </tr>
                         ))}

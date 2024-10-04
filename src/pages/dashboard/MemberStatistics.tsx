@@ -4,6 +4,7 @@ import UserInfo from "../../UserInfo";
 import { SSOEnabled } from "../../configuration";
 import { Table } from "reactstrap";
 
+
 const MemberStatistics: React.FunctionComponent = () => {
     const { login, logout, isAuthenticated } = getUseOidcHook()()
     const { accessTokenPayload } = getUseOidcAccessToken()()

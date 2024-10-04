@@ -3,6 +3,7 @@ import { getUseOidcHook, getUseOidcAccessToken, NoSSOUserInfo } from "../../SSOD
 import UserInfo from "../../UserInfo";
 import { SSOEnabled } from "../../configuration";
 import { Table } from "reactstrap";
+import { TableBody, TableHead, TableRow } from "@mui/material";
 
 const MembershipEvals: React.FunctionComponent = () => {
     const { login, logout, isAuthenticated } = getUseOidcHook()()
@@ -10,8 +11,8 @@ const MembershipEvals: React.FunctionComponent = () => {
     const userInfo = SSOEnabled ? accessTokenPayload as UserInfo : NoSSOUserInfo
 
     // API urls
-    const directorshipAttendanceUrl = `http://localhost:8080/api/attendance/directorship/${userInfo.preferred_username}`;
-    const missedHouseMeetingsUrl = `http://localhost:8080/api/attendance/house/${userInfo.preferred_username}`;
+    const directorshipAttendanceUrl = `http://localhost:8080/api/attendance/directorship/self`;
+    const missedHouseMeetingsUrl = `http://localhost:8080/api/attendance/house/self`;
 
     const [directorshipAttendance, setDirectorshipAttendance] = useState([]);
     const [missedHouseMeetings, setHouseMeetingAttendance] = useState([]);
@@ -38,32 +39,32 @@ const MembershipEvals: React.FunctionComponent = () => {
     return (
         <div>
             <Table className="info-table box-shadow">
-                <thead>
-                    <tr className="table-header">
-                        <th>Membership Evals</th>
-                        <th className="right-align">Route Not Implemented</th>
-                    </tr>
-                </thead>
+                <TableHead>
+                    <TableRow className="table-header">
+                        <td>Membership Evals</td>
+                        <td className="right-align">Route Not Implemented</td>
+                    </TableRow>
+                </TableHead>
 
-                <tbody>
+                <TableBody>
                     {/* Number of directorships attended */}
-                    <tr>
+                    <TableRow>
                         <td>Directorship Meetings</td>
                         <td className="right-align">{directorshipAttendance.length} / 30</td>
-                    </tr>
+                    </TableRow>
 
                     {/* Number of missed house meetings (excluding excused absences) */}
-                    <tr>
+                    <TableRow>
                         <td>House Meetings Missed</td>
                         <td className="right-align">{missedHouseMeetings.length}</td>
-                    </tr>
+                    </TableRow>
 
                     {/* Number of major projects passed */}
-                    <tr>
+                    <TableRow>
                         <td>Major Project</td>
                         <td className="right-align">Route Not Implemented</td>
-                    </tr>
-                </tbody>
+                    </TableRow>
+                </TableBody>
             </Table>
         </div >
     )

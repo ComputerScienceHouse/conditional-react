@@ -1,8 +1,12 @@
 body
 {
+  font-family: Roboto, Helvetica Neue, Helvetica, Arial, sans-serif;
+  font-size: 13px;
+  line-height: 1.846;
+  color: #666;
+  background-color: #eee;
   margin: 0;
   font-family: "Roboto", "Helvetica Neue", "Helvetica", "Arial", "sans-serif";
-  font-size: 13px;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }

@@ -1,8 +1,8 @@
-import React, { useEffect, useState } from 'react';
-import { NoSSOUserInfo, getUseOidcAccessToken, getUseOidcHook } from '../../SSODisabledDefaults';
+import React, {useEffect, useState} from 'react';
+import {getUseOidcAccessToken, getUseOidcHook, NoSSOUserInfo} from '../../SSODisabledDefaults';
 import UserInfo from '../../UserInfo';
-import { SSOEnabled } from '../../configuration';
-import { Table } from 'reactstrap';
+import {API_URL, SSOEnabled} from '../../configuration';
+import {Table} from 'reactstrap';
 
 interface Directorship {
     name: string
@@ -12,15 +12,15 @@ interface Directorship {
 
 const DirectorshipMeetingAttendance: React.FC = () => {
 
-    const { login, logout, isAuthenticated } = getUseOidcHook()()
-    const { accessTokenPayload } = getUseOidcAccessToken()()
+    const {login, logout, isAuthenticated} = getUseOidcHook()()
+    const {accessTokenPayload} = getUseOidcAccessToken()()
     const userInfo = SSOEnabled ? accessTokenPayload as UserInfo : NoSSOUserInfo
 
     const [directorships, setDirectorships] = useState<Directorship[]>([]);
 
     useEffect(() => {
         // Fetch directorships data from the API (you can use the fetchDirectorshipsFromAPI function)
-        const apiUrl = `http://localhost:8080/api/attendance/directorship/self`;
+        const apiUrl = `http://${API_URL}/api/attendance/directorship/self`;
         fetch(apiUrl)
             .then((response) => {
 
@@ -54,25 +54,25 @@ const DirectorshipMeetingAttendance: React.FC = () => {
         <div>
             <Table className='info-table box-shadow'>
                 <thead>
-                    <tr className='table-header'>
-                        <td colSpan={2}>Directorship Meeting Attendance</td>
-                    </tr>
-                    <tr>
-                        <td>Event</td>
-                        <td className='right-align'>Date</td>
-                    </tr>
+                <tr className='table-header'>
+                    <td colSpan={2}>Directorship Meeting Attendance</td>
+                </tr>
+                <tr>
+                    <td>Event</td>
+                    <td className='right-align'>Date</td>
+                </tr>
                 </thead>
 
                 <tbody>
-                    {directorships
-                        // Only shows approved attendances
-                        .filter((directorship) => directorship.approved)
-                        .map((directorship, index) => (
-                            <tr key={index}>
-                                <td>{directorship.name}</td>
-                                <td className='right-align'>{directorship.timestamp.toDateString()}</td>
-                            </tr>
-                        ))}
+                {directorships
+                    // Only shows approved attendances
+                    .filter((directorship) => directorship.approved)
+                    .map((directorship, index) => (
+                        <tr key={index}>
+                            <td>{directorship.name}</td>
+                            <td className='right-align'>{directorship.timestamp.toDateString()}</td>
+                        </tr>
+                    ))}
                 </tbody>
             </Table>
         </div>

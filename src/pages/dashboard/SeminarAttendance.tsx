@@ -1,9 +1,9 @@
-import React, { useEffect, useState } from 'react';
-import { NoSSOUserInfo, getUseOidcAccessToken, getUseOidcHook } from '../../SSODisabledDefaults';
+import React, {useEffect, useState} from 'react';
+import {getUseOidcAccessToken, getUseOidcHook, NoSSOUserInfo} from '../../SSODisabledDefaults';
 import UserInfo from '../../UserInfo';
-import { SSOEnabled } from '../../configuration';
-import { Pagination, PaginationItem, PaginationLink, Table } from 'reactstrap';
-import { TableBody, TableCell, TableFooter, TableHead, TablePagination, TableRow } from '@mui/material';
+import {API_URL, SSOEnabled} from '../../configuration';
+import {Table} from 'reactstrap';
+import {TableBody, TableHead, TableRow} from '@mui/material';
 
 interface TechnicalSeminar {
     approved: boolean
@@ -13,15 +13,15 @@ interface TechnicalSeminar {
 
 const SeminarAttendance: React.FC = () => {
 
-    const { login, logout, isAuthenticated } = getUseOidcHook()()
-    const { accessTokenPayload } = getUseOidcAccessToken()()
+    const {login, logout, isAuthenticated} = getUseOidcHook()()
+    const {accessTokenPayload} = getUseOidcAccessToken()()
     const userInfo = SSOEnabled ? accessTokenPayload as UserInfo : NoSSOUserInfo
 
     const [seminars, setSeminars] = useState<TechnicalSeminar[]>([]);
 
     useEffect(() => {
         // API url for a user's seminar attendance
-        const apiUrl = `http://localhost:8080/api/attendance/seminar/self`;
+        const apiUrl = `http://${API_URL}/api/attendance/seminar/self`;
 
         fetch(apiUrl)
             .then((response) => {

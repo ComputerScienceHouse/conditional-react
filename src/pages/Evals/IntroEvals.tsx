@@ -1,11 +1,6 @@
 // code
-import { useOidcAccessToken, useOidc, useOidcIdToken } from '@axa-fr/react-oidc'
-import React, { Component, useEffect, useState } from 'react'
-import { Link } from 'react-router-dom'
-import Authenticating from '../../callbacks/Authenticating'
-import AuthenticationError from '../../callbacks/AuthenticationError'
-import SessionLost from '../../callbacks/SessionLost'
-import UserProfile from '../dashboard/UserProfile'
+import {useOidc, useOidcAccessToken, useOidcIdToken} from '@axa-fr/react-oidc'
+import React, {useEffect, useState} from 'react'
 import UserInfo from '../../UserInfo';
 import '../../css/intro-evals.css'
 
@@ -22,16 +17,16 @@ interface IntroMemberData {
 
 const IntroEvals = () => {
     // important hooks
-    const { accessTokenPayload } = useOidcAccessToken()   // this contains the user info in raw json format
+    const {accessTokenPayload} = useOidcAccessToken()   // this contains the user info in raw json format
     const userInfo = accessTokenPayload as UserInfo       //
-    const { idToken, idTokenPayload } = useOidcIdToken()  // this is how you get the users id token
-    const { login, logout, isAuthenticated } = useOidc()  // this gets the functions to login and logout and the logout state
+    const {idToken, idTokenPayload} = useOidcIdToken()  // this is how you get the users id token
+    const {login, logout, isAuthenticated} = useOidc()  // this gets the functions to login and logout and the logout state
 
     const [introMembers, setIntroMemberData] = useState<IntroMemberData[]>([]);
 
     useEffect(() => {
         // API url for the intro evals route
-        const apiUrl = 'http://localhost:8080/api/evals/intro';
+        const apiUrl = 'http://${API_URL}/api/evals/intro';
         fetch(apiUrl)
             .then((response) => {
                 if (!response.ok) {
@@ -70,7 +65,9 @@ const IntroEvals = () => {
                         <div className='intro-member'>
                             <div className="profilepicture">
                                 {/* Pulls profile picture from profiles */}
-                                <img className="profilepicture" src={`https://profiles.csh.rit.edu/image/${introMember.uid}`} alt="User profile picture" />
+                                <img className="profilepicture"
+                                     src={`https://profiles.csh.rit.edu/image/${introMember.uid}`}
+                                     alt="User profile picture"/>
                             </div>
                             <div className='name-id'>
                                 <h2 className='name'>{introMember.name}</h2>

@@ -1,10 +1,4 @@
-import { useOidcAccessToken, useOidc, useOidcIdToken } from '@axa-fr/react-oidc'
 import React from 'react'
-import { Link } from 'react-router-dom'
-import Authenticating from '../callbacks/Authenticating'
-import AuthenticationError from '../callbacks/AuthenticationError'
-import SessionLost from '../callbacks/SessionLost'
-import UserInfo from '../UserInfo'
 import UserProfile from './dashboard/UserProfile'
 import MembershipEvals from './dashboard/MembershipEvals'
 import MemberStatistics from './dashboard/MemberStatistics'
@@ -22,32 +16,33 @@ const Home = () => {
     // const { idToken, idTokenPayload } = useOidcIdToken()  // this is how you get the users id token
     // const { login, logout, isAuthenticated } = useOidc()  // this gets the functions to login and logout and the logout state
 
+
     return (
         <div>
-            <UserProfile />
+            <UserProfile/>
 
             <div className="twocolumn">
                 <div className="left-column">
                     <div className='item'>
-                        <MembershipEvals />
+                        <MembershipEvals/>
                     </div>
                     <div className='item'>
-                        <MemberStatistics />
+                        <MemberStatistics/>
                     </div>
                     <div className='item'>
-                        <DirectorshipMeetingAttendance />
+                        <DirectorshipMeetingAttendance/>
                     </div>
                 </div>
 
                 <div className='right-column'>
                     <div className='item'>
-                        <HousingStatus />
+                        <HousingStatus/>
                     </div>
                     <div className='item'>
-                        <MissedHouseMeetings />
+                        <MissedHouseMeetings/>
                     </div>
                     <div className='item'>
-                        <SeminarAttendance />
+                        <SeminarAttendance/>
                     </div>
                 </div>
             </div>

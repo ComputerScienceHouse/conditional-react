@@ -1,18 +1,18 @@
-import React, { useEffect, useState } from "react";
-import { getUseOidcHook, getUseOidcAccessToken, NoSSOUserInfo } from "../../SSODisabledDefaults";
+import React, {useEffect, useState} from "react";
+import {getUseOidcAccessToken, getUseOidcHook, NoSSOUserInfo} from "../../SSODisabledDefaults";
 import UserInfo from "../../UserInfo";
-import { SSOEnabled } from "../../configuration";
-import { Table } from "reactstrap";
-import { TableBody, TableHead, TableRow } from "@mui/material";
+import {API_URL, SSOEnabled} from "../../configuration";
+import {Table} from "reactstrap";
+import {TableBody, TableHead, TableRow} from "@mui/material";
 
 const MembershipEvals: React.FunctionComponent = () => {
-    const { login, logout, isAuthenticated } = getUseOidcHook()()
-    const { accessTokenPayload } = getUseOidcAccessToken()()
+    const {login, logout, isAuthenticated} = getUseOidcHook()()
+    const {accessTokenPayload} = getUseOidcAccessToken()()
     const userInfo = SSOEnabled ? accessTokenPayload as UserInfo : NoSSOUserInfo
 
     // API urls
-    const directorshipAttendanceUrl = `http://localhost:8080/api/attendance/directorship/self`;
-    const missedHouseMeetingsUrl = `http://localhost:8080/api/attendance/house/self`;
+    const directorshipAttendanceUrl = `http://${API_URL}/api/attendance/directorship/self`;
+    const missedHouseMeetingsUrl = `http://${API_URL}/api/attendance/house/self`;
 
     const [directorshipAttendance, setDirectorshipAttendance] = useState([]);
     const [missedHouseMeetings, setHouseMeetingAttendance] = useState([]);
@@ -66,7 +66,7 @@ const MembershipEvals: React.FunctionComponent = () => {
                     </TableRow>
                 </TableBody>
             </Table>
-        </div >
+        </div>
     )
 }
 

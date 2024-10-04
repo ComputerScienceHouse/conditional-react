@@ -11,13 +11,13 @@ import '../../css/intro-evals.css'
 
 interface IntroMemberData {
     directorships: number,
-    fid: number | undefined,
     max_signatures: number,
     missed_hms: number,
     name: string,
     seminars: number,
     signatures: number,
-    uid: string | undefined
+    uid: string,
+    username: string
 }
 
 const IntroEvals = () => {
@@ -44,13 +44,13 @@ const IntroEvals = () => {
             .then((data) => {
                 let mappedIntroMemberData: IntroMemberData[] = data.map((item: any) => ({
                     directorships: Number(item.directorships),
-                    fid: item.fid === undefined ? undefined : Number(item.fid), // Freshman id, or undefined if the user has a CSH account
                     max_signatures: Number(item.max_signatures),                // Number of possible signatures on this user's packet
                     missed_hms: Number(item.missed_hms),                        // Number of missed house meetings (excluding excused absences)
                     name: String(item.name),                                    // First and last name
                     seminars: Number(item.seminars),                            // Number of seminars attended
                     signatures: Number(item.signatures),                        // Number of packet signatures the user got
-                    uid: item.uid === null ? undefined : String(item.uid)       // CSH username, or undefined if the user doesnt have a CSH account
+                    uid: String(item.uid),                                      // CSH username, or undefined if the user doesnt have a CSH account
+                    username: String(item.username)
                 }));
 
                 // Sorts by number of packet signatures in descending order
@@ -75,7 +75,7 @@ const IntroEvals = () => {
                             <div className='name-id'>
                                 <h2 className='name'>{introMember.name}</h2>
                                 {/* Shows CSH username if the user has one, or freshman id if not */}
-                                <h3 className='username'>{introMember.uid == null ? introMember.fid : introMember.uid}</h3>
+                                <h3 className='username'>{introMember.username}</h3>
                             </div>
 
                             {/* Shows the completion status of 6 weeks requirements */}

@@ -1,18 +1,18 @@
-import React, { useEffect, useState } from "react";
-import { getUseOidcHook, getUseOidcAccessToken, NoSSOUserInfo } from "../../SSODisabledDefaults";
+import React, {useEffect, useState} from "react";
+import {getUseOidcAccessToken, getUseOidcHook, NoSSOUserInfo} from "../../SSODisabledDefaults";
 import UserInfo from "../../UserInfo";
-import { SSOEnabled } from "../../configuration";
-import { Table } from "reactstrap";
+import {SSOEnabled} from "../../configuration";
+import {Table} from "reactstrap";
 
 
 const MemberStatistics: React.FunctionComponent = () => {
-    const { login, logout, isAuthenticated } = getUseOidcHook()()
-    const { accessTokenPayload } = getUseOidcAccessToken()()
+    const {login, logout, isAuthenticated} = getUseOidcHook()()
+    const {accessTokenPayload} = getUseOidcAccessToken()()
     const userInfo = SSOEnabled ? accessTokenPayload as UserInfo : NoSSOUserInfo
 
     // API urls
-    const url_numVoting = 'http://localhost:8080/api/users/voting_count';
-    const url_numActive = 'http://localhost:8080/api/users/active_count';
+    const url_numVoting = 'http://${API_URL}/api/users/voting_count';
+    const url_numActive = 'http://${API_URL}/api/users/active_count';
 
     const [votingCount, setVoting] = useState([]);
     const [activeCount, setActive] = useState([]);
@@ -40,34 +40,33 @@ const MemberStatistics: React.FunctionComponent = () => {
     }, []);
 
 
-
     return (
         <div>
             <Table className="info-table box-shadow">
                 <thead>
-                    <tr className="table-header">
-                        <td colSpan={2}>Member Statistics</td>
-                    </tr>
+                <tr className="table-header">
+                    <td colSpan={2}>Member Statistics</td>
+                </tr>
 
-                    <tr>
-                        <td>Category</td>
-                        <td className="right-align">Members</td>
-                    </tr>
+                <tr>
+                    <td>Category</td>
+                    <td className="right-align">Members</td>
+                </tr>
                 </thead>
 
                 <tbody>
 
-                    {/* Shows number of voting members */}
-                    <tr>
-                        <td>Voting Members</td>
-                        <td className="right-align">{votingCount}</td>
-                    </tr>
+                {/* Shows number of voting members */}
+                <tr>
+                    <td>Voting Members</td>
+                    <td className="right-align">{votingCount}</td>
+                </tr>
 
-                    {/* Shows number of active members */}
-                    <tr>
-                        <td>Active Members</td>
-                        <td className="right-align">{activeCount}</td>
-                    </tr>
+                {/* Shows number of active members */}
+                <tr>
+                    <td>Active Members</td>
+                    <td className="right-align">{activeCount}</td>
+                </tr>
                 </tbody>
             </Table>
         </div>

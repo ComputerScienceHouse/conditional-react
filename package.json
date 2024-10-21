@@ -37,7 +37,7 @@
     "react-scripts": "^5.0.1",
     "reactstrap": "^9.2.2",
     "styled-components": "^6.1.13",
-    "typescript": "^4"
+    "typescript": "^5"
   },
   "scripts": {
     "start": "react-scripts start",

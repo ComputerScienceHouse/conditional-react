@@ -1,8 +1,9 @@
 // code
-import {useOidc, useOidcAccessToken, useOidcIdToken} from '@axa-fr/react-oidc'
-import React, {useEffect, useState} from 'react'
+import { useOidc, useOidcAccessToken, useOidcIdToken } from '@axa-fr/react-oidc'
+import React, { useEffect, useState } from 'react'
 import UserInfo from '../../UserInfo';
 import '../../css/spring-evals.css'
+import { API_URL } from '../../configuration';
 
 interface MemberData {
     directorships: number,
@@ -15,17 +16,17 @@ interface MemberData {
 
 const SpringEvals = () => {
     // important hooks
-    const {accessTokenPayload} = useOidcAccessToken()   // this contains the user info in raw json format
+    const { accessTokenPayload } = useOidcAccessToken()   // this contains the user info in raw json format
     const userInfo = accessTokenPayload as UserInfo       //
-    const {idToken, idTokenPayload} = useOidcIdToken()  // this is how you get the users id token
-    const {login, logout, isAuthenticated} = useOidc()  // this gets the functions to login and logout and the logout state
+    const { idToken, idTokenPayload } = useOidcIdToken()  // this is how you get the users id token
+    const { login, logout, isAuthenticated } = useOidc()  // this gets the functions to login and logout and the logout state
 
     const [members, setMemberData] = useState<MemberData[]>([]);
 
     useEffect(() => {
 
         // API url for the spring evals route
-        const apiUrl = 'http://${API_URL}/api/evals/member';
+        const apiUrl = `http://${API_URL}/api/evals/member`;
 
         fetch(apiUrl)
             .then((response) => {
@@ -64,7 +65,7 @@ const SpringEvals = () => {
                         <div className='member'>
                             <div className="profilepicture">
                                 <img className="profilepicture" src={`https://profiles.csh.rit.edu/image/${member.uid}`}
-                                     alt="User profile picture"/>
+                                    alt="User profile picture" />
                             </div>
 
                             {/* User's name and CSH username */}

@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from "react";
 import {getUseOidcAccessToken, getUseOidcHook, NoSSOUserInfo} from "../../SSODisabledDefaults";
 import UserInfo from "../../UserInfo";
-import {SSOEnabled} from "../../configuration";
+import {API_URL, SSOEnabled} from "../../configuration";
 import {Table} from "reactstrap";
 
 
@@ -11,8 +11,8 @@ const MemberStatistics: React.FunctionComponent = () => {
     const userInfo = SSOEnabled ? accessTokenPayload as UserInfo : NoSSOUserInfo
 
     // API urls
-    const url_numVoting = 'http://${API_URL}/api/users/voting_count';
-    const url_numActive = 'http://${API_URL}/api/users/active_count';
+    const url_numVoting = `http://${API_URL}/api/users/voting_count`;
+    const url_numActive = `http://${API_URL}/api/users/active_count`;
 
     const [votingCount, setVoting] = useState([]);
     const [activeCount, setActive] = useState([]);

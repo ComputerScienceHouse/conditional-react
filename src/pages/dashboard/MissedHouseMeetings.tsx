@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import {getUseOidcAccessToken, getUseOidcHook, NoSSOUserInfo} from '../../SSODisabledDefaults';
 import UserInfo from '../../UserInfo';
-import {SSOEnabled} from '../../configuration';
+import {API_URL, SSOEnabled} from '../../configuration';
 import {Table} from 'reactstrap';
 
 interface MissedHM {
@@ -21,7 +21,7 @@ const MissedHouseMeetings: React.FC = () => {
     useEffect(() => {
 
         // API url
-        const apiUrl = 'http://${API_URL}/api/attendance/house/self';
+        const apiUrl = `http://${API_URL}/api/attendance/house/self`;
 
         fetch(apiUrl)
             .then((response) => {

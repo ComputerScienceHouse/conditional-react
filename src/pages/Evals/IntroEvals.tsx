@@ -3,6 +3,7 @@ import {useOidc, useOidcAccessToken, useOidcIdToken} from '@axa-fr/react-oidc'
 import React, {useEffect, useState} from 'react'
 import UserInfo from '../../UserInfo';
 import '../../css/intro-evals.css'
+import { API_URL } from '../../configuration';
 
 interface IntroMemberData {
     directorships: number,
@@ -26,7 +27,7 @@ const IntroEvals = () => {
 
     useEffect(() => {
         // API url for the intro evals route
-        const apiUrl = 'http://${API_URL}/api/evals/intro';
+        const apiUrl = `http://${API_URL}/api/evals/intro`;
         fetch(apiUrl)
             .then((response) => {
                 if (!response.ok) {

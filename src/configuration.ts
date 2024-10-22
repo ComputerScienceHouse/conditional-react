@@ -18,5 +18,5 @@ const oidcConfig: OidcConfiguration = {
 
 export const SSOEnabled =
     (process.env.REACT_APP_SSO_ENABLED ?? "true") === "true";
-export const API_URL = process.env.API_URL
+export const API_URL = process.env.REACT_APP_API_URL;
 export default oidcConfig;

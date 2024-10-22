@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import {getUseOidcAccessToken, getUseOidcHook, NoSSOUserInfo} from '../../SSODisabledDefaults';
 import UserInfo from '../../UserInfo';
-import {API_URL, SSOEnabled} from '../../configuration';
+import { API_URL, SSOEnabled} from '../../configuration';
 import {Table} from 'reactstrap';
 
 interface Directorship {
@@ -29,7 +29,6 @@ const DirectorshipMeetingAttendance: React.FC = () => {
                     throw new Error(`HTTP Error: ${response.status} ${response.statusText}`);
                 }
 
-                // If response is ok, returns the json from the response
                 return response.json();
             })
 

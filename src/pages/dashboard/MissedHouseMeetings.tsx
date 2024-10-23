@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import {getUseOidcAccessToken, getUseOidcHook, NoSSOUserInfo} from '../../SSODisabledDefaults';
 import UserInfo from '../../UserInfo';
-import {API_URL, SSOEnabled} from '../../configuration';
+import { API_URL, SSOEnabled} from '../../configuration';
 import {Table} from 'reactstrap';
 
 interface MissedHM {

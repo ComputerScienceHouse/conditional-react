@@ -1,7 +1,7 @@
 import React from "react";
 import {getUseOidcAccessToken, getUseOidcHook, NoSSOUserInfo} from "../../SSODisabledDefaults";
 import UserInfo from "../../UserInfo";
-import {SSOEnabled} from "../../configuration";
+import { API_URL, SSOEnabled} from "../../configuration";
 import {Table} from "reactstrap";
 
 const HousingStatus: React.FunctionComponent = () => {

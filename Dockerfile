@@ -1,5 +1,6 @@
 FROM node:19
-WORKDIR /app
+ENV HOME=/home/app
+WORKDIR $HOME
 RUN apt-get update -y && apt-get install -y git
 COPY package.json .
 RUN npm install

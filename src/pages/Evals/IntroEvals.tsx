@@ -27,7 +27,7 @@ const IntroEvals = () => {
 
     useEffect(() => {
         // API url for the intro evals route
-        const apiUrl = `http://${API_URL}/api/evals/intro`;
+        const apiUrl = `${API_URL}/api/evals/intro`;
         fetch(apiUrl)
             .then((response) => {
                 if (!response.ok) {

@@ -10,8 +10,8 @@ const HousingStatus: React.FunctionComponent = () => {
     const userInfo = SSOEnabled ? accessTokenPayload as UserInfo : NoSSOUserInfo
 
 
-    // const housingPointsUrl = `http://${API_URL}/api/attendance/directorship/${userInfo.preferred_username}`;
-    // const roomNumberUrl = `http://${API_URL}/api/attendance/house/${userInfo.preferred_username}`;
+    // const housingPointsUrl = `${API_URL}/api/attendance/directorship/${userInfo.preferred_username}`;
+    // const roomNumberUrl = `${API_URL}/api/attendance/house/${userInfo.preferred_username}`;
 
     // const [housingPoints, setHousingPoints] = useState([]);
     // const [roomNumber, setRoomNumber] = useState([]);

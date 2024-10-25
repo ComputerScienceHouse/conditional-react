@@ -11,8 +11,8 @@ const MemberStatistics: React.FunctionComponent = () => {
     const userInfo = SSOEnabled ? accessTokenPayload as UserInfo : NoSSOUserInfo
 
     // API urls
-    const url_numVoting = `http://${API_URL}/api/users/voting_count`;
-    const url_numActive = `http://${API_URL}/api/users/active_count`;
+    const url_numVoting = `${API_URL}/api/users/voting_count`;
+    const url_numActive = `${API_URL}/api/users/active_count`;
 
     const [votingCount, setVoting] = useState([]);
     const [activeCount, setActive] = useState([]);

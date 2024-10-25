@@ -21,7 +21,7 @@ const MissedHouseMeetings: React.FC = () => {
     useEffect(() => {
 
         // API url
-        const apiUrl = `http://${API_URL}/api/attendance/house/self`;
+        const apiUrl = `${API_URL}/api/attendance/house/self`;
 
         fetch(apiUrl)
             .then((response) => {

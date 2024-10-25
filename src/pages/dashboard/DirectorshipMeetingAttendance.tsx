@@ -20,7 +20,7 @@ const DirectorshipMeetingAttendance: React.FC = () => {
 
     useEffect(() => {
         // Fetch directorships data from the API (you can use the fetchDirectorshipsFromAPI function)
-        const apiUrl = `http://${API_URL}/api/attendance/directorship/self`;
+        const apiUrl = `${API_URL}/api/attendance/directorship/self`;
         fetch(apiUrl)
             .then((response) => {
 

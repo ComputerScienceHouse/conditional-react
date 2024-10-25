@@ -21,7 +21,7 @@ const SeminarAttendance: React.FC = () => {
 
     useEffect(() => {
         // API url for a user's seminar attendance
-        const apiUrl = `http://${API_URL}/api/attendance/seminar/self`;
+        const apiUrl = `${API_URL}/api/attendance/seminar/self`;
 
         fetch(apiUrl)
             .then((response) => {

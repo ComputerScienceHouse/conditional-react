@@ -11,8 +11,8 @@ const MembershipEvals: React.FunctionComponent = () => {
     const userInfo = SSOEnabled ? accessTokenPayload as UserInfo : NoSSOUserInfo
 
     // API urls
-    const directorshipAttendanceUrl = `http://${API_URL}/api/attendance/directorship/self`;
-    const missedHouseMeetingsUrl = `http://${API_URL}/api/attendance/house/self`;
+    const directorshipAttendanceUrl = `${API_URL}/api/attendance/directorship/self`;
+    const missedHouseMeetingsUrl = `${API_URL}/api/attendance/house/self`;
 
     const [directorshipAttendance, setDirectorshipAttendance] = useState([]);
     const [missedHouseMeetings, setHouseMeetingAttendance] = useState([]);

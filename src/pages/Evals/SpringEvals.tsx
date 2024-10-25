@@ -26,7 +26,7 @@ const SpringEvals = () => {
     useEffect(() => {
 
         // API url for the spring evals route
-        const apiUrl = `http://${API_URL}/api/evals/member`;
+        const apiUrl = `${API_URL}/api/evals/member`;
 
         fetch(apiUrl)
             .then((response) => {

@@ -4,36 +4,43 @@ import UserInfo from "../../UserInfo";
 import {API_URL, SSOEnabled} from "../../configuration";
 import {Table} from "reactstrap";
 import {TableBody, TableHead, TableRow} from "@mui/material";
+import { useOidcFetch } from "@axa-fr/react-oidc";
 
 const MembershipEvals: React.FunctionComponent = () => {
     const {login, logout, isAuthenticated} = getUseOidcHook()()
     const {accessTokenPayload} = getUseOidcAccessToken()()
     const userInfo = SSOEnabled ? accessTokenPayload as UserInfo : NoSSOUserInfo
 
-    // API urls
+    const { fetch } = useOidcFetch();
+
     const directorshipAttendanceUrl = `${API_URL}/api/attendance/directorship/self`;
-    const missedHouseMeetingsUrl = `${API_URL}/api/attendance/house/self`;
+    const hmAttendanceUrl = `${API_URL}/api/attendance/house/self`;
 
     const [directorshipAttendance, setDirectorshipAttendance] = useState([]);
-    const [missedHouseMeetings, setHouseMeetingAttendance] = useState([]);
+    const [hmAttendance, setHMAttendance] = useState([]);
 
-    // Makes call to API for list of directorships and stores the response
-    const fetchDirectorshipAttendance = () => {
-        return fetch(directorshipAttendanceUrl)
-            .then((res) => res.json())
-            .then((directorships) => setDirectorshipAttendance(directorships))
-    }
-
-    // Makes call to API for list of missed house meetings and stores the response
-    const fetchHouseMeetingAttendance = () => {
-        return fetch(missedHouseMeetingsUrl)
-            .then((res) => res.json())
-            .then((houseMeeting) => setHouseMeetingAttendance(houseMeeting))
-    }
-
+    // Gets the number of directorships attended
     useEffect(() => {
-        fetchDirectorshipAttendance();
-        fetchHouseMeetingAttendance();
+        fetch(directorshipAttendanceUrl, {
+            method: "GET",
+            headers: {
+                'Authorization': accessTokenPayload,
+            }
+        })
+        .then((res) => res.json())
+        .then((directorships) => setDirectorshipAttendance(directorships))
+    }, []);  
+    
+    // Gets the number of house meetings missed
+    useEffect(() => {
+        fetch(hmAttendanceUrl, {
+            method: "GET",
+            headers: {
+                'Authorization': accessTokenPayload,
+            }
+        })
+        .then((res) => res.json())
+        .then((hm) => setHMAttendance(hm))
     }, []);
 
     return (
@@ -56,7 +63,7 @@ const MembershipEvals: React.FunctionComponent = () => {
                     {/* Number of missed house meetings (excluding excused absences) */}
                     <TableRow>
                         <td>House Meetings Missed</td>
-                        <td className="right-align">{missedHouseMeetings.length}</td>
+                        <td className="right-align">{hmAttendance.length}</td>
                     </TableRow>
 
                     {/* Number of major projects passed */}

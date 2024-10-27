@@ -8,12 +8,14 @@ import { CardBody, CardText, Container } from "reactstrap";
 const UserProfile: React.FunctionComponent = () => {
     const { accessTokenPayload } = getUseOidcAccessToken()()
     const userInfo = SSOEnabled ? accessTokenPayload as UserInfo : NoSSOUserInfo
-
+    
     function isActive() {
         if (userInfo.groups.includes("active")) return "Active";
         else return "Alumni";
     }
 
+    // This currently will always show non-voting b/c there is no group for whether someone is voting or not
+    // This cant just check if the user is in the active group, bc intro members before 6 weeks are shown as Active and non-voting
     function isVoting() {
         if (userInfo.groups.includes("voting")) return "Voting";
         else return "Non-Voting";
@@ -34,7 +36,7 @@ const UserProfile: React.FunctionComponent = () => {
                 <CardText className="text-item">{userInfo.email}</CardText>
 
                 <Container className="inline-cards">
-                    <CardText className={isActive() === "Active" ? "active-member" : "alumni-member"}>
+                    <CardText className={isActive() === "Active" ? "active-member" : "alumni-member"}> 
                         {isActive()}
                     </CardText>
                     <CardText className={isVoting() === "Voting" ? "voting-member" : "non-voting-member"}>

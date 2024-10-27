@@ -1,5 +1,5 @@
 // code
-import {useOidc, useOidcAccessToken, useOidcIdToken} from '@axa-fr/react-oidc'
+import {useOidc, useOidcAccessToken, useOidcFetch, useOidcIdToken} from '@axa-fr/react-oidc'
 import React, {useEffect, useState} from 'react'
 import UserInfo from '../../UserInfo';
 import '../../css/intro-evals.css'
@@ -23,39 +23,41 @@ const IntroEvals = () => {
     const {idToken, idTokenPayload} = useOidcIdToken()  // this is how you get the users id token
     const {login, logout, isAuthenticated} = useOidc()  // this gets the functions to login and logout and the logout state
 
+    const { fetch } = useOidcFetch();
+    
     const [introMembers, setIntroMemberData] = useState<IntroMemberData[]>([]);
+
+    const apiUrl = `${API_URL}/api/evals/intro`;
 
     useEffect(() => {
         // API url for the intro evals route
-        const apiUrl = `${API_URL}/api/evals/intro`;
-        fetch(apiUrl)
-            .then((response) => {
-                if (!response.ok) {
-                    throw new Error(`HTTP Error: ${response.status} ${response.statusText}`);
-                }
-                return response.json();
-            })
+        fetch(apiUrl, {
+            method: "GET",
+            headers: {
+                'Authorization': accessTokenPayload,
+            }
+        })
+        .then((response) => response.json())
+        // Takes the returned data and maps it to an object to store all the intro member data
+        .then((data) => {
+            let mappedIntroMemberData: IntroMemberData[] = data.map((item: any) => ({
+                directorships: Number(item.directorships),
+                max_signatures: Number(item.max_signatures),                // Number of possible signatures on this user's packet
+                missed_hms: Number(item.missed_hms),                        // Number of missed house meetings (excluding excused absences)
+                name: String(item.name),                                    // First and last name
+                seminars: Number(item.seminars),                            // Number of seminars attended
+                signatures: Number(item.signatures),                        // Number of packet signatures the user got
+                uid: String(item.uid),                                      // CSH username, or undefined if the user doesnt have a CSH account
+                username: String(item.username)
+            }));
 
-            // Takes the returned data and maps it to an object to store all the intro member data
-            .then((data) => {
-                let mappedIntroMemberData: IntroMemberData[] = data.map((item: any) => ({
-                    directorships: Number(item.directorships),
-                    max_signatures: Number(item.max_signatures),                // Number of possible signatures on this user's packet
-                    missed_hms: Number(item.missed_hms),                        // Number of missed house meetings (excluding excused absences)
-                    name: String(item.name),                                    // First and last name
-                    seminars: Number(item.seminars),                            // Number of seminars attended
-                    signatures: Number(item.signatures),                        // Number of packet signatures the user got
-                    uid: String(item.uid),                                      // CSH username, or undefined if the user doesnt have a CSH account
-                    username: String(item.username)
-                }));
-
-                // Sorts by number of packet signatures in descending order
-                mappedIntroMemberData.sort((a, b) => b.signatures - a.signatures);
-                setIntroMemberData(mappedIntroMemberData);
-            })
-            .catch((error) => {
-                console.error(error);
-            });
+            // Sorts by number of packet signatures in descending order
+            mappedIntroMemberData.sort((a, b) => b.signatures - a.signatures);
+            setIntroMemberData(mappedIntroMemberData);
+        })
+        .catch((error) => {
+            console.error(error);
+        });
     }, []);
 
     return (

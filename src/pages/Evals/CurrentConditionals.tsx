@@ -9,8 +9,6 @@ const CurrentConditionals: React.FC = () => {
     const { idToken, idTokenPayload } = useOidcIdToken()  // this is how you get the users id token
     const { login, logout, isAuthenticated } = useOidc()  // this gets the functions to login and logout and the logout state
 
-    console.log(userInfo.groups);
-
     return (
         <div>
             <div className="container main">

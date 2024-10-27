@@ -3,6 +3,7 @@ import {getUseOidcAccessToken, getUseOidcHook, NoSSOUserInfo} from '../../SSODis
 import UserInfo from '../../UserInfo';
 import { API_URL, SSOEnabled} from '../../configuration';
 import {Table} from 'reactstrap';
+import { useOidcFetch } from '@axa-fr/react-oidc';
 
 interface MissedHM {
     date: Date
@@ -16,43 +17,41 @@ const MissedHouseMeetings: React.FC = () => {
     const {accessTokenPayload} = getUseOidcAccessToken()()
     const userInfo = SSOEnabled ? accessTokenPayload as UserInfo : NoSSOUserInfo
 
-    const [missedHouseMeetings, setMissedHouseMeetings] = useState<MissedHM[]>([]);
+    const { fetch } = useOidcFetch();
+    
+    const apiUrl = `${API_URL}/api/attendance/house/self`;
+
+    const [missedHMs, setMissedHMs] = useState<MissedHM[]>([]);
 
     useEffect(() => {
+        fetch(apiUrl, {
+            method: "GET",
+            headers: {
+                'Authorization': accessTokenPayload,
+            }
+        })
+        .then((res) => res.json())
 
-        // API url
-        const apiUrl = `${API_URL}/api/attendance/house/self`;
+        // Maps response data to missed hm object
+        .then((data) => {
+            let mappedMissedHM: MissedHM[] = data.map((item: any) => ({
+                date: new Date(item.date),
+                reason: String(item.timestamp),
+            }));
 
-        fetch(apiUrl)
-            .then((response) => {
-
-                // Throws error to the console if api doesn't return a code 200
-                if (!response.ok) {
-                    throw new Error(`HTTP Error: ${response.status} ${response.statusText}`);
-                }
-                return response.json();
-            })
-
-            // Maps response data to missed hm object
-            .then((data) => {
-                let mappedMissedHM: MissedHM[] = data.map((item: any) => ({
-                    date: new Date(item.date),
-                    reason: String(item.timestamp),
-                }));
-
-                // Sorts from most recent to least recent
-                mappedMissedHM.sort((a, b) => b.date.getTime() - a.date.getTime());
-                setMissedHouseMeetings(mappedMissedHM);
-            })
-            .catch((error) => {
-                console.error(error);
-            });
+            // Sorts from most recent to least recent
+            mappedMissedHM.sort((a, b) => b.date.getTime() - a.date.getTime());
+            setMissedHMs(mappedMissedHM);
+        })
+        .catch((error) => {
+            console.error(error);
+        });
     }, []);
 
     return (
         <>
             {/* If user has not missed any house meetings, display a box saying they have no missed hms */}
-            {missedHouseMeetings.length === 0 ?
+            {missedHMs.length === 0 ?
                 <div className='box-green'>
                     <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="16" height="16" viewBox="0 0 48 48">
                         <path fill="#c8e6c9"
@@ -78,11 +77,11 @@ const MissedHouseMeetings: React.FC = () => {
 
                     <tbody>
                     { // Shows date and excuse for each missed house meeting
-                        missedHouseMeetings
-                            .map((houseMeeting, index) => (
+                            missedHMs
+                            .map((hm, index) => (
                                 <tr key={index}>
-                                    <td>{houseMeeting.date.toDateString()}</td>
-                                    <td className='right-align'>{houseMeeting.reason}</td>
+                                    <td>{hm.date.toDateString()}</td>
+                                    <td className='right-align'>{hm.reason}</td>
                                 </tr>
                             ))
                     }

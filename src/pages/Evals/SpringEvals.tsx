@@ -1,5 +1,5 @@
 // code
-import { useOidc, useOidcAccessToken, useOidcIdToken } from '@axa-fr/react-oidc'
+import { useOidc, useOidcAccessToken, useOidcFetch, useOidcIdToken } from '@axa-fr/react-oidc'
 import React, { useEffect, useState } from 'react'
 import UserInfo from '../../UserInfo';
 import '../../css/spring-evals.css'
@@ -21,40 +21,37 @@ const SpringEvals = () => {
     const { idToken, idTokenPayload } = useOidcIdToken()  // this is how you get the users id token
     const { login, logout, isAuthenticated } = useOidc()  // this gets the functions to login and logout and the logout state
 
+    const { fetch } = useOidcFetch();
+    
+    const apiUrl = `${API_URL}/api/evals/member`;
+
     const [members, setMemberData] = useState<MemberData[]>([]);
 
     useEffect(() => {
+        fetch(apiUrl, {
+            method: "GET",
+            headers: {
+                'Authorization': accessTokenPayload,
+            }
+        })
+        .then((response) => response.json())
+        .then((data) => {
+            let mappedMemberData: MemberData[] = data.map((item: any) => ({
+                directorships: Number(item.directorships),      // Number of directorship meetings attended
+                major_projects: Number(item.major_projects),    // Number of passed major projects
+                missed_hms: Number(item.missed_hms),            // Number of house meetings missed (excluding excused absences)
+                name: String(item.name),                        // First and last name
+                seminars: Number(item.seminars),                // Number of technical seminars attended
+                uid: String(item.uid)                           // CSH username
+            }));
 
-        // API url for the spring evals route
-        const apiUrl = `${API_URL}/api/evals/member`;
+            mappedMemberData.sort((a, b) => b.major_projects - a.major_projects)
+            setMemberData(mappedMemberData);
+        })
 
-        fetch(apiUrl)
-            .then((response) => {
-                if (!response.ok) {
-                    throw new Error(`HTTP Error: ${response.status} ${response.statusText}`);
-                }
-                return response.json();
-            })
-
-            // Maps the returned data to an object to store necessary spring evals info
-            .then((data) => {
-                let mappedMemberData: MemberData[] = data.map((item: any) => ({
-                    directorships: Number(item.directorships),      // Number of directorship meetings attended
-                    major_projects: Number(item.major_projects),    // Number of passed major projects
-                    missed_hms: Number(item.missed_hms),            // Number of house meetings missed (excluding excused absences)
-                    name: String(item.name),                        // First and last name
-                    seminars: Number(item.seminars),                // Number of technical seminars attended
-                    uid: String(item.uid)                           // CSH username
-                }));
-
-                // Need to make it sort by number of major projects (dec), then number of directorships (dec), then number missed hms (inc)
-                mappedMemberData.sort((a, b) => b.major_projects - a.major_projects)
-                setMemberData(mappedMemberData);
-            })
-
-            .catch((error) => {
-                console.error(error);
-            });
+        .catch((error) => {
+            console.error(error);
+        });
     }, []);
 
     return (

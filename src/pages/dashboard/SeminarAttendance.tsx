@@ -4,6 +4,7 @@ import UserInfo from '../../UserInfo';
 import { API_URL, SSOEnabled} from '../../configuration';
 import {Table} from 'reactstrap';
 import {TableBody, TableHead, TableRow} from '@mui/material';
+import { useOidcFetch } from '@axa-fr/react-oidc';
 
 interface TechnicalSeminar {
     approved: boolean
@@ -17,38 +18,35 @@ const SeminarAttendance: React.FC = () => {
     const {accessTokenPayload} = getUseOidcAccessToken()()
     const userInfo = SSOEnabled ? accessTokenPayload as UserInfo : NoSSOUserInfo
 
+    const { fetch } = useOidcFetch();
+    
+    const apiUrl = `${API_URL}/api/attendance/seminar/self`;
+
     const [seminars, setSeminars] = useState<TechnicalSeminar[]>([]);
 
     useEffect(() => {
-        // API url for a user's seminar attendance
-        const apiUrl = `${API_URL}/api/attendance/seminar/self`;
+        fetch(apiUrl, {
+            method: "GET",
+            headers: {
+                'Authorization': accessTokenPayload,
+            }
+        })
+        .then((response) => response.json())
+        .then((data) => {
+            let mappedSeminars: TechnicalSeminar[] = data.map((item: any) => ({
+                name: String(item.name),
+                timestamp: new Date(item.timestamp),
+                approved: Boolean(item.approved),
+            }));
 
-        fetch(apiUrl)
-            .then((response) => {
-
-                // If api doesnt give an ok response, throws an error to the console with the details
-                if (!response.ok) {
-                    throw new Error(`HTTP Error: ${response.status} ${response.statusText}`);
-                }
-                return response.json();
-            })
-
-            // Maps the response data to seminar objects
-            .then((data) => {
-                let mappedSeminars: TechnicalSeminar[] = data.map((item: any) => ({
-                    name: String(item.name),
-                    timestamp: new Date(item.timestamp),
-                    approved: Boolean(item.approved),
-                }));
-
-                // Sorts the seminars from most recent to least recent
-                mappedSeminars.sort((a, b) => b.timestamp.getTime() - a.timestamp.getTime());
-                setSeminars(mappedSeminars);
-            })
-            .catch((error) => {
-                console.error(error);
-            });
-    }, [userInfo.preferred_username]);
+            // Sorts the seminars from most recent to least recent
+            mappedSeminars.sort((a, b) => b.timestamp.getTime() - a.timestamp.getTime());
+            setSeminars(mappedSeminars);
+        })
+        .catch((error) => {
+            console.error(error);
+        });
+    }, []);
 
     return (
         <>
@@ -74,13 +72,6 @@ const SeminarAttendance: React.FC = () => {
                             </TableRow>
                         ))}
                 </TableBody>
-                {/* <TableFooter>
-                    <Pagination>
-                        <PaginationItem>
-                            <PaginationLink>0</PaginationLink>
-                        </PaginationItem>
-                    </Pagination>
-                </TableFooter> */}
             </Table>
         </>
 

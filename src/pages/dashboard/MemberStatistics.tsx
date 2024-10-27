@@ -3,6 +3,7 @@ import {getUseOidcAccessToken, getUseOidcHook, NoSSOUserInfo} from "../../SSODis
 import UserInfo from "../../UserInfo";
 import { API_URL, SSOEnabled} from "../../configuration";
 import {Table} from "reactstrap";
+import { useOidcFetch } from "@axa-fr/react-oidc";
 
 
 const MemberStatistics: React.FunctionComponent = () => {
@@ -10,35 +11,37 @@ const MemberStatistics: React.FunctionComponent = () => {
     const {accessTokenPayload} = getUseOidcAccessToken()()
     const userInfo = SSOEnabled ? accessTokenPayload as UserInfo : NoSSOUserInfo
 
-    // API urls
-    const url_numVoting = `${API_URL}/api/users/voting_count`;
-    const url_numActive = `${API_URL}/api/users/active_count`;
+    const { fetch } = useOidcFetch();
 
-    const [votingCount, setVoting] = useState([]);
-    const [activeCount, setActive] = useState([]);
+    const urlActiveCount = `${API_URL}/api/users/active_count`;
+    const urlVotingCount = `${API_URL}/api/users/voting_count`;
 
-    // Gets the number of voting members from the API
-    const fetchInfo_Voting = () => {
-        return fetch(url_numVoting)
-            .then((res) => res.json())
-            .then((voting) => setVoting(voting))
-    }
+    const [activeCount, setActiveCount] = useState([]);
+    const [votingCount, setVotingCount] = useState([]);
 
+    // Gets the number of active members
     useEffect(() => {
-        fetchInfo_Voting();
+        fetch(urlActiveCount, {
+            method: "GET",
+            headers: {
+                'Authorization': accessTokenPayload,
+            }
+        })
+        .then((res) => res.json())
+        .then((numActive) => setActiveCount(numActive))
     }, []);
 
-    // Gets the number of active members from the API
-    const fetchInfo_Active = () => {
-        return fetch(url_numActive)
-            .then((res) => res.json())
-            .then((activeMembers) => setActive(activeMembers))
-    }
-
+    // Gets the number of voting members
     useEffect(() => {
-        fetchInfo_Active();
+        fetch(urlVotingCount, {
+            method: "GET",
+            headers: {
+                'Authorization': accessTokenPayload,
+            }
+        })
+        .then((res) => res.json())
+        .then((numVoting) => setVotingCount(numVoting))
     }, []);
-
 
     return (
         <div>

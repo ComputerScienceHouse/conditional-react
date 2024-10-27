@@ -9,30 +9,6 @@ const HousingStatus: React.FunctionComponent = () => {
     const {accessTokenPayload} = getUseOidcAccessToken()()
     const userInfo = SSOEnabled ? accessTokenPayload as UserInfo : NoSSOUserInfo
 
-
-    // const housingPointsUrl = `${API_URL}/api/attendance/directorship/${userInfo.preferred_username}`;
-    // const roomNumberUrl = `${API_URL}/api/attendance/house/${userInfo.preferred_username}`;
-
-    // const [housingPoints, setHousingPoints] = useState([]);
-    // const [roomNumber, setRoomNumber] = useState([]);
-
-    // const fetchHousingPoints = () => {
-    //     return fetch(housingPointsUrl)
-    //         .then((res) => res.json())
-    //         .then((housingPoints) => setHousingPoints(housingPoints))
-    // }
-
-    // const fetchRoomNumber = () => {
-    //     return fetch(roomNumberUrl)
-    //         .then((res) => res.json())
-    //         .then((roomNumber) => setRoomNumber(roomNumber))
-    // }
-
-    // useEffect(() => {
-    //     fetchHousingPoints();
-    //     fetchRoomNumber();
-    // }, []);
-
     return (
         <div>
             <Table className="info-table box-shadow">

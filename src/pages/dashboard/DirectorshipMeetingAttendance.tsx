@@ -3,6 +3,7 @@ import {getUseOidcAccessToken, getUseOidcHook, NoSSOUserInfo} from '../../SSODis
 import UserInfo from '../../UserInfo';
 import { API_URL, SSOEnabled} from '../../configuration';
 import {Table} from 'reactstrap';
+import { useOidc, useOidcFetch } from '@axa-fr/react-oidc';
 
 interface Directorship {
     name: string
@@ -16,37 +17,34 @@ const DirectorshipMeetingAttendance: React.FC = () => {
     const {accessTokenPayload} = getUseOidcAccessToken()()
     const userInfo = SSOEnabled ? accessTokenPayload as UserInfo : NoSSOUserInfo
 
+    const { fetch } = useOidcFetch();
+
     const [directorships, setDirectorships] = useState<Directorship[]>([]);
 
+    const apiUrl = `${API_URL}/api/attendance/directorship/self`;
+
     useEffect(() => {
-        // Fetch directorships data from the API (you can use the fetchDirectorshipsFromAPI function)
-        const apiUrl = `${API_URL}/api/attendance/directorship/self`;
-        fetch(apiUrl)
-            .then((response) => {
+        fetch(apiUrl, {
+            method: "GET",
+            headers: {
+                'Authorization': accessTokenPayload,
+            }
+        })
+        .then((res) => res.json())
+        .then((data) => {
+            let mappedDirectorships: Directorship[] = data.map((item: any) => ({
+                name: String(item.name),
+                timestamp: new Date(item.timestamp),
+                approved: Boolean(item.approved),
+            }));
 
-                // If api returns anything other than a 200 (ok), throw an error to the console with the response details
-                if (!response.ok) {
-                    throw new Error(`HTTP Error: ${response.status} ${response.statusText}`);
-                }
-
-                return response.json();
-            })
-
-            // Maps the json data to a directorship object
-            .then((data) => {
-                let mappedDirectorships: Directorship[] = data.map((item: any) => ({
-                    name: String(item.name),
-                    timestamp: new Date(item.timestamp),
-                    approved: Boolean(item.approved), // Assuming 'approved' is a boolean property
-                }));
-
-                // Sort the directorships from most recent to least recent
-                mappedDirectorships.sort((a, b) => b.timestamp.getTime() - a.timestamp.getTime());
-                setDirectorships(mappedDirectorships);
-            })
-            .catch((error) => {
-                console.error(error);
-            });
+            // Sort the directorships from most recent to least recent
+            mappedDirectorships.sort((a, b) => b.timestamp.getTime() - a.timestamp.getTime());
+            setDirectorships(mappedDirectorships);
+        })
+        .catch((error) => {
+            console.error(error);
+        });
     }, []);
 
     return (
